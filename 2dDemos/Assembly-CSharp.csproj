@@ -56,62 +56,62 @@
      <Compile Include="Assets\Samples\RtcUserStream\RtcStream.cs" />
      <Compile Include="Assets\Samples\SportCenter\SliderText.cs" />
      <Compile Include="Assets\Samples\SportCenter\Sport.cs" />
- <Reference Include="Unity.Timeline.Editor">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.VSCode.Editor">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.UI">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Timeline">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
- </Reference>
- <Reference Include="Unity.Rider.Editor">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.VisualStudio.Editor">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
- </Reference>
- <Reference Include="Unity.PlasticSCM.Editor">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
- </Reference>
- <Reference Include="UnityEditor.UI">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
- </Reference>
  <Reference Include="Unity.XR.Management">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.XR.Management.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.XR.Management.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Timeline.Editor">
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Subsystem.Registration">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.Subsystem.Registration.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.Subsystem.Registration.dll</HintPath>
  </Reference>
  <Reference Include="Unity.XR.Interaction.Toolkit">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.XR.Interaction.Toolkit.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.XR.Interaction.Toolkit.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.VSCode.Editor">
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.XR.Interaction.Toolkit.Editor">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.XR.Interaction.Toolkit.Editor.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.XR.Interaction.Toolkit.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro.Editor">
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UI">
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Timeline">
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.XR.LegacyInputHelpers">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEngine.XR.LegacyInputHelpers.dll</HintPath>
  </Reference>
  <Reference Include="Unity.XR.Management.Editor">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.XR.Management.Editor.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.XR.Management.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.Rider.Editor">
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.SpatialTracking">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEditor.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.SpatialTracking">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEngine.SpatialTracking.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.VisualStudio.Editor">
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.VisualStudio.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro">
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.XR.LegacyInputHelpers">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEditor.XR.LegacyInputHelpers.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.PlasticSCM.Editor">
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEditor.UI">
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine">
  <HintPath>/Users/bytedance/myUnity/2019.4.39f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -291,7 +291,7 @@
  <HintPath>/Users/bytedance/myUnity/2019.4.39f1/Unity.app/Contents/Managed/UnityEditor.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>/Users/bytedance/myUnity/2019.4.39f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -668,14 +668,6 @@
       <Project>{fe098fd8-f2e2-228c-6014-4381ec3bd781}</Project>
       <Name>Pico.Spatializer</Name>
     </ProjectReference>
-    <ProjectReference Include="Pico.Spatializer.Example.csproj">
-      <Project>{ff49c3a9-1530-07ed-3248-2eb7c822e3d2}</Project>
-      <Name>Pico.Spatializer.Example</Name>
-    </ProjectReference>
-    <ProjectReference Include="Pico.Platform.csproj">
-      <Project>{37e4f687-528c-c1d1-33ab-e26e68fe6dae}</Project>
-      <Name>Pico.Platform</Name>
-    </ProjectReference>
     <ProjectReference Include="IngameDebugConsole.Runtime.csproj">
       <Project>{d9c012cf-d81c-f873-2ddf-677dfbd1fafd}</Project>
       <Name>IngameDebugConsole.Runtime</Name>
@@ -683,6 +675,14 @@
     <ProjectReference Include="IngameDebugConsole.Editor.csproj">
       <Project>{9a2f6ffe-43bf-dc80-88f2-c983487abc1c}</Project>
       <Name>IngameDebugConsole.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="Pico.Spatializer.Example.csproj">
+      <Project>{ff49c3a9-1530-07ed-3248-2eb7c822e3d2}</Project>
+      <Name>Pico.Spatializer.Example</Name>
+    </ProjectReference>
+    <ProjectReference Include="Pico.Platform.csproj">
+      <Project>{37e4f687-528c-c1d1-33ab-e26e68fe6dae}</Project>
+      <Name>Pico.Platform</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Pico.Platform.Samples.RtcDemo
 {
-    using Core = SDK;
+    using Core = CoreService;
     using Users = UserService;
     using Rtc = RtcService;
 
@@ -89,7 +89,6 @@ namespace Pico.Platform.Samples.RtcDemo
 
             var buttonEnterRoom = GameObject.Find("ButtonEnterRoom").GetComponent<Button>();
             var toggleEarMonitorMode = GameObject.Find("ToggleEarMonitor").GetComponent<Toggle>();
-            var toggleMute = GameObject.Find("ToggleMute").GetComponent<Toggle>();
             var toggleCapture = GameObject.Find("ToggleCapture").GetComponent<Toggle>();
             var sliderRecordingVolume = GameObject.Find("SliderRecordingVolume").GetComponent<Slider>();
             var sliderPlaybackVolume = GameObject.Find("SliderPlaybackVolume").GetComponent<Slider>();
@@ -162,20 +161,6 @@ namespace Pico.Platform.Samples.RtcDemo
 
                 Log($"EarMonitorMode {earMonitorMode} Done");
             });
-            toggleMute.onValueChanged.AddListener(mute =>
-            {
-                Log($"MuteLocalAudio {mute}");
-                if (mute)
-                {
-                    Rtc.MuteLocalAudio(RtcMuteState.On);
-                }
-                else
-                {
-                    Rtc.MuteLocalAudio(RtcMuteState.Off);
-                }
-
-                Log($"MuteLocalAudio {mute} Done");
-            });
             sliderPlaybackVolume.OnEventTriggerEvent(EventTriggerType.PointerUp, x =>
             {
                 var v = sliderPlaybackVolume.value;
@@ -215,7 +200,6 @@ namespace Pico.Platform.Samples.RtcDemo
             Rtc.SetOnRoomWarnCallback(OnRoomWarn);
             Rtc.SetOnRoomErrorCallback(OnRoomError);
             Rtc.SetOnConnectionStateChangeCallback(OnConnectionStateChange);
-            Rtc.SetOnUserMuteAudio(OnUserMuteAudio);
             Rtc.SetOnUserStartAudioCapture(OnUserStartAudioCapture);
             Rtc.SetOnUserStopAudioCapture(OnUserStopAudioCapture);
             Rtc.SetOnLocalAudioPropertiesReport(OnLocalAudioPropertiesReport);
@@ -284,12 +268,6 @@ namespace Pico.Platform.Samples.RtcDemo
         {
             var d = message.Data;
             Log($"[UserStartAudioCapture]UserId={d}");
-        }
-
-        private void OnUserMuteAudio(Message<RtcMuteInfo> message)
-        {
-            var d = message.Data;
-            Log($"[UserMuteAudio]userId={d.UserId} muteState={d.RtcMuteState}");
         }
 
         private void OnClickJoinRoom()

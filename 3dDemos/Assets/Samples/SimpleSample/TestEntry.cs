@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 namespace Pico.Platform.Samples.SimpleSample
 {
-    using Users=UserService;
-    using Core=SDK;
+    using Users = UserService;
+    using Core = CoreService;
 
     delegate void Handler(string[] args);
 

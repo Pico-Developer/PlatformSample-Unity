@@ -87,16 +87,16 @@
      <Compile Include="\Users\bytedance\Desktop\pico-material\UnityIntegrationSDK-2.0.7_B7-20220830\Runtime\Scripts\Utils\PXR_ObjImporter.cs" />
      <None Include="\Users\bytedance\Desktop\pico-material\UnityIntegrationSDK-2.0.7_B7-20220830\Runtime\Unity.XR.PicoXR.asmdef" />
  <Reference Include="Unity.XR.Management">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.XR.Management.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.XR.Management.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Subsystem.Registration">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.Subsystem.Registration.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/Unity.Subsystem.Registration.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine">
  <HintPath>/Users/bytedance/myUnity/2019.4.39f1/Unity.app/Contents/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -291,19 +291,19 @@
  <HintPath>/Users/bytedance/myUnity/2019.4.39f1/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Plastic.Newtonsoft.Json">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/PackageCache/com.unity.collab-proxy@1.14.16/Lib/Editor/PlasticSCM/Unity.Plastic.Newtonsoft.Json.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/PackageCache/com.unity.collab-proxy@1.14.16/Lib/Editor/PlasticSCM/Unity.Plastic.Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="unityplastic">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/PackageCache/com.unity.collab-proxy@1.14.16/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/PackageCache/com.unity.collab-proxy@1.14.16/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Plastic.Antlr3.Runtime">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/PackageCache/com.unity.collab-proxy@1.14.16/Lib/Editor/PlasticSCM/Unity.Plastic.Antlr3.Runtime.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/PackageCache/com.unity.collab-proxy@1.14.16/Lib/Editor/PlasticSCM/Unity.Plastic.Antlr3.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="log4netPlastic">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/PackageCache/com.unity.collab-proxy@1.14.16/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/PackageCache/com.unity.collab-proxy@1.14.16/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
- <HintPath>/Users/bytedance/Desktop/PlatformSdkApps/UnityPlatformDemos/2dDemos/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll</HintPath>
+ <HintPath>/Users/bytedance/Desktop/pico/UnityPlatformDemos/2dDemos/Library/PackageCache/com.unity.nuget.newtonsoft-json@3.0.2/Runtime/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>/Users/bytedance/myUnity/2019.4.39f1/Unity.app/Contents/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

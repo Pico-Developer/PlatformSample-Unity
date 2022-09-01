@@ -11,18 +11,20 @@ public class Haha : MonoBehaviour
         CoreService.Initialize();
         print("初始化成功");
         print("开始初始化RTC Engine");
-        var res = RtcService.InitRtcEngine();
-        print($"初始化RTC：{res}");
-        var roomId = "1";
-        UserService.GetLoggedInUser().OnComplete(msg =>
         {
-            if (msg.IsError)
+            var res = RtcService.InitRtcEngine();
+            print($"初始化RTC：{res}");
+        }
+        var roomId = "1";
+        UserService.GetLoggedInUser().OnComplete(userResp =>
+        {
+            if (userResp.IsError)
             {
-                print($"code={msg.Error.Code};message={msg.Error.Message}");
+                print($"code={userResp.Error.Code};message={userResp.Error.Message}");
                 return;
             }
 
-            var userId = msg.Data.ID;
+            var userId = userResp.Data.ID;
             var ttl = 3600;
             var ma = new Dictionary<RtcPrivilege, int>();
             ma[RtcPrivilege.PublishStream] = ttl;
@@ -53,10 +55,5 @@ public class Haha : MonoBehaviour
             RtcService.PublishRoom(res.RoomId);
             RtcService.StartAudioCapture();
         });
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 }
