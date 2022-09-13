@@ -1,4 +1,4 @@
-This repo contains samples demonstrating the usage of the Platform SDK. These demos are 3d demos.
+This repo contains samples demonstrating the usage of the Platform SDK.
 
 # Requirement
 
