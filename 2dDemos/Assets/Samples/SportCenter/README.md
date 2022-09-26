@@ -1,1 +1,0 @@
-Sample for sport center service.
