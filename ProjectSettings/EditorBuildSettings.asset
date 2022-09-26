@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 1
+    path: Assets/Samples/UserDemo/UserDemo.unity
+    guid: 318d73ef645634c49839069272d9e4f4
   - enabled: 0
     path: Assets/Samples/SportCenter/SportCenter.unity
     guid: bf8cfce8b8da94f529882ebbad744018
-  - enabled: 1
+  - enabled: 0
     path: Assets/Samples/RtcUserStream/RtcStream.unity
     guid: 7f195363878b94231a07203f70b2d32a
   m_configObjects:

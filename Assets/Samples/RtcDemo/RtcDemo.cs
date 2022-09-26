@@ -33,7 +33,7 @@ namespace Samples.RtcDemo
         public Toggle toggleRemoteAudio;
     }
 
-    public class Phone : MonoBehaviour
+    public class RtcDemo : MonoBehaviour
     {
         public GameObject roomPrefab;
         private Text outputText;
