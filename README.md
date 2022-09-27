@@ -10,19 +10,19 @@ This repo contains samples demonstrating the usage of the Platform SDK. These de
 
 # SampleList
 
-| Sample                                                    | Scene Type | Module | Description                                                                    |
-|-----------------------------------------------------------|------------|--------|--------------------------------------------------------------------------------|
-| UserDemo/UserDemo                                         | 2D         | User   | Show the account,friends,presence API usage.                                   |
-| RtcDemo/RtcDemo                                           | 2D         | RTC    | Show the RTC API usage.                                                        |
-| Game/GameAPITest<br/>/GameAPITestScene                    | 2D         | Game   | Show the RTC API usage.                                                        |
-| Game/RoomAndMatchmakingEntry<br/>/RoomAndMatchmakingEntry | 2D         | Game   | Show the RTC API usage.                                                        |
+| Sample                                                    | Scene Type | Module | Description                                                                       |
+|-----------------------------------------------------------|------------|--------|-----------------------------------------------------------------------------------|
+| UserDemo/UserDemo                                         | 2D         | User   | Show the account,friends,presence API usage.                                      |
+| RtcDemo/RtcDemo                                           | 2D         | RTC    | Show the RTC API usage.                                                           |
+| Game/GameAPITest<br/>/GameAPITestScene                    | 2D         | Game   | Show the room,matchmaking,achievement,challenge API usage.                        |
+| Game/RoomAndMatchmakingEntry<br/>/RoomAndMatchmakingEntry | 2D         | Game   | Show the room,matchmaking API usage.                                              |
 | IAP/IAP                                                   | 3D         | IAP    | Show the IAP API usage.You can view the products and purchase products in an app. |
-| IAP/DLC                                                   | 3D         | DLC    | Show the DLC API usage.                                                        |
-| RtcMessage/RtcMessage                                     | 2D         | RTC    | SendRoomMessage/SendUserMessage/SendStreamSyncInfo.                            |
-| RtcTokenWillExpire                                        | 2D         | RTC    | Verify the token expiration behavior.                                          |
-| RtcUserStream                                             | 2D         | RTC    | Control RTC stream.                                                            |
-| SmallRTC/SmallRTC                                         | 2D         | RTC    | The minimized demo to use RTC.                                                 |
-| SportCenter/SportCenter                                   | 2D         | Sport  | Show the API usage to communicate with the SportCenter.                        |
+| IAP/DLC                                                   | 3D         | DLC    | Show the DLC API usage.                                                           |
+| RtcMessage/RtcMessage                                     | 2D         | RTC    | SendRoomMessage/SendUserMessage/SendStreamSyncInfo.                               |
+| RtcTokenWillExpire                                        | 2D         | RTC    | Verify the token expiration behavior.                                             |
+| RtcUserStream                                             | 2D         | RTC    | Control RTC stream.                                                               |
+| SmallRTC/SmallRTC                                         | 2D         | RTC    | The minimized demo to use RTC.                                                    |
+| SportCenter/SportCenter                                   | 2D         | Sport  | Show the API usage to communicate with the SportCenter.                           |
 
 # How to run 2D demos ?
 To use system input method,some demos are 2D scenes.  
