@@ -25,8 +25,7 @@ This repo contains samples demonstrating the usage of the Platform SDK. These de
 | SportCenter/SportCenter                                   | 2D         | Sport  | Show the API usage to communicate with the SportCenter.                        |
 
 # How to run 2D demos ?
-
-Some demos are used to show API usage so they are 2D demos.  
+To use system input method,some demos are 2D scenes.  
 When you build 2D scenes,you should goto menu `ProjectSettings/XR` and uncheck the PICO plugin.  
 ![img.png](doc/img.png)
 
