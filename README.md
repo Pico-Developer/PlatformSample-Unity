@@ -29,6 +29,7 @@ To use system input method,some demos are 2D scenes.
 When you build 2D scenes,you should goto menu `ProjectSettings/XR` and uncheck the PICO plugin.  
 ![img.png](doc/img-set-xr.png)
 
+We provided a `fast run` menu in this sample,you can uncheck the `Use Pico XR` toggle to build 2D scenes. 
 ![img.png](doc/img-fast-run.png)
 # Note
 
