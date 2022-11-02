@@ -14,8 +14,9 @@ This repo contains samples demonstrating the usage of the Platform SDK. These de
 |-----------------------------------------------------------|------------|--------|-----------------------------------------------------------------------------------|
 | UserDemo/UserDemo                                         | 2D         | User   | Show the account,friends,presence API usage.                                      |
 | RtcDemo/RtcDemo                                           | 2D         | RTC    | Show the RTC API usage.                                                           |
-| Game/GameAPITest<br/>/GameAPITestScene                    | 2D         | Game   | Show the room,matchmaking,achievement,challenge API usage.                        |
-| Game/RoomAndMatchmakingEntry<br/>/RoomAndMatchmakingEntry | 2D         | Game   | Show the room,matchmaking API usage.                                              |
+| Challenges/ChallengesSample                               | 2D         | Game   | Show the challenge API usage.                        |
+| GameAPITest/GameAPITestScene                              | 2D         | Game   | Show the room,matchmaking,achievement,leaderboard API usage.                        |
+| RoomAndMatchmakingEntry<br/>/RoomAndMatchmakingEntry      | 2D         | Game   | Show the room,matchmaking API usage.                                              |
 | IAP/IAP                                                   | 3D         | IAP    | Show the IAP API usage.You can view the products and purchase products in an app. |
 | IAP/DLC                                                   | 3D         | DLC    | Show the DLC API usage.                                                           |
 | RtcMessage/RtcMessage                                     | 2D         | RTC    | SendRoomMessage/SendUserMessage/SendStreamSyncInfo.                               |
