@@ -96,8 +96,7 @@ namespace Pico.Platform.Samples.Game
             ParamName.ROOM_OPTION_DATASTORE_VALUES,
             ParamName.ROOM_OPTION_ELCLUDERECENTLYMET,
         }),
-            ["InviteUserByIndex"] = new PPFFunctionConfig(new PPFFunction((paramList) =>
-            {
+            ["InviteUserByIndex"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
                 int index = Convert.ToInt32(paramList[1]);
                 if (InviteTokenList.Count > index && index >= 0)
                 {
@@ -128,8 +127,7 @@ namespace Pico.Platform.Samples.Game
             ["Net.SendPacketToCurrentRoom2"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
                 return NetworkService.SendPacketToCurrentRoom(System.Text.Encoding.UTF8.GetBytes(paramList[0]), Convert.ToBoolean(paramList[1]));
             }), new List<ParamName>() { ParamName.PACKET_BYTES, ParamName.RELIABLE }),
-            ["Net.ReadPacket"] = new PPFFunctionConfig(new PPFFunction((paramList) =>
-            {
+            ["Net.ReadPacket"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
                 var packet = NetworkService.ReadPacket();
                 if (packet != null)
                 {
@@ -143,18 +141,16 @@ namespace Pico.Platform.Samples.Game
                 LogHelper.LogInfo(TAG, $"ReadPacket: null");
                 return false;
             })),
-            ["GetRoomInvites"] = new PPFFunctionConfig(new PPFFunction((paramList) =>
-            {
+            ["GetRoomInvites"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
                 return NotificationService.GetRoomInviteNotifications(Convert.ToInt32(paramList[0]), Convert.ToInt32(paramList[1])).OnComplete(OnGetRoomInvitesComplete);
             }), new List<ParamName>() { ParamName.ROOM_INVITE_NOTIFICATION_PAGE_INDEX, ParamName.ROOM_INVITE_NOTIFICATION_PAGE_SIZE }),
-            ["MarkAsRead"] = new PPFFunctionConfig(new PPFFunction((paramList) =>
-            {
+            ["MarkAsRead"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
                 return NotificationService.MarkAsRead(Convert.ToUInt64(paramList[0])).OnComplete(OnMarkAsReadComplete);
             }), new List<ParamName>() { ParamName.ROOM_INVITE_NOTIFICATION_ID }),
         };
         static void OnGetRoomInvitesComplete(Message<RoomInviteNotificationList> message)
         {
-            CommonProcess("ProcessRoomLeave", message, () =>
+            CommonProcess("OnGetRoomInvitesComplete", message, () =>
             {
                 LogHelper.LogInfo(TAG, GameDebugLog.GetRoomInviteNotificationListLogData(message.Data));
             });

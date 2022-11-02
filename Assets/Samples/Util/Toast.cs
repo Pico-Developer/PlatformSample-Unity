@@ -1,14 +1,12 @@
-using System;
-using Pico.Platform;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Samples.IAP
+namespace Pico.Platform.Samples
 {
     public class Toast : MonoBehaviour
     {
         public Text text;
-        private float showTime=2;
+        private float showTime = 2;
         public float ttlSeconds;
 
         private void Start()

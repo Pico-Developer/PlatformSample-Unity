@@ -1,27 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Pico.Platform;
 using Pico.Platform.Models;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Samples.RtcDemo
+namespace Pico.Platform.Samples.RtcDemo
 {
-    public static class UIBehaviourExtension
-    {
-        public static T OnEventTriggerEvent<T>(this T self, EventTriggerType type, UnityAction<BaseEventData> action) where T : UIBehaviour
-        {
-            var eventTrigger = self.GetComponent<EventTrigger>() ?? self.gameObject.AddComponent<EventTrigger>();
-            EventTrigger.Entry entry = new EventTrigger.Entry {eventID = type};
-            entry.callback.AddListener(action);
-            eventTrigger.triggers.Add(entry);
-            return self;
-        }
-    }
-
     class Room
     {
         public string id;

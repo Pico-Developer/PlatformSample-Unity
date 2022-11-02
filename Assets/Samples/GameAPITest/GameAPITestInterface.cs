@@ -91,12 +91,13 @@ namespace Pico.Platform.Samples.Game
             [ParamName.ROOM_INVITE_NOTIFICATION_PAGE_SIZE] = new string[]{"pageSize", "5"},
 
             [ParamName.INDEX] = new string[]{"index", "0"},
+            [ParamName.APPID] = new string[] { "AppId", "" },
         };
 
         private static Dictionary<string, PPFFunctionConfig> initDic = new Dictionary<string, PPFFunctionConfig>()
         {
             ["GameInitialize"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
-                CoreService.Initialize();
+                CoreService.Initialize(GameConfig.GetAppId());
                 if (!CoreService.Initialized)
                 {
                     LogHelper.LogError(TAG, "pico initialize failed");
@@ -130,12 +131,11 @@ namespace Pico.Platform.Samples.Game
                 Uninitialize();
                 return true;
             })),
-            ["GetLoggedInUser"] = new PPFFunctionConfig((paramList) =>
-            {
+            ["GetLoggedInUser"] = new PPFFunctionConfig((paramList) => {
                 return UserService.GetLoggedInUser().OnComplete(OnLoggedInUser); 
             }),
             ["Only Pico initialize"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
-                CoreService.Initialize();
+                CoreService.Initialize(GameConfig.GetAppId());
                 return 1;
             })),
             ["GetAccessToken"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
@@ -172,11 +172,27 @@ namespace Pico.Platform.Samples.Game
                 return 1;
             })),
             ["GameInitializeWithoutToken"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
-                CoreService.Initialize();
+                CoreService.Initialize(GameConfig.GetAppId());
                 var request = CoreService.GameInitialize();
                 request.OnComplete(OnGameInitialize);
                 return 1;
             })),
+            ["SetAppId"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
+                if (!string.IsNullOrEmpty(paramList[0]))
+                {
+                    Debug.Log($"set appid：{paramList[0]}");
+                    GameConfig.SetAppId(paramList[0]);
+                }
+                else
+                {
+                    Dropdown appIdDropDown = GameObject.Find("Canvas/Panel/FunctionPanel/ParamsPanel/AppId/Dropdown").GetComponent<Dropdown>();
+                    Debug.Log($"select appid：{appIdDropDown.captionText.text}");
+                    GameConfig.SetAppId(appIdDropDown.captionText.text);
+                }
+                return 1;
+            }), new List<ParamName>() {
+                ParamName.APPID
+            }),
         };
         // Matchmaking
         Dictionary<string, PPFFunctionConfig> matchDic = new Dictionary<string, PPFFunctionConfig>()

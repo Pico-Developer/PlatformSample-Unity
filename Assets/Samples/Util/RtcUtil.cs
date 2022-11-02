@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
-using Pico.Platform;
 using UnityEngine;
 
-namespace Samples.Util
+namespace Pico.Platform.Samples
 {
     public class RtcUtil
     {
@@ -81,6 +82,48 @@ namespace Samples.Util
                 var token = msg.Data;
                 RtcService.UpdateToken(roomId, token);
             });
+        }
+
+
+        public static RtcAudioSampleRate GetSampleRate(int sampleRate)
+        {
+            switch (sampleRate)
+            {
+                case 8000:
+                {
+                    return RtcAudioSampleRate.F8000;
+                }
+                case 16000:
+                {
+                    return RtcAudioSampleRate.F16000;
+                }
+                case 32000:
+                {
+                    return RtcAudioSampleRate.F32000;
+                }
+                case 44100:
+                {
+                    return RtcAudioSampleRate.F44100;
+                }
+                case 48000:
+                {
+                    return RtcAudioSampleRate.F48000;
+                }
+            }
+
+            throw new Exception("unsupported sample rate");
+        }
+
+        public static byte[] GetAudioData(float[] a)
+        {
+            MemoryStream ms = new MemoryStream();
+            BinaryWriter w = new BinaryWriter(ms);
+            foreach (var i in a)
+            {
+                w.Write((short) (i * short.MaxValue));
+            }
+
+            return ms.GetBuffer();
         }
     }
 }

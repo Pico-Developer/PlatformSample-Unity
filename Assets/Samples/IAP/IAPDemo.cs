@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Samples.IAP
+namespace Pico.Platform.Samples.IAP
 {
     public class IAPDemo : MonoBehaviour
     {

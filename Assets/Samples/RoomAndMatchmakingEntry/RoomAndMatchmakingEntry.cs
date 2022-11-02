@@ -1,22 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Runtime.InteropServices;
-using System;
-using UnityEngine.Assertions;
-using AOT;
-using UnityEditor;
-using System.IO;
-using UnityEngine.UI;
-
-using Pico.Platform;
+﻿using System.Text;
 using Pico.Platform.Models;
-
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Pico.Platform.Samples.Game
 {
-    
-
     public class RoomAndMatchmakingEntry : MonoBehaviour
     {
         public enum CurState
@@ -35,6 +23,7 @@ namespace Pico.Platform.Samples.Game
             RoomLeaveRecved,
             SimplestTestEnd,
         }
+
         public Text ExecuteResult;
         public Button InitBtn;
         public Button UninitBtn;
@@ -51,8 +40,8 @@ namespace Pico.Platform.Samples.Game
         int logCount = 0;
         public CurState curState = CurState.None;
         public const string TAG = "RoomAndMatchmakingDemo";
-        Models.Room matchRoom;
-        
+        Room matchRoom;
+
         void Start()
         {
             SetExecuteResult("Start");
@@ -66,6 +55,7 @@ namespace Pico.Platform.Samples.Game
             MatchmakingService.SetMatchFoundNotificationCallback(ProcessMatchmakingMatchFound);
             NetworkService.SetNotification_Game_ConnectionEventCallback(OnGameConnectionEvent);
         }
+
         void OnGameConnectionEvent(Message<GameConnectionEvent> msg)
         {
             var state = msg.Data;
@@ -107,21 +97,24 @@ namespace Pico.Platform.Samples.Game
                 LogHelper.LogInfo(TAG, "GameConnection: unknown error！");
             }
         }
+
         void OnStartBtnClick()
         {
             curState = CurState.Inited;
         }
+
         // Initialize
         void OnInitBtnClick()
         {
             SetExecuteResult("Start initialize");
-            CoreService.Initialize();
+            CoreService.Initialize(GameConfig.GetAppId());
             if (!CoreService.Initialized)
             {
                 SetExecuteResult("pico initialize failed");
                 return;
             }
-            UserService.GetAccessToken().OnComplete(delegate (Message<string> message)
+
+            UserService.GetAccessToken().OnComplete(delegate(Message<string> message)
             {
                 if (message.IsError)
                 {
@@ -135,6 +128,7 @@ namespace Pico.Platform.Samples.Game
                 CoreService.GameInitialize(accessToken).OnComplete(OnGameInitialize);
             });
         }
+
         void OnGameInitialize(Message<GameInitializeResult> msg)
         {
             if (msg == null)
@@ -161,19 +155,23 @@ namespace Pico.Platform.Samples.Game
                 }
             }
         }
+
         // Uninitialize
         void OnUninitBtnClick()
         {
             Uninitialize();
         }
+
         void Uninitialize()
         {
             CoreService.GameUninitialize();
         }
+
         void OnDestroy()
         {
             Uninitialize();
         }
+
         void Update()
         {
             if (CoreService.Initialized)
@@ -182,10 +180,12 @@ namespace Pico.Platform.Samples.Game
                 CheckState();
             }
         }
+
         private void CheckState()
         {
             TestMatchmakingAndRoom();
         }
+
         void TestMatchmakingAndRoom()
         {
             switch (curState)
@@ -216,6 +216,7 @@ namespace Pico.Platform.Samples.Game
                     break;
             }
         }
+
         // enter the match queue
         void StartEnqueue()
         {
@@ -231,6 +232,7 @@ namespace Pico.Platform.Samples.Game
                 curState = CurState.EnqueueSend;
             }
         }
+
         // enter the room
         void StartJoinRoom()
         {
@@ -248,6 +250,7 @@ namespace Pico.Platform.Samples.Game
                 curState = CurState.RoomJoinSend;
             }
         }
+
         // In room
         void StartRoomUpdating()
         {
@@ -258,6 +261,7 @@ namespace Pico.Platform.Samples.Game
                 StartRoomLeave();
                 return;
             }
+
             // read packet
             var packet = NetworkService.ReadPacket();
             while (packet != null)
@@ -266,24 +270,27 @@ namespace Pico.Platform.Samples.Game
                 ++messageNum;
                 var bytes = new byte[packet.Size];
                 var bytesSize = packet.GetBytes(bytes);
-                string str = System.Text.Encoding.UTF8.GetString(bytes);
+                string str = Encoding.UTF8.GetString(bytes);
 
                 SetExecuteResult($"Read in-room messages: sender: {sender}, content: {str}");
                 packet.Dispose();
                 packet = NetworkService.ReadPacket();
             }
         }
+
         // Click to leave the room
         void OnLeaveBtnClick()
         {
             StartRoomLeave();
         }
+
         // Click to send message
         void OnSendMessageBtnClick()
         {
-            byte[] decBytes = System.Text.Encoding.UTF8.GetBytes(TestMsg.text);
+            byte[] decBytes = Encoding.UTF8.GetBytes(TestMsg.text);
             NetworkService.SendPacketToCurrentRoom(decBytes);
         }
+
         // leave the room
         void StartRoomLeave()
         {
@@ -298,6 +305,7 @@ namespace Pico.Platform.Samples.Game
                 SetExecuteResult("set current state：RoomLeaveSend");
             }
         }
+
         // end
         void EndTest()
         {
@@ -305,7 +313,7 @@ namespace Pico.Platform.Samples.Game
             SetExecuteResult("End test！set current state：SimplestTestEnd! Test succeed! \n");
         }
 
-        
+
         // ----Response or Notification----
         // Join the matching queue callback
         void ProcessMatchmakingEnqueue(Message<MatchmakingEnqueueResult> message)
@@ -322,8 +330,9 @@ namespace Pico.Platform.Samples.Game
                 SetExecuteResult($"Join the matching queue error : {error.Message}");
             }
         }
+
         // match found
-        void ProcessMatchmakingMatchFound(Message<Models.Room> message)
+        void ProcessMatchmakingMatchFound(Message<Room> message)
         {
             if (!message.IsError)
             {
@@ -337,8 +346,9 @@ namespace Pico.Platform.Samples.Game
                 SetExecuteResult($"match found error : {error.Message}");
             }
         }
+
         // join room
-        void ProcessRoomJoin2(Message <Models.Room>message)
+        void ProcessRoomJoin2(Message<Room> message)
         {
             if (!message.IsError)
             {
@@ -352,8 +362,9 @@ namespace Pico.Platform.Samples.Game
                 SetExecuteResult($"join room error: {error.Message}");
             }
         }
+
         // leave room
-        void ProcessRoomLeave(Message<Models.Room> message)
+        void ProcessRoomLeave(Message<Room> message)
         {
             if (!message.IsError)
             {
@@ -378,4 +389,3 @@ namespace Pico.Platform.Samples.Game
         }
     }
 }
-

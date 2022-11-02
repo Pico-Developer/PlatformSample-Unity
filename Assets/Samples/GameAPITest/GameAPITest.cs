@@ -8,12 +8,15 @@ using UnityEngine.UI;
 
 using Pico.Platform;
 using Pico.Platform.Models;
+using UnityEngine.SceneManagement;
 
 namespace Pico.Platform.Samples.Game
 {
     using Application = UnityEngine.Application;
     public partial class GameAPITest : MonoBehaviour
     {
+        public GameObject appIdSetPanel;
+        public Button gotoChallengeBtn;
         public GameObject typeBtnTempObj;
         public GameObject funBtnTempObj;
         public GameObject inputTempObj;
@@ -156,6 +159,8 @@ namespace Pico.Platform.Samples.Game
                         funButton.GetComponent<Image>().color = Color.yellow;
                         funButton.onClick.AddListener(() =>
                         {
+                            appIdSetPanel.SetActive(v.Key.Equals("SetAppId"));
+
                             CheckBtnSelect(item.Key, v.Key);
                             btnImage.color = Color.yellow;
                             curFunctionName = v.Key;
@@ -203,6 +208,12 @@ namespace Pico.Platform.Samples.Game
             executeBtn.onClick.AddListener(OnExecuteBtnClick);
             funPrePageBtn.onClick.AddListener(OnFunPrePageBtnClick);
             funNextPageBtn.onClick.AddListener(OnFunNextPageBtnClick);
+            gotoChallengeBtn.onClick.AddListener(OnGotoChallengeBtnClick);
+        }
+
+        void OnGotoChallengeBtnClick()
+        {
+            SceneManager.LoadScene("ChallengesSample");
         }
         
         void OnFunPrePageBtnClick()
@@ -266,6 +277,7 @@ namespace Pico.Platform.Samples.Game
         private void OnDestroy()
         {
             Uninitialize();
+            Application.logMessageReceivedThreaded -= OnLogMessage;
         }
         void Update()
         {

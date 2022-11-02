@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Reflection;
 using System.Text;
 using Pico.Platform.Models;
 
@@ -136,6 +137,8 @@ namespace Pico.Platform.Samples.Game
 
         public static string GetUserListLogData(UserList obj, bool printSingleLog = false)
         {
+            if (obj == null)
+                return "UserList[null]";
             string log = $"UserList[Count: {obj.Count}\n";
             var list = obj.GetEnumerator();
             while (list.MoveNext())
@@ -319,6 +322,76 @@ namespace Pico.Platform.Samples.Game
         {
             string log =$"RoomInviteNotification[RoomID: {obj.RoomID}, ID: {obj.ID}, SenderID: {obj.SenderID}, SentTime: {obj.SentTime}]RoomInviteNotification";
             return log;
+        }
+        
+        // challenge
+        public static string GetLogData(Challenge obj)
+        {
+            string str =
+                $"Challenge[CreationType: {obj.CreationType}, ID: {obj.ID}, Leaderboard: {GetLeaderboardLogData(obj.Leaderboard)}, " +
+                $"Title: {obj.Title}, InvitedUsersOptional: {GetUserListLogData(obj.InvitedUsersOptional)}, " +
+                $"Visibility: {obj.Visibility}, ParticipantsOptional: {GetUserListLogData(obj.ParticipantsOptional)}, " +
+                $"StartDate: {GetDateTime(obj.StartDate)}, EndDate: {GetDateTime(obj.EndDate)}]Challenge";
+            return str;
+        }
+
+        public static string GetDateTime(DateTime dateTime)
+        {
+            if (Util.DateTimeToSeconds(dateTime) == 0)
+            {
+                return "0";
+            }
+            else
+            {
+                return $"{dateTime}";
+            }
+        }
+        public static string GetLogData(ChallengeEntry obj)
+        {
+            string str = $"ChallengeEntry[DisplayScore: {obj.DisplayScore}, ID: {obj.ID}, Rank: {obj.Rank}, " +
+                         $"Score: {obj.Score}, ExtraData: {Encoding.UTF8.GetString(obj.ExtraData)}, " +
+                         $"User: {GetUserLogData(obj.User)}, " +
+                         $"Timestamp: {GetDateTime(obj.Timestamp)}]ChallengeEntry";
+            return str;
+        }
+        
+
+        public static string GetLogData(object o)
+        {
+            if (o is Challenge)
+            {
+                return GetLogData(o as Challenge);
+            }
+            
+            if (o as ChallengeList != null)
+            {
+                return GetListLogData<Challenge>(o as ChallengeList, "ChallengeList");
+            }
+            
+            if (o as ChallengeEntry != null)
+            {
+                return GetLogData(o as ChallengeEntry);
+            }
+            
+            if (o as ChallengeEntryList != null)
+            {
+                return GetListLogData<ChallengeEntry>(o as ChallengeEntryList, "ChallengeEntryList");
+            }
+
+            return "cannot recognize input object";
+        }
+        public static string GetListLogData<T>(object o, string typeName)
+        {
+            var obj = o as MessageArray<T>;
+            string log = $"{typeName}[Capacity: {obj.Capacity}\n";
+            var list = obj.GetEnumerator();
+            while (list.MoveNext())
+            {
+                var item = list.Current;
+                log += $"{GetLogData(item)}\n";
+            }
+
+            return log + $"]{typeName}";
         }
     }
 }
