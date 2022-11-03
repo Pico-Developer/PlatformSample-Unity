@@ -128,9 +128,9 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.xr.picoxr": {
-      "version": "file:D:/work/pico/unity/final/UnityIntegrationSDK-2.1.2_B14-20221103",
+      "version": "file:UnityIntegrationSDK-2.1.2_B14-20221103",
       "depth": 0,
-      "source": "local",
+      "source": "embedded",
       "dependencies": {
         "com.unity.xr.management": "3.2.16",
         "com.unity.ugui": "1.0.0",
