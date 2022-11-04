@@ -1,18 +1,11 @@
 {
   "dependencies": {
-    "com.unity.collab-proxy": {
-      "version": "1.14.16",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.cn"
-    },
     "com.unity.ext.nunit": {
       "version": "1.0.6",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.cn"
+      "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
       "version": "2.0.7",
@@ -21,7 +14,7 @@
       "dependencies": {
         "com.unity.test-framework": "1.1.1"
       },
-      "url": "https://packages.unity.cn"
+      "url": "https://packages.unity.com"
     },
     "com.unity.ide.visualstudio": {
       "version": "2.0.15",
@@ -30,28 +23,28 @@
       "dependencies": {
         "com.unity.test-framework": "1.1.9"
       },
-      "url": "https://packages.unity.cn"
+      "url": "https://packages.unity.com"
     },
     "com.unity.ide.vscode": {
       "version": "1.2.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.cn"
+      "url": "https://packages.unity.com"
     },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.0.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.cn"
+      "url": "https://packages.unity.com"
     },
     "com.unity.subsystemregistration": {
       "version": "1.0.6",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.cn"
+      "url": "https://packages.unity.com"
     },
     "com.unity.test-framework": {
       "version": "1.1.31",
@@ -62,7 +55,7 @@
         "com.unity.modules.imgui": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0"
       },
-      "url": "https://packages.unity.cn"
+      "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
       "version": "3.0.1",
@@ -71,7 +64,7 @@
       "dependencies": {
         "com.unity.ugui": "1.0.0"
       },
-      "url": "https://packages.unity.cn"
+      "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
       "version": "1.4.6",
@@ -83,7 +76,7 @@
         "com.unity.modules.audio": "1.0.0",
         "com.unity.modules.particlesystem": "1.0.0"
       },
-      "url": "https://packages.unity.cn"
+      "url": "https://packages.unity.com"
     },
     "com.unity.ugui": {
       "version": "1.0.0",
@@ -102,17 +95,17 @@
         "com.unity.ugui": "1.0.0",
         "com.unity.xr.legacyinputhelpers": "1.3.11"
       },
-      "url": "https://packages.unity.cn"
+      "url": "https://packages.unity.com"
     },
     "com.unity.xr.legacyinputhelpers": {
-      "version": "2.1.7",
+      "version": "2.1.9",
       "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.vr": "1.0.0",
         "com.unity.modules.xr": "1.0.0"
       },
-      "url": "https://packages.unity.cn"
+      "url": "https://packages.unity.com"
     },
     "com.unity.xr.management": {
       "version": "4.0.7",
@@ -125,7 +118,7 @@
         "com.unity.xr.legacyinputhelpers": "2.1.7",
         "com.unity.subsystemregistration": "1.0.6"
       },
-      "url": "https://packages.unity.cn"
+      "url": "https://packages.unity.com"
     },
     "com.unity.xr.picoxr": {
       "version": "file:UnityIntegrationSDK-2.1.2_B14-20221103",
