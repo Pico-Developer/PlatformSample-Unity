@@ -695,7 +695,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 13, y: 300}
+  m_AnchoredPosition: {x: 13, y: -0.000042915344}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &457622391
@@ -709,7 +709,7 @@ GameObject:
   - component: {fileID: 457622396}
   - component: {fileID: 457622395}
   - component: {fileID: 457622392}
-  - component: {fileID: 457622394}
+  - component: {fileID: 457622393}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -725,7 +725,7 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 457622391}
   m_Enabled: 1
---- !u!114 &457622394
+--- !u!114 &457622393
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -734,7 +734,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 457622391}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e10d7d54285902b48a88ddf18008a848, type: 3}
+  m_Script: {fileID: 11500000, guid: 4855778d780f49eba1a4679fffb95224, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dataOutput: {fileID: 1536036710}
@@ -1000,7 +1000,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10, y: 300}
+  m_AnchoredPosition: {x: -10, y: 0.000061035156}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &907499551
@@ -2155,7 +2155,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 361394501}
   m_HandleRect: {fileID: 361394500}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

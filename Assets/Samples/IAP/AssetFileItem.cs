@@ -1,25 +1,10 @@
-using System;
 using Newtonsoft.Json;
-using Pico.Platform;
 using Pico.Platform.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Samples.IAP
+namespace Pico.Platform.Samples.IAP
 {
-    enum DownloadStatus
-    {
-        Downloaded,
-        Available,
-        InProgress,
-    }
-
-    enum IapStatus
-    {
-        Entitled,
-        NotEntitled,
-    }
-
     public class AssetFileItem : MonoBehaviour
     {
         public DLC root;
@@ -136,45 +121,10 @@ namespace Samples.IAP
             this.updateUI();
         }
 
-        DownloadStatus getDownloadStatus(string downloadStatus)
-        {
-            if (downloadStatus == "downloaded")
-            {
-                return DownloadStatus.Downloaded;
-            }
-            else if (downloadStatus == "available")
-            {
-                //可以下载
-                return DownloadStatus.Available;
-            }
-            else if (downloadStatus == "in-progress")
-            {
-                //正在下载
-                return DownloadStatus.InProgress;
-            }
-
-            throw new Exception($"invalid download status {downloadStatus}");
-        }
-
-        IapStatus getIapStatus(string iapStatus)
-        {
-            if (iapStatus == "entitled")
-            {
-                return IapStatus.Entitled;
-            }
-
-            if (iapStatus == "not-entitled")
-            {
-                return IapStatus.NotEntitled;
-            }
-
-            throw new Exception($"invalid iap status:${iapStatus}");
-        }
-
         public void updateUI()
         {
-            IapStatus iapStatus = getIapStatus(detail.IapStatus);
-            DownloadStatus downloadStatus = getDownloadStatus(detail.DownloadStatus);
+            var iapStatus = detail.IapStatus;
+            var downloadStatus = detail.DownloadStatus;
 
             //设置按钮的状态
             setButtonStatus(ButtonStatus, true);

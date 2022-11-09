@@ -8,6 +8,27 @@ using UnityEngine.UI;
 
 namespace Pico.Platform.Samples.Game
 {
+    public class GameConfig
+    {
+        private static string appId = null;
+
+        public static string GetAppId()
+        {
+            if (string.IsNullOrEmpty(appId))
+            {
+                return null;
+            }
+            else
+            {
+                return appId;
+            }
+        }
+
+        public static void SetAppId(string id)
+        {
+            appId = id;
+        }
+    }
     public enum ParamName
     {
         PICO_ID,
@@ -83,6 +104,7 @@ namespace Pico.Platform.Samples.Game
         ACHIEVEMENT_COUNT, 
         
         INDEX,
+        APPID,
         
     }
     public delegate object PPFFunction(List<string> paramList);
