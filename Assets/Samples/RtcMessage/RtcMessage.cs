@@ -2,12 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
-using Pico.Platform;
-using Samples.Util;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Samples.RtcMessage
+namespace Pico.Platform.Samples.RtcMessage
 {
     struct RtcUser
     {
@@ -21,12 +19,12 @@ namespace Samples.RtcMessage
         }
     }
 
-    class UserList
+    class RtcUserList
     {
         private List<RtcUser> users = new List<RtcUser>();
         private Dropdown dropdown;
 
-        public UserList(Dropdown userSelect)
+        public RtcUserList(Dropdown userSelect)
         {
             this.dropdown = userSelect;
         }
@@ -86,7 +84,7 @@ namespace Samples.RtcMessage
     {
         private string userId;
         private string roomId = "1";
-        private UserList users;
+        private RtcUserList _rtcUsers;
 
         private void Start()
         {
@@ -135,12 +133,12 @@ namespace Samples.RtcMessage
                     userExtra = m.Data.UserId;
                 }
 
-                users.Add(m.Data.UserId, userExtra);
+                _rtcUsers.Add(m.Data.UserId, userExtra);
             });
             RtcService.SetOnUserLeaveRoomResultCallback(m =>
             {
                 Debug.Log($"User Leave Room {JsonConvert.SerializeObject(m.Data)}");
-                users.Remove(m.Data.UserId);
+                _rtcUsers.Remove(m.Data.UserId);
             });
             //MessageSendResult
             RtcService.SetOnRoomMessageSendResult(m => { Debug.Log($"RoomMessageSendResult:{JsonConvert.SerializeObject(m.Data)}"); });
@@ -155,14 +153,14 @@ namespace Samples.RtcMessage
             {
                 var s = Encoding.UTF8.GetString(m.Data.Data);
                 var userId = m.Data.UserId;
-                var userName = users.getUserName(userId);
+                var userName = _rtcUsers.getUserName(userId);
                 Debug.Log($"RoomBinaryMessageReceived:{userName}:{s}");
             });
             RtcService.SetOnUserBinaryMessageReceived(m =>
             {
                 var s = Encoding.UTF8.GetString(m.Data.Data);
                 var userId = m.Data.UserId;
-                var userName = users.getUserName(userId);
+                var userName = _rtcUsers.getUserName(userId);
                 Debug.Log($"UserBinaryMessageReceived:{userName}:{s}");
             });
 
@@ -188,7 +186,7 @@ namespace Samples.RtcMessage
             {
                 var x = m.Data;
                 var userId = x.StreamKey.UserId;
-                var username = users.getUserName(userId);
+                var username = _rtcUsers.getUserName(userId);
                 Debug.Log($"StreamSyncInfo:userName={username} message={Encoding.UTF8.GetString(x.Data)}");
             });
             Debug.Log("BindEventToUi");
@@ -199,7 +197,7 @@ namespace Samples.RtcMessage
             var userSelect = GameObject.Find("DropdownUserSelection").GetComponent<Dropdown>();
             var toggleBinaryMessage = GameObject.Find("ToggleBinaryMessage").GetComponent<Toggle>();
             userSelect.ClearOptions();
-            users = new UserList(userSelect);
+            _rtcUsers = new RtcUserList(userSelect);
             buttonSendRoom.onClick.AddListener(() =>
             {
                 long messageId;
@@ -217,7 +215,7 @@ namespace Samples.RtcMessage
             });
             buttonSendUser.onClick.AddListener(() =>
             {
-                var toUser = users.Get(userSelect.value);
+                var toUser = _rtcUsers.Get(userSelect.value);
                 if (!toUser.HasValue)
                 {
                     Debug.Log("Cannot find target user");
