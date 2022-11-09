@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using IngameDebugConsole;
 using Newtonsoft.Json;
-using Pico.Platform;
 using Pico.Platform.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Samples.IAP
+namespace Pico.Platform.Samples.IAP
 {
     public class DLC : MonoBehaviour
     {

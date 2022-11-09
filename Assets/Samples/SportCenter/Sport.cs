@@ -3,7 +3,7 @@ using Pico.Platform;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Samples.SportCenter
+namespace Pico.Platform.Samples.SportCenter
 {
     public class Sport : MonoBehaviour
     {
