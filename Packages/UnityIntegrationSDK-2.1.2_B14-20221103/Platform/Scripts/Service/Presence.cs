@@ -129,6 +129,7 @@ namespace Pico.Platform
         /// @note Other presence parameter settings will remain the same.
         /// </summary>
         /// <param name="apiName">The API name of the new destination.</param>
+        [Obsolete("SetDestination can be replaced by Set()", false)]
         public static Task SetDestination(string apiName)
         {
             if (!CoreService.Initialized)
@@ -147,6 +148,7 @@ namespace Pico.Platform
         /// * `true`: joinable
         /// * `false`: not joinable
         /// </param>
+        [Obsolete("SetIsJoinable can be replaced by Set()", false)]
         public static Task SetIsJoinable(bool joinable)
         {
             if (!CoreService.Initialized)
@@ -163,6 +165,7 @@ namespace Pico.Platform
         /// @note Other presence parameter settings will remain the same.
         /// </summary>
         /// <param name="lobbySessionId">The new lobby session ID.</param>
+        [Obsolete("SetLobbySession can be replaced by Set()", false)]
         public static Task SetLobbySession(string lobbySessionId)
         {
             if (!CoreService.Initialized)
@@ -179,6 +182,7 @@ namespace Pico.Platform
         /// @note  Other presence parameter settings will remain the same.
         /// </summary>
         /// <param name="matchSessionId">The new match session ID.</param>
+        [Obsolete("SetMatchSession can be replaced by Set()", false)]
         public static Task SetMatchSession(string matchSessionId)
         {
             if (!CoreService.Initialized)
@@ -194,6 +198,7 @@ namespace Pico.Platform
         /// Sets extra presence data for the current logged-in user.
         /// </summary>
         /// <param name="extra">The extra presence data, which is defined by the developer and will be returned in the user's presence information.</param>
+        [Obsolete("SetExtra can be replaced by Set()", false)]
         public static Task SetExtra(string extra)
         {
             if (!CoreService.Initialized)
@@ -263,6 +268,7 @@ namespace Pico.Platform
                 Debug.LogError(CoreService.UninitializedError);
                 return null;
             }
+
             return new Task(CLIB.ppf_Presence_LaunchInvitePanel());
         }
 

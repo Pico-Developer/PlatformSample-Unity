@@ -69,6 +69,7 @@ namespace Pico.Platform
             return new Task<PurchaseList>(CLIB.ppf_IAP_GetViewerPurchases());
         }
 
+        /// @deprecated LaunchCheckoutFlow(string sku,string price,string currency) can be replaced by \ref LaunchCheckoutFlow2(Product product)
         /// <summary>
         /// Launches the checkout flow for a user to make a payment.
         /// </summary>
@@ -77,6 +78,7 @@ namespace Pico.Platform
         /// <param name="currency">The currency of the payment.</param>
         /// <returns>Returns the purchased product if the user successfully pays the money.
         /// Otherwise the purchase will be null. You can get the failure reason from the returned error code and error message.</returns>
+        [Obsolete("Please use LaunchCheckoutFlow(Product product)", false)]
         public static Task<Purchase> LaunchCheckoutFlow(string sku, string price, string currency)
         {
             if (!CoreService.Initialized)
@@ -87,6 +89,24 @@ namespace Pico.Platform
 
             return new Task<Purchase>(CLIB.ppf_IAP_LaunchCheckoutFlow(sku, price, currency));
         }
+
+        /// <summary>
+        /// Launches the checkout flow for a user to make a payment.
+        /// </summary>
+        /// <param name="product">The product info which can be acquired by \ref GetProductsBySKU.</param>
+        /// <returns>Returns the purchased product if the user successfully pays the money.
+        /// Otherwise the purchase will be null. You can get the failure reason from the returned error code and error message.</returns>
+        public static Task<Purchase> LaunchCheckoutFlow2(Product product)
+        {
+            if (!CoreService.Initialized)
+            {
+                Debug.LogError(CoreService.UninitializedError);
+                return null;
+            }
+
+            return new Task<Purchase>(CLIB.ppf_IAP_LaunchCheckoutFlowV2(product.SKU, product.Price, product.Currency, product.OuterId));
+        }
+
 
         /// <summary>
         /// Gets the next page of purchasable products.

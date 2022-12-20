@@ -21,7 +21,8 @@ using UnityEngine;
 namespace Pico.Platform
 {
     /**
-     * \defgroup Platform PICO Platform Services
+     * \defgroup Platform Services
+     * \defgroup Models Structs & Enums
      */
     /**
      * \ingroup Platform
@@ -99,19 +100,18 @@ namespace Pico.Platform
             else if ((Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor)
                      || (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor))
             {
-                var configPath = Path.GetFullPath("Assets/Resources/PicoSdkPCConfig.json");
+                var config = Resources.Load<TextAsset>("PicoSdkPCConfig");
                 var logDirectory = Path.GetFullPath("Logs");
-                if (!File.Exists(configPath))
+                if (config == null)
                 {
-                    throw new UnityException($"cannot find PC config file {configPath}");
+                    throw new UnityException($"cannot find PC config file Resources/PicoSdkPCConfig");
                 }
 
                 if (!Directory.Exists(logDirectory))
                 {
                     Directory.CreateDirectory(logDirectory);
                 }
-
-                var requestId = CLIB.ppf_PcInitAsynchronousWrapper(appId, File.ReadAllText(configPath), logDirectory);
+                var requestId = CLIB.ppf_PcInitAsynchronousWrapper(appId, config.text, logDirectory);
                 if (requestId == 0)
                 {
                     throw new UnityException("Pico Platform failed to initialize.");
@@ -162,19 +162,19 @@ namespace Pico.Platform
             else if ((Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor)
                      || (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor))
             {
-                var configPath = Path.GetFullPath("Assets/Resources/PicoSdkPCConfig.json");
-                var logDirectory = Path.GetFullPath("Logs");
-                if (!File.Exists(configPath))
+                var config = Resources.Load<TextAsset>("PicoSdkPCConfig");
+                if (config == null)
                 {
-                    throw new UnityException($"cannot find PC config file {configPath}");
+                    throw new UnityException($"cannot find PC config file Resources/PicoSdkPCConfig");
                 }
 
+                var logDirectory = Path.GetFullPath("Logs");
                 if (!Directory.Exists(logDirectory))
                 {
                     Directory.CreateDirectory(logDirectory);
                 }
 
-                initializeResult = CLIB.ppf_PcInitWrapper(appId, File.ReadAllText(configPath), logDirectory);
+                initializeResult = CLIB.ppf_PcInitWrapper(appId, config.text, logDirectory);
                 if (initializeResult == PlatformInitializeResult.Success ||
                     initializeResult == PlatformInitializeResult.AlreadyInitialized)
                 {

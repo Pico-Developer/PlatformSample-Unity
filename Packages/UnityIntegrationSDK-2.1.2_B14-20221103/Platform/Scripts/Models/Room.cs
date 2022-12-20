@@ -15,23 +15,33 @@ using System.Collections.Generic;
 
 namespace Pico.Platform.Models
 {
+    /**
+     * \ingroup Models
+     */
+    /// <summary>
+    /// Room info.
+    /// </summary>
     public class Room
     {
+        /** @brief The datastore that stores a room's metadata. The maximum datastore key length is 32 bytes and the maximum datastore value length is 64 bytes. */
         public readonly Dictionary<string, string> DataStore;
+        /** @brief Room description. The maximum length is 128 bytes. */
         public readonly string Description;
+        /** @brief Room ID. */
         public readonly UInt64 RoomId;
+        /** @brief Whether the room is locked. */
         public readonly bool IsMembershipLocked;
+        /** @brief Room's join policy. */
         public readonly RoomJoinPolicy RoomJoinPolicy;
+        /** @brief Room's joinability. */
         public readonly RoomJoinability RoomJoinability;
-
+        /** @brief The maximum number of users allowed to join a room, which is `100`. */
         public readonly uint MaxUsers;
-
-        // Check not null before using.
+        /** @brief Room owner. This field can be null. Need to check whether it is null before use. */
         public readonly User OwnerOptional;
-
+        /** @brief Room type. */
         public readonly RoomType RoomType;
-
-        // Check not null before using.
+        /** @brief Room members. This field can be null. Need to check whether it is null before use. */
         public readonly UserList UsersOptional;
 
         public Room(IntPtr o)
@@ -70,9 +80,12 @@ namespace Pico.Platform.Models
         }
     }
 
+    /// <summary>Room list info.</summary>
     public class RoomList : MessageArray<Room>
     {
+        /** @brief The current page idex from which the list begins. */
         public int CurIndex;
+        /** @brief The number of rooms given on each page. */
         public int PageSize;
 
         public RoomList(IntPtr a)

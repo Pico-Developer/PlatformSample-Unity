@@ -14,19 +14,22 @@ using System;
 
 namespace Pico.Platform.Models
 {
+    /**
+     * \ingroup Models
+     */
     /// <summary>
-    /// Destination is a position in the app.
-    ///
-    /// You can configure destinations in the developer center.
+    /// Destination is a location in the app.
+    /// You can configure destinations for your app on the PICO Developer Platform.
     /// </summary>
     public class Destination
     {
-        /** @brief The api name is configured in the developer center.*/
+        /** @brief The destination's API name. */
         public readonly string ApiName;
 
+        /** @brief The destination's deeplink message. */
         public readonly string DeeplinkMessage;
 
-        /** @brief The display name,it may be shown to users.*/
+        /** @brief The destination's display name.*/
         public readonly string DisplayName;
 
         public Destination(IntPtr o)
@@ -52,25 +55,30 @@ namespace Pico.Platform.Models
             NextPageParam = CLIB.ppf_DestinationArray_GetNextPageParam(a);
         }
     }
-
+    /**
+     * \ingroup Models
+     */
+    /// <summary>
+    /// App's invitation info.
+    /// </summary>
     public class ApplicationInvite
     {
-        /** @brief The destination where the recipient is invited to.*/
+        /** @brief The destination where the user is directed to after accepting the invitation. */
         public readonly Destination Destination;
 
-        /** @brief The recipient user of the invitation.*/
+        /** @brief Invited users. */
         public readonly User Recipient;
 
-        /** @brief The id of the invitation.*/
+        /** @brief Invitation ID. */
         public readonly UInt64 ID;
 
-        /** @brief If the recipient clicked the inviting message,`IsActive` is true.*/
+        /** @brief If the user clicks the invitation message, this field will be `true`. */
         public readonly bool IsActive;
 
-        /** @brief The lobby session id.The users in a lobby has the same target.*/
+        /** @brief The lobby session ID that identifies a group or team. */
         public readonly string LobbySessionId;
 
-        /** @brief The match session id. It represents the competition id.*/
+        /** @brief The match session ID that identifies a competition. */
         public readonly string MatchSessionId;
 
         public ApplicationInvite(IntPtr o)
@@ -99,7 +107,12 @@ namespace Pico.Platform.Models
             NextPageParam = CLIB.ppf_ApplicationInviteArray_GetNextPageParam(a);
         }
     }
-
+    /**
+     * \ingroup Models
+     */
+    /// <summary>
+    /// The result returned after calling /ref SendInvites.
+    /// </summary>
     public class SendInvitesResult
     {
         public readonly ApplicationInviteList Invites;

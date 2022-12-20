@@ -73,7 +73,7 @@ namespace Pico.Platform
         /// and top 10 will be displayed on the second page)
         /// * `3`: Unknown (returns an empty list)
         /// </param>
-        /// <param name="pageIdx">Defines which page of entries to return. The value = (The target page No.)-1.
+        /// <param name="pageIdx">Defines which page of entries to return. The first page index is `0`.
         /// For example, if you want to get the first page of entries, pass `0`; if you want to get the second page of entries, pass `1`.
         /// </param>
         /// <param name="pageSize">Defines the number of entries to return on the page.</param>
@@ -94,7 +94,7 @@ namespace Pico.Platform
         /// <summary>Gets a list of challenge entries after a specified rank.</summary>
         /// <param name="challengeID">The ID of the challenge whose entries are to be returned.</param>
         /// <param name="afterRank">Defines the rank after which the entries are to be returned.</param>
-        /// <param name="pageIdx">Defines which page of entries to return. The value = (The target page No.)-1.
+        /// <param name="pageIdx">Defines which page of entries to return. The first page index is `0`.
         /// For example, if you want to get the first page of entries, pass `0`; if you want to get the second page of entries, pass `1`.
         /// </param>
         /// <param name="pageSize">Defines the number of entries to return on each page.</param>
@@ -127,7 +127,7 @@ namespace Pico.Platform
         /// * `3`: Unknown (returns an empty list)
         /// </param>
         /// <param name="userIds">Defines a list of user IDs to get entries for.</param>
-        /// <param name="pageIdx">Defines which page of entries to return. The value = (The target page No.)-1.
+        /// <param name="pageIdx">Defines which page of entries to return. The first page index is `0`.
         /// For example, if you want to get the first page of entries, pass `0`; if you want to get the second page of entries, pass `1`.
         /// </param>
         /// <param name="pageSize">Defines the number of entries to return on each page.</param>
@@ -148,7 +148,7 @@ namespace Pico.Platform
         /// <param name="challengeOptions">Restricts the scope of challenges to return. You can define the start date and
         /// end date of challenges, the leaderboard the challenges belong to, etc.
         /// </param>
-        /// <param name="pageIdx">Defines which page of challenges to return. The value = (The target page No.)-1.
+        /// <param name="pageIdx">Defines which page of challenges to return. The first page index is `0`.
         /// For example, if you want to get the first page of entries, pass `0`; if you want to get the second page of entries, pass `1`.
         /// </param>
         /// <param name="pageSize">Defines the number of challenges to return on each page.</param>
@@ -192,6 +192,29 @@ namespace Pico.Platform
             }
 
             return new Task<Challenge>(CLIB.ppf_Challenges_Leave(challengeID));
+        }
+        /// <summary>Launch the invitable user flow to invite to join to the challenge.
+        /// This is intended to be a nice shortcut for developers not wanting to build 
+        /// out their own Invite UI although it has the same rules as if you build it yourself.</summary>
+        /// <param name="challengeID">The ID of the challenge to which user(s) are invited.</param>
+        public static Task LaunchInvitableUserFlow(UInt64 challengeID)
+        {
+            if (!CoreService.Initialized)
+            {
+                Debug.LogError(CoreService.UninitializedError);
+                return null;
+            }
+
+            return new Task(CLIB.ppf_Challenges_LaunchInvitableUserFlow(challengeID));
+        }
+        
+        /// <summary>Sets the callback to get notified when the user has accepted an invitation.
+        /// @note You can get the ChallengeID by 'Message.Data'. 
+        /// </summary>
+        /// <param name="handler">The callback function will be called when receiving the `Notification_Challenge_LaunchByInvite` message.</param>
+        public static void SetChallengeInviteAcceptedOrLaunchAppNotificationCallback(Message<string>.Handler handler)
+        {
+            Looper.RegisterNotifyHandler(MessageType.Notification_Challenge_LaunchByInvite, handler);
         }
     }
 }

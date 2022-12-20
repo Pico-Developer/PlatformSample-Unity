@@ -129,10 +129,22 @@ namespace Pico.Platform
                 case MessageType.Notification_Rtc_OnUserStartAudioCapture:
                 case MessageType.Notification_Rtc_OnUserStopAudioCapture:
                 case MessageType.Application_LaunchOtherApp:
+                case MessageType.Application_LaunchStore:
                 case MessageType.Notification_Room_InviteAccepted:
+                case MessageType.Notification_Challenge_LaunchByInvite:    
                 case MessageType.Notification_ApplicationLifecycle_LaunchIntentChanged:
                 {
                     msg = new Message<string>(msgPointer, ptr => { return CLIB.ppf_Message_GetString(ptr); });
+                    break;
+                }
+                case MessageType.Application_GetVersion:
+                {
+                    msg = new Message<ApplicationVersion>(msgPointer, ptr =>
+                    {
+                        var obj = CLIB.ppf_Message_GetApplicationVersion(ptr);
+                        if (obj == IntPtr.Zero) return null;
+                        return new ApplicationVersion(obj);
+                    });
                     break;
                 }
 
@@ -514,6 +526,7 @@ namespace Pico.Platform
                 case MessageType.Matchmaking_ReportResultInsecure:
                 case MessageType.Matchmaking_StartMatch:
                 case MessageType.Room_LaunchInvitableUserFlow:
+                case MessageType.Challenges_LaunchInvitableUserFlow:
                 case MessageType.Room_UpdateOwner:
                 case MessageType.Notification_MarkAsRead:
                 case MessageType.Notification_Game_StateReset:

@@ -17,7 +17,9 @@ namespace Pico.Platform.Models
 
     public sealed class Packet : IDisposable
     {
+        /** @brief The size of the message packet. */
         private readonly ulong size;
+        /** @brief The handler of the message packet. */
         private readonly IntPtr handler;
 
         public Packet(IntPtr handler)
@@ -26,6 +28,7 @@ namespace Pico.Platform.Models
             this.size = (ulong) CLIB.ppf_Packet_GetSize(handler);
         }
 
+        /// <summary>Get message content.</summary>
         public ulong GetBytes(byte[] dest)
         {
             if ((ulong) dest.LongLength >= size)
@@ -39,6 +42,7 @@ namespace Pico.Platform.Models
             }
         }
 
+        /// <summary>Get message content.</summary>
         public string GetBytes()
         {
             if (size > 0)
@@ -53,11 +57,12 @@ namespace Pico.Platform.Models
             }
         }
 
+        /// <summary>Get the ID of the message sender.</summary>
         public string SenderId
         {
             get { return CLIB.ppf_Packet_GetSenderID(handler); }
         }
-
+        /// <summary>Get message size.</summary>
         public ulong Size
         {
             get { return size; }

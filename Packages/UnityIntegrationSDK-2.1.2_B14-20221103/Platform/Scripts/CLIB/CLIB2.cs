@@ -49,6 +49,7 @@ namespace Pico.Platform
             userIds.Free();
             return result;
         }
+
         public static ulong ppf_Challenges_GetEntriesByIds(ulong challengeID, global::Pico.Platform.LeaderboardStartAt startAt, string[] userIDs, int pageIdx, int pageSize)
         {
             var userIds = new PtrArray(userIDs);
@@ -56,6 +57,7 @@ namespace Pico.Platform
             userIds.Free();
             return result;
         }
+
         public static ulong ppf_Challenges_Invites(ulong challengeID, string[] userIDs)
         {
             var userIds = new PtrArray(userIDs);
@@ -98,5 +100,9 @@ namespace Pico.Platform
 
         [DllImport("pxrplatformloader", EntryPoint = "ppf_PcInitAsynchronousWrapper", CallingConvention = CallingConvention.Cdecl)]
         internal static extern ulong ppf_PcInitAsynchronousWrapper([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Pico.Platform.UTF8Marshaller))] string appId, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Pico.Platform.UTF8Marshaller))] string configJson, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Pico.Platform.UTF8Marshaller))] string logDirectory);
+
+
+        [DllImport("pxrplatformloader", EntryPoint = "ppf_GetLoaderVersion", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern int ppf_GetLoaderVersion();
     }
 }

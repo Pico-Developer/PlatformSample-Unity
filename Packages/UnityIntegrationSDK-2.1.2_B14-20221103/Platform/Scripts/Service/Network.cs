@@ -40,10 +40,10 @@ namespace Pico.Platform
         }
 
         /// <summary>
-        /// Sends messages to a specified user.
+        /// Sends messages to a specified user. The maximum messaging frequency is 1000/s.
         /// </summary>
         /// <param name="userId">The ID of the user to send messages to.</param>
-        /// <param name="bytes">The message length (in bytes).</param>
+        /// <param name="bytes">The message length (in bytes). The maximum bytes allowed is 512.</param>
         /// <returns>
         /// * `true`: success
         /// * `false`: failure
@@ -70,10 +70,10 @@ namespace Pico.Platform
             return ok;
         }
         /// <summary>
-        /// Sends messages to a specified user.
+        /// Sends messages to a specified user. The maximum messaging frequency is 1000/s.
         /// </summary>
         /// <param name="userId">The ID of the user to send messages to.</param>
-        /// <param name="bytes">The message length (in bytes).</param>
+        /// <param name="bytes">The message length (in bytes). The maximum bytes allowed is 512.</param>
         /// <param name="reliable">When `reliable` is set to `true`, messages between lost and resume will not be lost.
         /// The retention time is determined by the `reserve_period` parameter configured for the matchmaking pool, with a maximum of 1 minute.
         /// When `reliable` is set to `false`, this function works the same as the other `SendPacket` function.</param>
@@ -103,9 +103,9 @@ namespace Pico.Platform
         }
 
         /// <summary>
-        /// Sends messages to other users in the room.
+        /// Sends messages to other users in the room. The maximum messaging frequency is 1000/s.
         /// </summary>
-        /// <param name="bytes">The message length (in bytes).</param>
+        /// <param name="bytes">The message length (in bytes). The maximum bytes allowed is 512.</param>
         /// <returns>
         /// * `true`: success
         /// * `false`: failure
@@ -126,9 +126,9 @@ namespace Pico.Platform
             return ok;
         }
         /// <summary>
-        /// Sends messages to other users in the room.
+        /// Sends messages to other users in the room. The maximum messaging frequency is 1000/s.
         /// </summary>
-        /// <param name="bytes">The message length (in bytes).</param>
+        /// <param name="bytes">The message length (in bytes). The maximum bytes allowed is 512.</param>
         /// <param name="reliable">When `reliable` is set to `true`, messages between lost and resume will not be lost.
         /// The retention time is determined by the `reserve_period` parameter configured for the matchmaking pool, with a maximum of 1 minute.
         /// When `reliable` is set to `false`, this function works the same as the other `SendPacketToCurrentRoom` function.</param>

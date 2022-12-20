@@ -328,7 +328,7 @@ namespace Pico.Platform
             CLIB.ppf_Rtc_SetEarMonitorVolume(volume);
         }
 
-        /// @deprecated MuteLocalAudio() can be replaced by UnPublishRoom(roomId)
+        /// @deprecated MuteLocalAudio() can be replaced by \ref UnPublishRoom(string roomId)
         /// <summary>
         /// Mutes local audio to make one's voice unable to be heard by other in-room users.
         /// </summary>

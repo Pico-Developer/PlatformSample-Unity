@@ -15,61 +15,69 @@ using UnityEngine;
 
 namespace Pico.Platform.Models
 {
+    /// <summary>Challenge setting options.</summary>
     public class ChallengeOptions
     {
+        /** @brief For creating challenge options */
         public ChallengeOptions()
         {
             Handle = CLIB.ppf_ChallengeOptions_Create();
         }
 
+        /** @brief Set the end date. Currently, not used. */
         public void SetEndDate(DateTime value)
         {
             CLIB.ppf_ChallengeOptions_SetEndDate(Handle, Convert.ToUInt64(Util.DateTimeToSeconds(value)));
         }
 
+        /** @brief Set whether to get active challenges. */
         public void SetIncludeActiveChallenges(bool value)
         {
             CLIB.ppf_ChallengeOptions_SetIncludeActiveChallenges(Handle, value);
         }
 
+        /** @brief Set whether to get future challenges whose start dates are latter than the current time. */
         public void SetIncludeFutureChallenges(bool value)
         {
             CLIB.ppf_ChallengeOptions_SetIncludeFutureChallenges(Handle, value);
         }
 
+        /** @brief Set whether to get past challenges whose end dates are earlier than the current time. */
         public void SetIncludePastChallenges(bool value)
         {
             CLIB.ppf_ChallengeOptions_SetIncludePastChallenges(Handle, value);
         }
 
-        /// Optional: Only find challenges belonging to this leaderboard.
+        /** @brief (Optional) Set the name of the leaderboard that the challenges associated with. */
         public void SetLeaderboardName(string value)
         {
             CLIB.ppf_ChallengeOptions_SetLeaderboardName(Handle, value);
         }
 
+        /** @brief Set the start date. Currently, not used. */
         public void SetStartDate(DateTime value)
         {
             CLIB.ppf_ChallengeOptions_SetStartDate(Handle, Convert.ToUInt64(Util.DateTimeToSeconds(value)));
         }
 
+        /** @brief Set the challenge title. Currently, not used. */
         public void SetTitle(string value)
         {
             CLIB.ppf_ChallengeOptions_SetTitle(Handle, value);
         }
 
+        /** @brief Set the filter for quering specified challenges. */
         public void SetViewerFilter(ChallengeViewerFilter value)
         {
             CLIB.ppf_ChallengeOptions_SetViewerFilter(Handle, value);
         }
 
+        /** @brief Set to get the challenges of a specific visibility type. */
         public void SetVisibility(ChallengeVisibility value)
         {
             CLIB.ppf_ChallengeOptions_SetVisibility(Handle, value);
         }
 
-
-        /// For passing to native C
         public static explicit operator IntPtr(ChallengeOptions options)
         {
             return options != null ? options.Handle : IntPtr.Zero;
@@ -87,17 +95,37 @@ namespace Pico.Platform.Models
             return Handle;
         }
     }
-
+    /**
+     * \ingroup Models
+     */
+    /// <summary>Challenge info.</summary>
     public class Challenge
     {
+        /** @brief The creator of the challenge. */
         public readonly ChallengeCreationType CreationType;
+
+        /** @brief Challenge ID */
         public readonly UInt64 ID;
+
+        /** @brief Challenge's start date. */
         public readonly DateTime StartDate;
+
+        /** @brief Challenge's end date. */
         public readonly DateTime EndDate;
+
+        /** @brief Participants of the challenge, which might be null. Should check if it is null before use. */
         public readonly UserList ParticipantsOptional;
+
+        /** @brief Users invited to the challenge, which might be null. Should check if it is null before use. */
         public readonly UserList InvitedUsersOptional;
+
+        /** @brief The info about the leaderboard that the challenge associated with. */
         public readonly Leaderboard Leaderboard;
+
+        /** @brief Challenge's title. */
         public readonly string Title;
+
+        /** @brief Challenge's visibility. */
         public readonly ChallengeVisibility Visibility;
 
 
@@ -152,6 +180,7 @@ namespace Pico.Platform.Models
         }
     }
 
+    /// <summary>Challenge list.</summary>
     public class ChallengeList : MessageArray<Challenge>
     {
         public ChallengeList(IntPtr a)
@@ -166,17 +195,34 @@ namespace Pico.Platform.Models
             }
         }
 
+        /** @brief The total number of challenges in the list. */
         public readonly ulong TotalCount;
     }
-
+    /**
+     * \ingroup Models
+     */
+    /// <summary>Challenge entry info.</summary>
     public class ChallengeEntry
     {
+        /** @brief The entry's display score. */
         public readonly string DisplayScore;
+
+        /** @brief The entry's additional info, no more than 2KB. */
         public readonly byte[] ExtraData;
+
+        /** @brief The ID of the challenge that the entry belongs to. */
         public readonly UInt64 ID;
+
+        /** @brief The rank of the entry. */
         public readonly int Rank;
+
+        /** @brief The score of the entry. */
         public readonly long Score;
+
+        /** @brief The time when the entry was written. */
         public readonly DateTime Timestamp;
+
+        /** @brief The user the entry belongs to. */
         public readonly User User;
 
 
@@ -202,7 +248,10 @@ namespace Pico.Platform.Models
             User = new User(CLIB.ppf_ChallengeEntry_GetUser(o));
         }
     }
-
+    /**
+     * \ingroup Models
+     */
+    /// <summary>Challenge entry list.</summary>
     public class ChallengeEntryList : MessageArray<ChallengeEntry>
     {
         public ChallengeEntryList(IntPtr a)
@@ -217,6 +266,7 @@ namespace Pico.Platform.Models
             }
         }
 
+        /** @brief The total number of entries in the list. */
         public readonly ulong TotalCount;
     }
 }

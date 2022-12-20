@@ -22,6 +22,25 @@ namespace Pico.Platform
      */
     public static class RoomService
     {
+        /// <summary>Launch the invitable user flow to invite to the logged in user's current
+        /// room. This is intended to be a nice shortcut for developers not wanting to build 
+        /// out their own Invite UI although it has the same rules as if you build it yourself.</summary>
+        /// <param name="roomId">The ID of the room.</param>
+        /// <returns>The request ID of this async function.
+        /// 
+        /// A message of type `MessageType.Room_LaunchInvitableUserFlow` will be generated in response.
+        /// Call `message.IsError()` to check if any error has occurred.
+        /// </returns>
+        public static Task LaunchInvitableUserFlow(UInt64 roomID)
+        {
+            if (!CoreService.IsInitialized())
+            {
+                Debug.LogError(CoreService.UninitializedError);
+                return null;
+            }
+
+            return new Task(CLIB.ppf_Room_LaunchInvitableUserFlow(roomID));
+        }
         /// <summary>Updates the data store of the current room (the caller should be the room owner).
         /// @note Room data stores only allow string values. The maximum key length is 32 bytes and the maximum value length is 64 bytes.
         /// If you provide illegal values, this method will return an error.</summary>

@@ -1,0 +1,3 @@
+[submodule "Assets/Samples"]
+	path = Assets/Samples
+	url = git@code.byted.org:pico/PlatformSamples.git

@@ -124,7 +124,7 @@ namespace Pico.Platform
 
         /// <summary>Gets the information about all achievements, including API names, descriptions, types,
         /// the targets which must be reached to unlock those achievements, and more.</summary>
-        /// <param name="pageIdx">The start index of the pages.</param>
+        /// <param name="pageIdx">Defines which page of achievements to return. The first page index is `0`.</param>
         /// <param name="pageSize">The size of the page.</param>
         /// <returns>The request ID of this async function.
         /// | Error Code| Error Message |
@@ -168,7 +168,7 @@ namespace Pico.Platform
         /// <summary>Gets the user's progress on all achievements, including API names,
         /// whether or not the achievements are unlocked, the time at which they were unlocked,
         /// achievement types and, depending on the type, the progress made towards unlocking them, and more.</summary>
-        /// <param name="pageIdx">The start index of the pages.</param>
+        /// <param name="pageIdx">Defines which page of achievements to return. The first page index is `0`.</param>
         /// <param name="pageSize">The size of the page.</param>
         /// <returns>The request ID of this async function.
         /// | Error Code| Error Message |

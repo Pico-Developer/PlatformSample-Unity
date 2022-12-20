@@ -52,7 +52,7 @@ namespace Pico.Platform
         ///
         /// <param name="leaderboardName">The name of the leaderboard whose entries are to be returned.</param>
         /// <param name="pageSize">The number of entries to return on each page.</param>
-        /// <param name="pageIdx">Defines which page of entries to return. The value = (The target page No.)-1.
+        /// <param name="pageIdx">Defines which page of entries to return. The first page index is `0`.
         /// For example, if you want to get the first page of entries, pass `0`; if you want to get the second page of entries, pass `1`.
         /// </param>
         /// <param name="filter">Restricts the scope of entries to return:
@@ -103,7 +103,7 @@ namespace Pico.Platform
         ///
         /// <param name="leaderboardName">The name of the leaderboard whose entries are to be returned.</param>
         /// <param name="pageSize">The number of entries to return on each page.</param>
-        /// <param name="pageIdx">Defines which page of entries to return. The value = (The target page No.)-1.
+        /// <param name="pageIdx">Defines which page of entries to return. The first page index is `0`.
         /// For example, if you want to get the first page of entries, pass `0`; if you want to get the second page of entries, pass `1`.
         /// </param>
         /// <param name="afterRank">Defines after which rank to return entries.</param>
@@ -139,7 +139,7 @@ namespace Pico.Platform
         ///
         /// <param name="leaderboardName">The name of the leaderboard whose entries are to be returned.</param>
         /// <param name="pageSize">The number of entries to return on each page.</param>
-        /// <param name="pageIdx">Defines which page of entries to return. The value = (The target page No.)-1.
+        /// <param name="pageIdx">Defines which page of entries to return. The first page index is `0`.
         /// For example, if you want to get the first page of entries, pass `0`; if you want to get the second page of entries, pass `1`.
         /// </param>
         /// <param name="startAt">Defines where to start returning leaderboard entries, the enumerations are:

@@ -14,29 +14,31 @@ using System;
 
 namespace Pico.Platform.Models
 {
+    /**
+     * \ingroup Models
+     */
     /// <summary>
-    /// The sport daily summary.
-    /// Users' daily sports info is recorded in the local database. This structure
-    /// indicates the sports info of someday.
+    /// The summary of daily sport info.
+    /// Users' daily sports info is recorded in the local database. This structure indicates the sports info generated someday.
     /// </summary>
     public class SportDailySummary
     {
-        /** @brief The id of the Daily summary.*/
+        /** @brief The ID of the summary.*/
         public readonly long Id;
 
-        /** @brief The date of the sport daily summary.*/
+        /** @brief The date when the summary was generated.*/
         public readonly DateTime Date;
 
-        /** @brief The sport duration time whose unit is second.*/
+        /** @brief The sport duration (in seconds).*/
         public readonly int DurationInSeconds;
 
-        /** @brief The planed sport duration time whose unit is minutes.*/
+        /** @brief The planned sport duration (in seconds).*/
         public readonly int PlanDurationInMinutes;
 
-        /** @brief The sum calorie cost in the day whose unity is kJ.*/
+        /** @brief The actual calorie burnt (in kilo calorie).*/
         public readonly double Calorie;
 
-        /** @brief The planned calorie. */
+        /** @brief The planned calorie to burn. */
         public readonly double PlanCalorie;
 
         public SportDailySummary(IntPtr o)
@@ -63,22 +65,24 @@ namespace Pico.Platform.Models
             }
         }
     }
-
+    /**
+     * \ingroup Models
+     */
     /// <summary>
     /// User's sport summary of today.
     /// </summary>
     public class SportSummary
     {
-        /** @brief The sport duration of today.*/
+        /** @brief The sport duration (in seconds).*/
         public readonly int DurationInSeconds;
 
-        /** @brief The cost calorie of today.*/
+        /** @brief The calorie burnt (in kilo calorie).*/
         public readonly double Calorie;
 
-        /** @brief The start time of the first sport today.*/
+        /** @brief The time when the user started playing sport.*/
         public readonly DateTime StartTime;
 
-        /** @brief The end time of the last sport today.*/
+        /** @brief The time when the user stopped playing sport.*/
         public readonly DateTime EndTime;
 
         public SportSummary(IntPtr o)
@@ -89,9 +93,11 @@ namespace Pico.Platform.Models
             EndTime = Util.MilliSecondsToDateTime(CLIB.ppf_SportSummary_GetEndTime(o));
         }
     }
-
+    /**
+     * \ingroup Models
+     */
     /// <summary>
-    /// The user sport info.
+    /// The user's sport info.
     /// User can set sport goal in the Sport Center app.
     /// </summary>
     public class SportUserInfo
@@ -99,22 +105,22 @@ namespace Pico.Platform.Models
         public readonly Gender Gender;
         public readonly DateTime Birthday;
 
-        /**@brief The height of the user whose unit is `cm`*/
+        /**@brief The height of the user (in cm). */
         public readonly int Stature;
 
-        /**@brief The weight of the user whose unit is `kg`*/
+        /**@brief The weight of the user (in kg). */
         public readonly int Weight;
 
-        /** @brief The sport level indicates the intensity of the sport.*/
+        /** @brief The sport level that indicates the intensity of the sport.*/
         public readonly int SportLevel;
 
-        /** @brief The planned daily sport duration whose unit is minutes.*/
+        /** @brief The planned daily sport duration (in minutes).*/
         public readonly int DailyDurationInMinutes;
 
-        /** @brief The planned sport days in a week.*/
+        /** @brief The planned weekly sport days.*/
         public readonly int DaysPerWeek;
 
-        /** @brief The sport target,such as `keep fit`,`lose weight` */
+        /** @brief The sport purpose, such as `keep fit` and `lose weight`. */
         public readonly SportTarget SportTarget;
 
         public SportUserInfo(IntPtr o)

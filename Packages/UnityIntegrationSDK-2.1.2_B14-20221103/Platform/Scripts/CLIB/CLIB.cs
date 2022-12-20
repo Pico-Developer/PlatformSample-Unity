@@ -929,6 +929,48 @@ namespace Pico.Platform
     {
         public partial struct __Internal
         {
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_ApplicationVersion_GetCurrentCode", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern long ppf_ApplicationVersion_GetCurrentCode(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_ApplicationVersion_GetCurrentName", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern __IntPtr ppf_ApplicationVersion_GetCurrentName(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_ApplicationVersion_GetLatestCode", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern long ppf_ApplicationVersion_GetLatestCode(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_ApplicationVersion_GetLatestName", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern __IntPtr ppf_ApplicationVersion_GetLatestName(__IntPtr obj);
+        }
+
+        public static long ppf_ApplicationVersion_GetCurrentCode(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_ApplicationVersion_GetCurrentCode(obj);
+            return __ret;
+        }
+
+        public static string ppf_ApplicationVersion_GetCurrentName(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_ApplicationVersion_GetCurrentName(obj);
+            return Pico.Platform.MarshalUtil.GetString(global::System.Text.Encoding.UTF8, __ret);
+        }
+
+        public static long ppf_ApplicationVersion_GetLatestCode(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_ApplicationVersion_GetLatestCode(obj);
+            return __ret;
+        }
+
+        public static string ppf_ApplicationVersion_GetLatestName(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_ApplicationVersion_GetLatestName(obj);
+            return Pico.Platform.MarshalUtil.GetString(global::System.Text.Encoding.UTF8, __ret);
+        }
+    }
+
+    public partial class CLIB
+    {
+        public partial struct __Internal
+        {
             [DllImport("pxrplatformloader", EntryPoint = "ppf_AssetDetails_GetAssetId", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern ulong ppf_AssetDetails_GetAssetId(__IntPtr obj);
 
@@ -2011,6 +2053,9 @@ namespace Pico.Platform
             [DllImport("pxrplatformloader", EntryPoint = "ppf_LaunchDetails_GetRoomID", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern ulong ppf_LaunchDetails_GetRoomID(__IntPtr obj);
 
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_LaunchDetails_GetChallengeID", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern ulong ppf_LaunchDetails_GetChallengeID(__IntPtr obj);
+
             [DllImport("pxrplatformloader", EntryPoint = "ppf_LaunchDetails_GetTrackingID", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern __IntPtr ppf_LaunchDetails_GetTrackingID(__IntPtr obj);
 
@@ -2019,6 +2064,9 @@ namespace Pico.Platform
 
             [DllImport("pxrplatformloader", EntryPoint = "ppf_LaunchDetails_GetLaunchType", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern global::Pico.Platform.LaunchType ppf_LaunchDetails_GetLaunchType(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_LaunchDetails_GetClientAction", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern __IntPtr ppf_LaunchDetails_GetClientAction(__IntPtr obj);
         }
 
         public static string ppf_LaunchDetails_GetDeeplinkMessage(__IntPtr obj)
@@ -2063,6 +2111,12 @@ namespace Pico.Platform
             return __ret;
         }
 
+        public static ulong ppf_LaunchDetails_GetChallengeID(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_LaunchDetails_GetChallengeID(obj);
+            return __ret;
+        }
+
         public static string ppf_LaunchDetails_GetTrackingID(__IntPtr obj)
         {
             var __ret = __Internal.ppf_LaunchDetails_GetTrackingID(obj);
@@ -2079,6 +2133,12 @@ namespace Pico.Platform
         {
             var __ret = __Internal.ppf_LaunchDetails_GetLaunchType(obj);
             return __ret;
+        }
+
+        public static string ppf_LaunchDetails_GetClientAction(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_LaunchDetails_GetClientAction(obj);
+            return Pico.Platform.MarshalUtil.GetString(global::System.Text.Encoding.UTF8, __ret);
         }
     }
 
@@ -2543,6 +2603,15 @@ namespace Pico.Platform
 
             [DllImport("pxrplatformloader", EntryPoint = "ppf_RtcVideoFrameOptions_SetSupplementaryInfoSize", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern void ppf_RtcVideoFrameOptions_SetSupplementaryInfoSize(__IntPtr obj, int value);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_RtcVideoFrameOptions_SetHwaccelBuffer", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern void ppf_RtcVideoFrameOptions_SetHwaccelBuffer(__IntPtr obj, __IntPtr buffer);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_RtcVideoFrameOptions_SetTextureId", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern void ppf_RtcVideoFrameOptions_SetTextureId(__IntPtr obj, uint textureId);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_RtcVideoFrameOptions_SetTextureMatrix", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern void ppf_RtcVideoFrameOptions_SetTextureMatrix(__IntPtr obj, int index, float value);
         }
 
         public static void ppf_RtcVideoFrameOptions_Destroy(__IntPtr obj)
@@ -2625,6 +2694,21 @@ namespace Pico.Platform
         {
             __Internal.ppf_RtcVideoFrameOptions_SetSupplementaryInfoSize(obj, value);
         }
+
+        public static void ppf_RtcVideoFrameOptions_SetHwaccelBuffer(__IntPtr obj, __IntPtr buffer)
+        {
+            __Internal.ppf_RtcVideoFrameOptions_SetHwaccelBuffer(obj, buffer);
+        }
+
+        public static void ppf_RtcVideoFrameOptions_SetTextureId(__IntPtr obj, uint textureId)
+        {
+            __Internal.ppf_RtcVideoFrameOptions_SetTextureId(obj, textureId);
+        }
+
+        public static void ppf_RtcVideoFrameOptions_SetTextureMatrix(__IntPtr obj, int index, float value)
+        {
+            __Internal.ppf_RtcVideoFrameOptions_SetTextureMatrix(obj, index, value);
+        }
     }
 
     public partial class CLIB
@@ -2633,6 +2717,9 @@ namespace Pico.Platform
         {
             [DllImport("pxrplatformloader", EntryPoint = "ppf_Rtc_InitRtcEngine", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern global::Pico.Platform.RtcEngineInitResult ppf_Rtc_InitRtcEngine();
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Rtc_UnInitRtcEngine", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern void ppf_Rtc_UnInitRtcEngine();
 
             [DllImport("pxrplatformloader", EntryPoint = "ppf_Rtc_JoinRoom", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern int ppf_Rtc_JoinRoom(__IntPtr roomOptions);
@@ -2735,6 +2822,11 @@ namespace Pico.Platform
         {
             var __ret = __Internal.ppf_Rtc_InitRtcEngine();
             return __ret;
+        }
+
+        public static void ppf_Rtc_UnInitRtcEngine()
+        {
+            __Internal.ppf_Rtc_UnInitRtcEngine();
         }
 
         public static int ppf_Rtc_JoinRoom(__IntPtr roomOptions)
@@ -5576,6 +5668,27 @@ namespace Pico.Platform
 
             [DllImport("pxrplatformloader", EntryPoint = "ppf_Purchase_GetSKU", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern __IntPtr ppf_Purchase_GetSKU(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Purchase_GetIcon", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern __IntPtr ppf_Purchase_GetIcon(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Purchase_GetAddonsType", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern global::Pico.Platform.AddonsType ppf_Purchase_GetAddonsType(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Purchase_GetOuterId", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern __IntPtr ppf_Purchase_GetOuterId(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Purchase_GetCurrentPeriodType", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern global::Pico.Platform.PeriodType ppf_Purchase_GetCurrentPeriodType(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Purchase_GetNextPeriodType", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern global::Pico.Platform.PeriodType ppf_Purchase_GetNextPeriodType(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Purchase_GetNextPayTime", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern long ppf_Purchase_GetNextPayTime(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Purchase_GetDiscountType", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern global::Pico.Platform.DiscountType ppf_Purchase_GetDiscountType(__IntPtr obj);
         }
 
         public static long ppf_Purchase_GetExpirationTime(__IntPtr obj)
@@ -5600,6 +5713,48 @@ namespace Pico.Platform
         {
             var __ret = __Internal.ppf_Purchase_GetSKU(obj);
             return Pico.Platform.MarshalUtil.GetString(global::System.Text.Encoding.UTF8, __ret);
+        }
+
+        public static string ppf_Purchase_GetIcon(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Purchase_GetIcon(obj);
+            return Pico.Platform.MarshalUtil.GetString(global::System.Text.Encoding.UTF8, __ret);
+        }
+
+        public static global::Pico.Platform.AddonsType ppf_Purchase_GetAddonsType(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Purchase_GetAddonsType(obj);
+            return __ret;
+        }
+
+        public static string ppf_Purchase_GetOuterId(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Purchase_GetOuterId(obj);
+            return Pico.Platform.MarshalUtil.GetString(global::System.Text.Encoding.UTF8, __ret);
+        }
+
+        public static global::Pico.Platform.PeriodType ppf_Purchase_GetCurrentPeriodType(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Purchase_GetCurrentPeriodType(obj);
+            return __ret;
+        }
+
+        public static global::Pico.Platform.PeriodType ppf_Purchase_GetNextPeriodType(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Purchase_GetNextPeriodType(obj);
+            return __ret;
+        }
+
+        public static long ppf_Purchase_GetNextPayTime(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Purchase_GetNextPayTime(obj);
+            return __ret;
+        }
+
+        public static global::Pico.Platform.DiscountType ppf_Purchase_GetDiscountType(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Purchase_GetDiscountType(obj);
+            return __ret;
         }
     }
 
@@ -5653,8 +5808,8 @@ namespace Pico.Platform
             [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_GetDescription", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern __IntPtr ppf_Product_GetDescription(__IntPtr obj);
 
-            [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_GetFormattedPrice", CallingConvention = __CallingConvention.Cdecl)]
-            internal static extern __IntPtr ppf_Product_GetFormattedPrice(__IntPtr obj);
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_GetDetailDescription", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern __IntPtr ppf_Product_GetDetailDescription(__IntPtr obj);
 
             [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_GetPrice", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern __IntPtr ppf_Product_GetPrice(__IntPtr obj);
@@ -5667,6 +5822,37 @@ namespace Pico.Platform
 
             [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_GetSKU", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern __IntPtr ppf_Product_GetSKU(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_GetIcon", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern __IntPtr ppf_Product_GetIcon(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_GetAddonsType", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern global::Pico.Platform.AddonsType ppf_Product_GetAddonsType(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_GetPeriodType", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern global::Pico.Platform.PeriodType ppf_Product_GetPeriodType(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_GetTrialPeriodUnit", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern global::Pico.Platform.PeriodType ppf_Product_GetTrialPeriodUnit(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_GetTrialPeriodValue", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern int ppf_Product_GetTrialPeriodValue(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_GetOuterId", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern __IntPtr ppf_Product_GetOuterId(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_GetOriginalPrice", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern __IntPtr ppf_Product_GetOriginalPrice(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_GetGroupId", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern __IntPtr ppf_Product_GetGroupId(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_GetLevel", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern int ppf_Product_GetLevel(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Product_IsContinuous", CallingConvention = __CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.I1)]
+            internal static extern bool ppf_Product_IsContinuous(__IntPtr obj);
         }
 
         public static string ppf_Product_GetDescription(__IntPtr obj)
@@ -5675,9 +5861,9 @@ namespace Pico.Platform
             return Pico.Platform.MarshalUtil.GetString(global::System.Text.Encoding.UTF8, __ret);
         }
 
-        public static string ppf_Product_GetFormattedPrice(__IntPtr obj)
+        public static string ppf_Product_GetDetailDescription(__IntPtr obj)
         {
-            var __ret = __Internal.ppf_Product_GetFormattedPrice(obj);
+            var __ret = __Internal.ppf_Product_GetDetailDescription(obj);
             return Pico.Platform.MarshalUtil.GetString(global::System.Text.Encoding.UTF8, __ret);
         }
 
@@ -5703,6 +5889,66 @@ namespace Pico.Platform
         {
             var __ret = __Internal.ppf_Product_GetSKU(obj);
             return Pico.Platform.MarshalUtil.GetString(global::System.Text.Encoding.UTF8, __ret);
+        }
+
+        public static string ppf_Product_GetIcon(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Product_GetIcon(obj);
+            return Pico.Platform.MarshalUtil.GetString(global::System.Text.Encoding.UTF8, __ret);
+        }
+
+        public static global::Pico.Platform.AddonsType ppf_Product_GetAddonsType(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Product_GetAddonsType(obj);
+            return __ret;
+        }
+
+        public static global::Pico.Platform.PeriodType ppf_Product_GetPeriodType(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Product_GetPeriodType(obj);
+            return __ret;
+        }
+
+        public static global::Pico.Platform.PeriodType ppf_Product_GetTrialPeriodUnit(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Product_GetTrialPeriodUnit(obj);
+            return __ret;
+        }
+
+        public static int ppf_Product_GetTrialPeriodValue(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Product_GetTrialPeriodValue(obj);
+            return __ret;
+        }
+
+        public static string ppf_Product_GetOuterId(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Product_GetOuterId(obj);
+            return Pico.Platform.MarshalUtil.GetString(global::System.Text.Encoding.UTF8, __ret);
+        }
+
+        public static string ppf_Product_GetOriginalPrice(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Product_GetOriginalPrice(obj);
+            return Pico.Platform.MarshalUtil.GetString(global::System.Text.Encoding.UTF8, __ret);
+        }
+
+        public static string ppf_Product_GetGroupId(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Product_GetGroupId(obj);
+            return Pico.Platform.MarshalUtil.GetString(global::System.Text.Encoding.UTF8, __ret);
+        }
+
+        public static int ppf_Product_GetLevel(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Product_GetLevel(obj);
+            return __ret;
+        }
+
+        public static bool ppf_Product_IsContinuous(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Product_IsContinuous(obj);
+            return __ret;
         }
     }
 
@@ -5828,6 +6074,9 @@ namespace Pico.Platform
 
             [DllImport("pxrplatformloader", EntryPoint = "ppf_Message_GetPermissionResult", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern __IntPtr ppf_Message_GetPermissionResult(__IntPtr obj);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Message_GetApplicationVersion", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern __IntPtr ppf_Message_GetApplicationVersion(__IntPtr obj);
 
             [DllImport("pxrplatformloader", EntryPoint = "ppf_Message_GetRtcJoinRoomResult", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern __IntPtr ppf_Message_GetRtcJoinRoomResult(__IntPtr obj);
@@ -6082,6 +6331,12 @@ namespace Pico.Platform
         public static __IntPtr ppf_Message_GetPermissionResult(__IntPtr obj)
         {
             var __ret = __Internal.ppf_Message_GetPermissionResult(obj);
+            return __ret;
+        }
+
+        public static __IntPtr ppf_Message_GetApplicationVersion(__IntPtr obj)
+        {
+            var __ret = __Internal.ppf_Message_GetApplicationVersion(obj);
             return __ret;
         }
 
@@ -6611,6 +6866,12 @@ namespace Pico.Platform
 
             [DllImport("pxrplatformloader", EntryPoint = "ppf_Application_LaunchOtherAppByMessage", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern ulong ppf_Application_LaunchOtherAppByMessage(__IntPtr options);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Application_GetVersion", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern ulong ppf_Application_GetVersion();
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Application_LaunchStore", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern ulong ppf_Application_LaunchStore();
         }
 
         public static ulong ppf_Application_LaunchOtherApp(string packageName, __IntPtr deeplink_options)
@@ -6634,6 +6895,18 @@ namespace Pico.Platform
         public static ulong ppf_Application_LaunchOtherAppByMessage(__IntPtr options)
         {
             var __ret = __Internal.ppf_Application_LaunchOtherAppByMessage(options);
+            return __ret;
+        }
+
+        public static ulong ppf_Application_GetVersion()
+        {
+            var __ret = __Internal.ppf_Application_GetVersion();
+            return __ret;
+        }
+
+        public static ulong ppf_Application_LaunchStore()
+        {
+            var __ret = __Internal.ppf_Application_LaunchStore();
             return __ret;
         }
     }
@@ -6761,6 +7034,9 @@ namespace Pico.Platform
 
             [DllImport("pxrplatformloader", EntryPoint = "ppf_Challenges_Leave", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern ulong ppf_Challenges_Leave(ulong challengeID);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Challenges_LaunchInvitableUserFlow", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern ulong ppf_Challenges_LaunchInvitableUserFlow(ulong challengeID);
         }
 
         public static ulong ppf_Challenges_Invites(ulong challengeID, __IntPtr[]userIDs, uint userIDLength)
@@ -6810,6 +7086,12 @@ namespace Pico.Platform
             var __ret = __Internal.ppf_Challenges_Leave(challengeID);
             return __ret;
         }
+
+        public static ulong ppf_Challenges_LaunchInvitableUserFlow(ulong challengeID)
+        {
+            var __ret = __Internal.ppf_Challenges_LaunchInvitableUserFlow(challengeID);
+            return __ret;
+        }
     }
 
     public partial class CLIB
@@ -6833,6 +7115,9 @@ namespace Pico.Platform
 
             [DllImport("pxrplatformloader", EntryPoint = "ppf_IAP_LaunchCheckoutFlow", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern ulong ppf_IAP_LaunchCheckoutFlow([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Pico.Platform.UTF8Marshaller))] string sku, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Pico.Platform.UTF8Marshaller))] string price, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Pico.Platform.UTF8Marshaller))] string currency);
+
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_IAP_LaunchCheckoutFlowV2", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern ulong ppf_IAP_LaunchCheckoutFlowV2([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Pico.Platform.UTF8Marshaller))] string sku, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Pico.Platform.UTF8Marshaller))] string price, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Pico.Platform.UTF8Marshaller))] string currency, [MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Pico.Platform.UTF8Marshaller))] string outerId);
         }
 
         public static ulong ppf_IAP_ConsumePurchase(string sku)
@@ -6868,6 +7153,12 @@ namespace Pico.Platform
         public static ulong ppf_IAP_LaunchCheckoutFlow(string sku, string price, string currency)
         {
             var __ret = __Internal.ppf_IAP_LaunchCheckoutFlow(sku, price, currency);
+            return __ret;
+        }
+
+        public static ulong ppf_IAP_LaunchCheckoutFlowV2(string sku, string price, string currency, string outerId)
+        {
+            var __ret = __Internal.ppf_IAP_LaunchCheckoutFlowV2(sku, price, currency, outerId);
             return __ret;
         }
     }
@@ -7169,6 +7460,9 @@ namespace Pico.Platform
             [DllImport("pxrplatformloader", EntryPoint = "ppf_Presence_SendInvites", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern ulong ppf_Presence_SendInvites(__IntPtr[]userIDs, uint userIDLength);
 
+            [DllImport("pxrplatformloader", EntryPoint = "ppf_Presence_SendCustomInvites", CallingConvention = __CallingConvention.Cdecl)]
+            internal static extern ulong ppf_Presence_SendCustomInvites([MarshalAs(UnmanagedType.CustomMarshaler, MarshalTypeRef = typeof(Pico.Platform.UTF8Marshaller))] string msg, __IntPtr[]userIDs, uint userIDLength);
+
             [DllImport("pxrplatformloader", EntryPoint = "ppf_Presence_Set", CallingConvention = __CallingConvention.Cdecl)]
             internal static extern ulong ppf_Presence_Set(__IntPtr presenceOptions);
 
@@ -7227,6 +7521,12 @@ namespace Pico.Platform
         public static ulong ppf_Presence_SendInvites(__IntPtr[]userIDs, uint userIDLength)
         {
             var __ret = __Internal.ppf_Presence_SendInvites(userIDs, userIDLength);
+            return __ret;
+        }
+
+        public static ulong ppf_Presence_SendCustomInvites(string msg, __IntPtr[]userIDs, uint userIDLength)
+        {
+            var __ret = __Internal.ppf_Presence_SendCustomInvites(msg, userIDs, userIDLength);
             return __ret;
         }
 
@@ -7772,6 +8072,14 @@ namespace Pico.Platform
         }
     }
 
+    public enum AddonsType
+    {
+        Invalid = -1,
+        Durable = 0,
+        Consumable = 1,
+        Subscription = 2
+    }
+
     public enum UserPresenceStatus
     {
         Unknown = 0,
@@ -7791,6 +8099,14 @@ namespace Pico.Platform
         Downloading = 0,
         Succeed = 1,
         Failed = 2
+    }
+
+    public enum DiscountType
+    {
+        Invalid = -1,
+        Null = 0,
+        FreeTrial = 1,
+        Discount = 2
     }
 
     public enum LaunchType
@@ -7955,8 +8271,6 @@ namespace Pico.Platform
     public enum RtcVideoPixelFormat
     {
         Unknown = 0,
-        TextureOES = 0,
-        Texture2D = 0,
         I420 = 1,
         NV12 = 2,
         NV21 = 3,
@@ -7964,8 +8278,8 @@ namespace Pico.Platform
         RGBA = 5,
         ARGB = 6,
         BGRA = 7,
-        x0DE1 = 8,
-        x8D65 = 9
+        Texture2D = 0xde1,
+        TextureOES = 0x8d65
     }
 
     public enum RtcColorSpace
@@ -8079,6 +8393,7 @@ namespace Pico.Platform
         Notification_GetNextRoomInviteNotificationArrayPage = 10607,
         Notification_GetRoomInvites = 10608,
         Notification_MarkAsRead = 10609,
+        Notification_Challenge_LaunchByInvite = 10610,
         PlatformGameInitializeAsynchronous = 10700,
         Leaderboard_Get = 10800,
         Leaderboard_GetNextLeaderboardArrayPage = 10801,
@@ -8106,6 +8421,7 @@ namespace Pico.Platform
         Challenges_GetEntriesByIds = 10855,
         Challenges_Join = 10856,
         Challenges_Leave = 10857,
+        Challenges_LaunchInvitableUserFlow = 10858,
         Application_LaunchOtherApp = 11001,
         Presence_GetSentInvites = 11002,
         Presence_GetInvitableUsers = 11003,
@@ -8121,6 +8437,9 @@ namespace Pico.Platform
         Application_LaunchOtherAppByMessage = 11013,
         Presence_ShareMedia = 11014,
         Presence_LaunchInvitePanel = 11015,
+        Presence_SendCustomInvites = 11016,
+        Application_LaunchStore = 11017,
+        Application_GetVersion = 11018,
         IAP_GetProductsBySKU = 12001,
         IAP_GetViewerPurchases = 12002,
         IAP_LaunchCheckoutFlow = 12003,
@@ -8256,6 +8575,18 @@ namespace Pico.Platform
     {
         LoseFat = 0,
         KeepFit = 1
+    }
+
+    public enum PeriodType
+    {
+        Invalid = -1,
+        None = 0,
+        Hour = 1,
+        Day = 2,
+        Week = 3,
+        Month = 4,
+        Quarter = 5,
+        Year = 6
     }
 
     public enum PlatformInitializeResult

@@ -14,35 +14,76 @@ using System;
 
 namespace Pico.Platform.Models
 {
+    /**
+     * \ingroup Models
+     */
     /// <summary>
-    /// The product that can by bought in the app.
+    /// The product that can be purchased in the app.
     ///
-    /// You can configure In-App products in the developer center.
+    /// You can create in-app products on the PICO Developer Platform.
     /// </summary>
     public class Product
     {
-        /**@brief The description of the product.*/
+        /**@brief The description of the product. */
         public readonly string Description;
 
-        /**@brief The price of the product,it's a number string.*/
+        /**@brief The detailed description of the product. */
+        public readonly string DetailDescription;
+
+        /**@brief The price of the product, which is a number string. */
         public readonly string Price;
 
-        /**@brief The currency of the product,it's the currency string.*/
+        /**@brief The currency required for purchasing the product. */
         public readonly string Currency;
 
-        /**@brief The name of the product*/
+        /**@brief The name of the product. */
         public readonly string Name;
 
-        /**@brief The identifier of the product*/
+        /**@brief The unique identifier of the product. */
         public readonly string SKU;
+
+        /**@brief The icon of the product,it's an image url.*/
+        public readonly string Icon;
+
+        /**@brief The type of the product */
+        public readonly AddonsType AddonsType;
+
+        /**@brief The period type for subscription type product.*/
+        public readonly PeriodType PeriodType;
+
+        /**@brief The trial period unit for subscription type product.*/
+        public readonly PeriodType TrialPeriodUnit;
+
+        /**@brief The trial period value for subscription type product.*/
+        public readonly int TrialPeriodValue;
+
+        /**@brief The original price of the product. This field means the price
+         * without discount.
+         */
+        public readonly string OriginalPrice;
+
+        /**@brief The id of the subscription type.*/
+        public readonly string OuterId;
+
+        /**@brief Whether the subscription is auto cost money.*/
+        public readonly bool IsContinuous;
 
         public Product(IntPtr o)
         {
             Description = CLIB.ppf_Product_GetDescription(o);
+            DetailDescription = CLIB.ppf_Product_GetDetailDescription(o);
             Price = CLIB.ppf_Product_GetPrice(o);
             Currency = CLIB.ppf_Product_GetCurrency(o);
             Name = CLIB.ppf_Product_GetName(o);
             SKU = CLIB.ppf_Product_GetSKU(o);
+            Icon = CLIB.ppf_Product_GetIcon(o);
+            AddonsType = CLIB.ppf_Product_GetAddonsType(o);
+            PeriodType = CLIB.ppf_Product_GetPeriodType(o);
+            TrialPeriodUnit = CLIB.ppf_Product_GetTrialPeriodUnit(o);
+            TrialPeriodValue = CLIB.ppf_Product_GetTrialPeriodValue(o);
+            OuterId = CLIB.ppf_Product_GetOuterId(o);
+            OriginalPrice = CLIB.ppf_Product_GetOriginalPrice(o);
+            IsContinuous = CLIB.ppf_Product_IsContinuous(o);
         }
     }
 
@@ -62,26 +103,60 @@ namespace Pico.Platform.Models
         }
     }
 
+    /**
+     * \ingroup Models
+     */
     /// <summary>
-    /// The purchased product of current user.
+    /// The product that the current user has purchased.
     /// </summary>
     public class Purchase
     {
+        /**@brief The expiration time. Only valid when it's subscription type.*/
         public readonly DateTime ExpirationTime;
+
+        /**@brief The grant time. Only valid when it's subscription type.*/
         public readonly DateTime GrantTime;
 
-        /**@brief The ID of the purchase.*/
+        /** @brief The ID of the purchase order. */
         public readonly string ID;
 
-        /**@brief The sku of the purchase.It's the unique identifier of the product.*/
+        /** @brief The unique identifier of the product in the purchase order. */
         public readonly string SKU;
+
+        /** @brief The icon of the product.*/
+        public readonly string Icon;
+
+        /** @brief The type of the purchased product.*/
+        public readonly AddonsType AddonsType;
+
+        /** @brief The outer id of the purchased product.*/
+        public readonly string OuterId;
+
+        /** @brief The current period type of subscription. Only valid when it's subscription.*/
+        public readonly PeriodType CurrentPeriodType;
+
+        /** @brief The next period type of subscription. Only valid when it's subscription.*/
+        public readonly PeriodType NextPeriodType;
+
+        /** @brief The next pay time of subscription. Only valid when it's subscription.*/
+        public readonly DateTime NextPayTime;
+
+        /**@brief The discount info of the purchase.*/
+        public readonly DiscountType DiscountType;
 
         public Purchase(IntPtr o)
         {
-            ExpirationTime = Util.SecondsToDateTime(CLIB.ppf_Purchase_GetExpirationTime(o));
-            GrantTime = Util.SecondsToDateTime(CLIB.ppf_Purchase_GetGrantTime(o));
+            ExpirationTime = Util.MilliSecondsToDateTime(CLIB.ppf_Purchase_GetExpirationTime(o));
+            GrantTime = Util.MilliSecondsToDateTime(CLIB.ppf_Purchase_GetGrantTime(o));
             ID = CLIB.ppf_Purchase_GetID(o);
             SKU = CLIB.ppf_Purchase_GetSKU(o);
+            Icon = CLIB.ppf_Purchase_GetIcon(o);
+            AddonsType = CLIB.ppf_Purchase_GetAddonsType(o);
+            OuterId = CLIB.ppf_Purchase_GetOuterId(o);
+            CurrentPeriodType = CLIB.ppf_Purchase_GetCurrentPeriodType(o);
+            NextPeriodType = CLIB.ppf_Purchase_GetNextPeriodType(o);
+            NextPayTime = Util.MilliSecondsToDateTime(CLIB.ppf_Purchase_GetNextPayTime(o));
+            DiscountType = CLIB.ppf_Purchase_GetDiscountType(o);
         }
     }
 

@@ -15,9 +15,16 @@ using System.Runtime.InteropServices;
 
 namespace Pico.Platform.Models
 {
+    /**
+     * \ingroup Models
+     */
+    /// <summary>Achievement update info.</summary>
     public class AchievementUpdate
     {
+        /** @brief Whether the achievement is unlocked in this time. */
         public readonly bool JustUnlocked;
+
+        /** @brief Achievement name. */
         public readonly string Name;
 
         public AchievementUpdate(IntPtr o)
@@ -26,21 +33,49 @@ namespace Pico.Platform.Models
             Name = CLIB.ppf_AchievementUpdate_GetName(o);
         }
     }
-
+    /**
+     * \ingroup Models
+     */
+    /// <summary>Achievement info.</summary>
     public class AchievementDefinition
     {
+        /** @brief Achievement type. */
         public readonly AchievementType Type;
+
+        /** @brief Achievement name. */
         public readonly string Name;
+
+        /** @brief The target to reach for unlocking a bitfield achievement. */
         public readonly uint BitfieldLength;
+
+        /** @brief The target to reach for unlocking a count achievement. */
         public readonly long Target;
+
+        /** @brief Achievement description. */
         public readonly string Description;
+
+        /** @brief Achievement title. */
         public readonly string Title;
+
+        /** @brief Whether the achievement is archieved. */
         public readonly bool IsArchived;
+
+        /** @brief Whether the achievement is a secret achievement. If so, it can be visible after being unlocked only. */
         public readonly bool IsSecret;
+
+        /** @brief Achievement ID. */
         public readonly ulong ID;
+
+        /** @brief The description shown to users when unlocking the achievement. */
         public readonly string UnlockedDescription;
+
+        /** @brief The write policy of the achievement. */
         public readonly AchievementWritePolicy WritePolicy;
+
+        /** @brief The URL of the image displayed when the achievement is still locked. */
         public readonly string LockedImageURL;
+
+        /** @brief The URL of the image displayed when the achievement is unlocked. */
         public readonly string UnlockedImageURL;
 
         public AchievementDefinition(IntPtr o)
@@ -60,9 +95,13 @@ namespace Pico.Platform.Models
             UnlockedImageURL = CLIB.ppf_AchievementDefinition_GetUnlockedImageURL(o);
         }
     }
-
+    /**
+     * \ingroup Models
+     */
+    /// <summary>Achievement definition list.</summary>
     public class AchievementDefinitionList : MessageArray<AchievementDefinition>
     {
+        /** @brief The total number of `AchievementDefinition` */
         public readonly ulong TotalSize;
 
         public AchievementDefinitionList(IntPtr a)
@@ -78,15 +117,31 @@ namespace Pico.Platform.Models
             NextPageParam = CLIB.ppf_AchievementDefinitionArray_HasNextPage(a) ? "true" : string.Empty;
         }
     }
-
+    /**
+     * \ingroup Models
+     */
+    /// <summary>Achievement progress info. </summary>
     public class AchievementProgress
     {
+        /** @brief Achievement ID. */
         public readonly ulong ID;
+
+        /** @brief The progress of a bitfield achievement. `1` represents a completed bit. */
         public readonly string Bitfield;
+
+        /** @brief The progress of a count achievement. */
         public readonly long Count;
+
+        /** @brief Whether the achievement is unlocked */
         public readonly bool IsUnlocked;
+
+        /** @brief Achievement name. */
         public readonly string Name;
+
+        /** @brief The time when the achievement is unlocked. */
         public readonly DateTime UnlockTime;
+
+        /** @brief  Additional info, no more than 2KB.*/
         public readonly byte[] ExtraData;
 
 
@@ -108,9 +163,13 @@ namespace Pico.Platform.Models
             }
         }
     }
-
+    /**
+     * \ingroup Models
+     */
+    /// <summary>The list of achievements with unlocking progress.</summary>
     public class AchievementProgressList : MessageArray<AchievementProgress>
     {
+        /** @brief The total number of achievements with unlocking progress. */
         public readonly ulong TotalSize;
 
         public AchievementProgressList(IntPtr a)

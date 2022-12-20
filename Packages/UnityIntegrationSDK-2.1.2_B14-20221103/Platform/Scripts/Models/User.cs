@@ -14,44 +14,57 @@ using System;
 
 namespace Pico.Platform.Models
 {
+    /**
+     * \ingroup Models
+     */
     /// <summary>
     /// The User info structure.
-    ///
-    /// The basic info fields have valid value all the time,such as` DisplayName`,`ImageUrl`.
-    /// The presence info is valid when you call Presence related requests.
+    /// The basic info fields, such as `DisplayName` and `ImageUrl`, are always valid. 
+    /// The presence info is valid only when you call presence-related APIs.
+    /// See \ref UserService.GetLoggedInUser 
     /// </summary>
     public class User
     {
-        /** @brief User's display name. */
+        /** @brief User's display name.*/
         public readonly string DisplayName;
 
-        /** @brief User's image url which size is 300x300*/
+        /** @brief The URL of user's profile photo. The image size is 300x300. */
         public readonly string ImageUrl;
 
-        /** @brief User's openID. The same user has different ID in different app.*/
-        public readonly string ID;
-
-        /**   @brief User's presence status indicates whether the user is online.*/
-        public readonly UserPresenceStatus PresenceStatus;
-
-        /**   @brief The gender of the user.*/
-        public readonly Gender Gender;
-
-        /**   @brief The presence name ,it's configured in the developer center.*/
-        public readonly string Presence;
-
-        public readonly string PresenceDeeplinkMessage;
-        public readonly string PresenceDestinationApiName;
-        public readonly string PresenceLobbySessionId;
-        public readonly string PresenceMatchSessionId;
-        public readonly string PresenceExtra;
-
-        /**   @brief User's small image url which size is 128x128.*/
+        /** @brief The URL of the user's small profile photo. The image size is 128x128. */
         public readonly string SmallImageUrl;
 
+        /** @brief User's openID. The same user has different openIDs in different apps.*/
+        public readonly string ID;
+
+        /** @brief User's presence status which indicates whether the user is online.*/
+        public readonly UserPresenceStatus PresenceStatus;
+
+        /** @brief User's gender.*/
+        public readonly Gender Gender;
+
+        /** @brief User's presence info which is configured on the PICO Developer Platform.*/
+        public readonly string Presence;
+
+        /** @brief The deeplink message. */
+        public readonly string PresenceDeeplinkMessage;
+
+        /** @brief The destination's API name. */
+        public readonly string PresenceDestinationApiName;
+
+        /** @brief The lobby session ID which identifies a group or team. */
+        public readonly string PresenceLobbySessionId;
+
+        /** @brief The match session ID which identifies a competition. */
+        public readonly string PresenceMatchSessionId;
+
+        /** @brief User's extra presence data. */
+        public readonly string PresenceExtra;
+
+        /** @brief The invite token. */
         public readonly string InviteToken;
 
-        /** @brief User's register region.It is a country code.*/
+        /** @brief User's registration country/region. It is a country/region code. */
         public readonly string StoreRegion;
 
         public User(IntPtr obj)
@@ -89,14 +102,19 @@ namespace Pico.Platform.Models
             NextPageParam = CLIB.ppf_UserArray_GetNextPageParam(a);
         }
     }
+
     /**
      * \ingroup Models
      */
+    /// <summary>
+    /// Indicates whether the friend request is canceled or successfully sent.
+    /// </summary>
     public class LaunchFriendResult
     {
-        /**@brief whether it's canceled by user.*/
+        /**@brief Whether the request is canceled by the user.*/
         public readonly bool DidCancel;
-        /**@brief whether it's sent successfully.*/
+
+        /**@brief Whether the request is successfully sent. */
         public readonly bool DidSendRequest;
 
         public LaunchFriendResult(IntPtr obj)
@@ -106,7 +124,12 @@ namespace Pico.Platform.Models
         }
     }
 
-
+    /**
+     * \ingroup Models
+     */
+    /// <summary>
+    /// The info returned after calling \ref UserService.GetFriendsAndRooms.
+    /// </summary>
     public class UserRoom
     {
         public readonly User User;
@@ -139,6 +162,9 @@ namespace Pico.Platform.Models
         }
     }
 
+    /**
+     * \ingroup Models
+     */
     public static class Permissions
     {
         public const string UserInfo = "user_info";
@@ -147,13 +173,21 @@ namespace Pico.Platform.Models
         public const string SportsSummaryData = "sports_summarydata";
     }
 
+    /**
+     * \ingroup Models
+     */
+    /// <summary>
+    /// The result returned after calling \ref UserService.RequestUserPermissions or \ref UserService.GetAuthorizedPermissions.
+    /// </summary>
     public class PermissionResult
     {
         /** @brief The authorized permissions.*/
         public readonly string[] AuthorizedPermissions;
-        /** @brief The access token .It has value only after you call RequestPermissions.*/
+
+        /** @brief The access token. It has a value only after you call \ref UserService.RequestUserPermissions.*/
         public readonly string AccessToken;
-        /** @brief The current user's Id.*/
+
+        /** @brief The current user's ID.*/
         public readonly string UserID;
 
         public PermissionResult(IntPtr o)

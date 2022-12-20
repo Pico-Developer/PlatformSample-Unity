@@ -15,11 +15,18 @@ using UnityEngine;
 
 namespace Pico.Platform.Models
 {
+    /// <summary>
+    /// Invitation notificiation.
+    /// </summary>
     public class RoomInviteNotification
     {
+        /** @brief Invitation ID. */
         public readonly UInt64 ID;
+        /** @brief Room ID. */
         public readonly UInt64 RoomID;
+        /** @brief Inviter's user ID. */
         public readonly string SenderID;
+        /** @brief The time when the invitation is sent. */
         public readonly DateTime SentTime;
 
 
