@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 using Pico.Platform;
 using Pico.Platform.Models;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 namespace Pico.Platform.Samples.Game
@@ -108,6 +109,8 @@ namespace Pico.Platform.Samples.Game
             NetworkService.SetNotification_Game_Request_FailedCallback(OnRequestFailed);
             NetworkService.SetNotification_Game_StateResetCallback(OnGameStateReset);
             RoomService.SetRoomInviteAcceptedNotificationCallback(OnRoomInviteAcceptedNotification);
+            ChallengesService.SetChallengeInviteAcceptedOrLaunchAppNotificationCallback(OnChallengeInviteAcceptedOrLaunchAppNotification);
+            ApplicationService.SetLaunchIntentChangedCallback(OnLaunchIntentChanged);
             
             // test callback
             MatchmakingService.SetCancel2NotificationCallback(OnMatchmakingCancel2Notification);

@@ -162,16 +162,15 @@ namespace Pico.Platform.Samples.UserDemo
         void GetAccessToken(string[] args)
         {
             Log("GetAccessToken...");
-            UserService.GetAccessToken().OnComplete(delegate(Message<string> message)
+            UserService.GetAccessToken().OnComplete(msg =>
             {
-                if (message.IsError)
+                if (msg.IsError)
                 {
-                    var err = message.GetError();
-                    Log($"Got access token error {err.Message} code={err.Code}");
+                    Log($"Got access token error:code={msg.Error.Code} {msg.Error.Message} ");
                     return;
                 }
 
-                string accessToken = message.Data;
+                string accessToken = msg.Data;
                 Log($"Got accessToken {accessToken}");
             });
         }
@@ -188,14 +187,12 @@ namespace Pico.Platform.Samples.UserDemo
             {
                 if (msg.IsError)
                 {
-                    var err = msg.GetError();
-                    Log($"Launch friend request error:{err.Message};code={err.Code}");
+                    Log($"Launch friend request error:code={msg.Error.Code} message={msg.Error.Message}");
                     return;
                 }
 
                 var launchResult = msg.Data;
-                Log(
-                    $"Launch friend request ok:DidCancel={launchResult.DidCancel},DidSend={launchResult.DidSendRequest}");
+                Log($"Launch friend request ok:DidCancel={launchResult.DidCancel},DidSend={launchResult.DidSendRequest}");
             });
         }
 
@@ -206,8 +203,7 @@ namespace Pico.Platform.Samples.UserDemo
             {
                 if (msg.IsError)
                 {
-                    var err = msg.GetError();
-                    Log($"Get Friends error {err.Message} code={err.Code}");
+                    Log($"Get Friends error code={msg.Error.Code} message={msg.Error.Message}");
                     return;
                 }
 
@@ -230,14 +226,12 @@ namespace Pico.Platform.Samples.UserDemo
             {
                 if (msg.IsError)
                 {
-                    var err = msg.GetError();
-                    Log($"Get user info failed:{err.Message} {err.Code}");
+                    Log($"Get user info failed:{msg.Error.Message} {msg.Error.Code}");
+                    return;
                 }
-                else
-                {
-                    var usr = msg.Data;
-                    Log($"get user info by id={args[1]}：{User2String(usr)}");
-                }
+
+                var usr = msg.Data;
+                Log($"get user info by id={args[1]}：{User2String(usr)}");
             });
         }
 
@@ -249,14 +243,12 @@ namespace Pico.Platform.Samples.UserDemo
                 if (msg.IsError)
                 {
                     Log("Received get user error");
-                    Error error = msg.GetError();
-                    Log($"Error: code={error.Code} message={error.Message}");
+                    Log($"GetLoggedInUser failed: code={msg.Error.Code} message={msg.Error.Message}");
                     return;
                 }
 
-                Log("Received get user success");
                 User user = msg.Data;
-                Log($"User: {User2String(user)}");
+                Log($"GetLoggedInUser success: {User2String(user)}");
             });
         }
 
@@ -279,8 +271,7 @@ namespace Pico.Platform.Samples.UserDemo
             {
                 if (msg.IsError)
                 {
-                    var err = msg.GetError();
-                    Log($"Get next page failed：{err.Message}");
+                    Log($"Get next page failed：code={msg.Error.Code} message={msg.Error.Message}");
                     return;
                 }
 

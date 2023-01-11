@@ -1,0 +1,15 @@
+
+.idea/
+node_modules/
+.pynb_checkpoints
+*.iml
+.vscode/
+.DS_Store
+__pycache__/
+yarn.lock
+yarn-error.log
+*.lock
+package-lock.json
+.pytest_cache
+cmake-build-debug
+
