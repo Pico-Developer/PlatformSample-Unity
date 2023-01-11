@@ -10,6 +10,7 @@ namespace Pico.Platform.Samples
 {
     public class ChallengesSample : MonoBehaviour
     {
+        public Button LaunchBtn;
         public Button BackToMainPanelBtn;
         private ulong curChallengeID;
         private const string TAG = "PPF_Game unity";
@@ -52,11 +53,14 @@ namespace Pico.Platform.Samples
             GetEntriesBtn.onClick.RemoveAllListeners();
             BackToMainPanelBtn.onClick.RemoveAllListeners();
             InviteBtn.onClick.RemoveAllListeners();
+            LaunchBtn.onClick.RemoveAllListeners();
+            
 
             GetListBtn.onClick.AddListener(OnGetListBtnClick);
             GetEntriesBtn.onClick.AddListener(OnGetEntriesBtnClick);
             BackToMainPanelBtn.onClick.AddListener(OnBackToMainPanelBtnClick);
             InviteBtn.onClick.AddListener(OnInviteBtnClick);
+            LaunchBtn.onClick.AddListener(OnLaunchBtnClick);
 
 
 #if !UNITY_EDITOR
@@ -98,6 +102,24 @@ namespace Pico.Platform.Samples
         {
             var task = ChallengesService.GetList(Option.GetOption(), GetGetListPageIndex(), GetGetListPageSize());
             task.OnComplete(OnGetListComplete);
+            LogHelper.LogInfo(TAG, $"GetList taskId: {task.TaskId}");
+        }
+
+        void OnLaunchBtnClick()
+        {
+            var task = ChallengesService.LaunchInvitableUserFlow(curChallengeID).OnComplete((Message message) =>
+            {
+                LogHelper.LogInfo(TAG, $"message.Type: {message.Type}");
+                if (!message.IsError)
+                {
+                    LogHelper.LogInfo(TAG, $"OnLaunchInvitableUserFlowComplete no error");
+                }
+                else
+                {
+                    var error = message.GetError();
+                    LogHelper.LogInfo(TAG, $"OnLaunchInvitableUserFlowComplete error: {error.Message}");
+                }
+            });
             LogHelper.LogInfo(TAG, $"GetList taskId: {task.TaskId}");
         }
 

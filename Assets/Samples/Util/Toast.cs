@@ -7,7 +7,7 @@ namespace Pico.Platform.Samples
     {
         public Text text;
         private float showTime = 2;
-        public float ttlSeconds;
+        public float ttlSeconds = 3;
 
         private void Start()
         {

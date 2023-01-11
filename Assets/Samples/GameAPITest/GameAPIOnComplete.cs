@@ -193,6 +193,21 @@ namespace Pico.Platform.Samples.Game
         {
             inviteRoomID = msg.Data;
             LogHelper.LogInfo(TAG, $"OnRoomInviteAcceptedNotification: {msg.Data}");
+            var details = ApplicationService.GetLaunchDetails();
+            LogHelper.LogInfo(TAG, $"GetLaunchDetails: RoomID: {details.RoomID}, ChallengeID: {details.ChallengeID}");
+        }
+        
+        void OnChallengeInviteAcceptedOrLaunchAppNotification(Message<string> msg)
+        {
+            LogHelper.LogInfo(TAG, $"OnChallengeInviteAcceptedOrLaunchAppNotification: {msg.Data}");
+            var details = ApplicationService.GetLaunchDetails();
+            LogHelper.LogInfo(TAG, $"GetLaunchDetails: RoomID: {details.RoomID}, ChallengeID: {details.ChallengeID}");
+        }
+
+        void OnLaunchIntentChanged(Message<string> msg)
+        {
+            var details = ApplicationService.GetLaunchDetails();
+            LogHelper.LogInfo(TAG, $"OnLaunchIntentChanged GetLaunchDetails: RoomID: {details.RoomID}, ChallengeID: {details.ChallengeID}");
         }
         
         static void OnGameInitialize(Message<GameInitializeResult> msg)

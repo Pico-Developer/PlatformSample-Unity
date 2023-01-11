@@ -147,6 +147,9 @@ namespace Pico.Platform.Samples.Game
             ["MarkAsRead"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
                 return NotificationService.MarkAsRead(Convert.ToUInt64(paramList[0])).OnComplete(OnMarkAsReadComplete);
             }), new List<ParamName>() { ParamName.ROOM_INVITE_NOTIFICATION_ID }),
+            ["LaunchInvitableUserFlow"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
+                return RoomService.LaunchInvitableUserFlow(Convert.ToUInt64(paramList[0])).OnComplete(OnLaunchInvitableUserFlowComplete);
+            }), new List<ParamName>() { ParamName.ROOM_ID }),
         };
         static void OnGetRoomInvitesComplete(Message<RoomInviteNotificationList> message)
         {

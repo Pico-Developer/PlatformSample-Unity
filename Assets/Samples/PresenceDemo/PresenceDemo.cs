@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Text;
+using LitJson;
 using Newtonsoft.Json;
 using Pico.Platform.Models;
 
@@ -11,6 +12,7 @@ namespace Pico.Platform.Samples
         private ApplicationInviteList cacheApplicationInviteList;
         private UserRoomList cacheUserRoomList;
         private DestinationList cacheDestinationList;
+        private User currentUser;
 
         public override Fun[] GetFunList()
         {
@@ -19,6 +21,8 @@ namespace Pico.Platform.Samples
                 new Fun("a", "a : GetLaunchDetail", GetLaunchDetail),
                 new Fun("b", "b <packageName> [<deeplink>]: Launch other app", LaunchOtherApp),
                 new Fun("c", "c <appId> [<deeplink>]: Launch other app by appId", LaunchOtherAppByAppId),
+                new Fun("d", "d : Launch store", LaunchStore),
+                new Fun("dd", "dd : Get version", GetVersion),
                 new Fun("e", "e <userId1> <userId2> ...:GetInvitableUsers with suggested user list", Presence_GetInvitableUsers),
                 new Fun("f", "e : GetUserArrayNextPage", GetUserArrayNextPage),
                 new Fun("g", "g <userId> : Send invites to user", Presence_SendInvites),
@@ -35,7 +39,68 @@ namespace Pico.Platform.Samples
                 new Fun("kk", "kk <image1> <image2> ... :Share video by images", Presence_ShareImages),
                 new Fun("l", "l: Get destinations", Presence_GetDestinations),
                 new Fun("m", "m: Get next page destinations", Presence_GetNextPageDestinations),
+                new Fun("n", "n: Get current user presence info", Presence_GetUser),
             };
+        }
+
+        void Presence_GetUser(string[] args)
+        {
+            Log("call UserService.Get(currentUser.ID) to retrieve presence info");
+            if (currentUser == null)
+            {
+                UserService.GetLoggedInUser().OnComplete(m =>
+                {
+                    if (m.IsError)
+                    {
+                        Log($"GetLoggedInUser failed : error={JsonMapper.ToJson(m.Error)}");
+                        return;
+                    }
+
+                    Log("GetLoggedInUser successfully");
+                    currentUser = m.Data;
+                    Presence_GetUser(args);
+                });
+                return;
+            }
+
+            UserService.Get(currentUser.ID).OnComplete(m =>
+            {
+                if (m.IsError)
+                {
+                    Log($"User.Get failed error={JsonMapper.ToJson(m.Error)}");
+                    return;
+                }
+
+                Log($"User info:{JsonMapper.ToJson(m.Data)}");
+            });
+        }
+
+        private void LaunchStore(string[] args)
+        {
+            ApplicationService.LaunchStore().OnComplete(msg =>
+            {
+                if (msg.IsError)
+                {
+                    Log($"LaunchStore failed :error={JsonMapper.ToJson(msg.Error)}");
+                    return;
+                }
+
+                Log($"LaunchStore successfully data={msg.Data}");
+            });
+        }
+
+        private void GetVersion(string[] args)
+        {
+            ApplicationService.GetVersion().OnComplete(msg =>
+            {
+                if (msg.IsError)
+                {
+                    Log($"Call Application GetVersion error:{JsonConvert.SerializeObject(msg.Error)}");
+                    return;
+                }
+
+                Log($"ApplicationService.GetVersion result={JsonConvert.SerializeObject(msg.Data)}");
+            });
         }
 
         void Presence_GetDestinations(string[] args)
@@ -480,7 +545,7 @@ namespace Pico.Platform.Samples
         void GetLaunchDetail(string[] args)
         {
             var detail = ApplicationService.GetLaunchDetails();
-            Log($"LaunchType:{detail.LaunchType} DeeplinkMessage:{detail.DeeplinkMessage} LaunchSource:{detail.LaunchSource} DestinationApiName:{detail.DestinationApiName} RoomId:{detail.RoomID} TrackingId:{detail.TrackingID} LobbySessionId:{detail.LobbySessionID} MatchSessionId:{detail.MatchSessionID} Users:{UserList2String(detail.Users)} Extra:{detail.Extra}");
+            Log($"{JsonConvert.SerializeObject(detail)}");
         }
 
         void GetUserArrayNextPage(string[] args)
