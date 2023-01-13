@@ -5,7 +5,7 @@ This repo contains samples demonstrating the usage of the Platform SDK. These de
 | Environment          | Version    |
 |----------------------|------------|
 | Unity Editor         | &ge;2020.3 |
-| Pico Integration SDK | &ge;2.1.2  |
+| Pico Integration SDK | &ge;2.1.3  |
 | Pico ROM             | &ge;4.6.0  |
 
 # SampleList
