@@ -3,6 +3,7 @@ using System.Collections;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -17,6 +18,11 @@ namespace Pico.Platform.Samples
         public static string post(string url, JObject data)
         {
             return post(url, data.ToString());
+        }
+
+        public static void post(string url, JObject data, Action<string> callback)
+        {
+            post(url, JsonConvert.SerializeObject(data), callback);
         }
 
         public static string get(string url)

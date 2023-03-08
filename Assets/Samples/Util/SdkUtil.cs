@@ -6,7 +6,6 @@ namespace Pico.Platform.Samples
 {
     public class SdkUtil
     {
-        
         public static string GetAppID(string appId = null)
         {
             string configAppID = PXR_PlatformSetting.Instance.appID.Trim();
@@ -28,6 +27,18 @@ namespace Pico.Platform.Samples
             }
 
             return appId;
+        }
+
+        public static void SetOnLaunchApp(Action<string> callback)
+        {
+            ApplicationService.SetLaunchIntentChangedCallback(m =>
+            {
+                var launchDetails = ApplicationService.GetLaunchDetails();
+                if (launchDetails.LaunchType == LaunchType.Deeplink && string.IsNullOrWhiteSpace(launchDetails.DestinationApiName))
+                {
+                    callback.Invoke(launchDetails.DeeplinkMessage);
+                }
+            });
         }
 
         public static void Initialize(bool async, Action onSuccess, Action onFail)

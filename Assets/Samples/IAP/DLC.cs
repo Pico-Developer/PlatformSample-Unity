@@ -2,6 +2,7 @@
 using IngameDebugConsole;
 using Newtonsoft.Json;
 using Pico.Platform.Models;
+using Samples.Util;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -48,7 +49,7 @@ namespace Pico.Platform.Samples.IAP
             switchToIap.onClick.AddListener(() => { SceneManager.LoadScene("Samples/IAP/IAP"); });
             refreshAssetList.onClick.AddListener(loadAssetList);
             buttonNextPage.onClick.AddListener(loadNextPage);
-            CoreService.AsyncInitialize().OnComplete(msg =>
+            InitUtil.AsyncInitialize().OnComplete(msg =>
             {
                 Log($"AsyncInitialize :{JsonConvert.SerializeObject(msg)}");
                 loadAssetList();

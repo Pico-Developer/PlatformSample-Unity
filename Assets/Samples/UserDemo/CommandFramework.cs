@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
+using Samples.Util;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,7 +39,7 @@ namespace Pico.Platform.Samples
             {
                 try
                 {
-                    CoreService.AsyncInitialize().OnComplete(m =>
+                    InitUtil.AsyncInitialize().OnComplete(m =>
                     {
                         if (m.IsError)
                         {
@@ -51,6 +52,8 @@ namespace Pico.Platform.Samples
                             Log($"Async initialize failed: result={m.Data}");
                             return;
                         }
+
+                        this.OnInit();
 
                         Log("AsyncInitialize Successfully");
                     });
@@ -65,7 +68,8 @@ namespace Pico.Platform.Samples
             {
                 try
                 {
-                    CoreService.Initialize();
+                    InitUtil.Initialize();
+                    this.OnInit();
                 }
                 catch (UnityException e)
                 {
@@ -87,6 +91,7 @@ namespace Pico.Platform.Samples
         }
 
         public abstract Fun[] GetFunList();
+        public abstract void OnInit();
 
         private void OnButtonClick()
         {
@@ -132,10 +137,10 @@ namespace Pico.Platform.Samples
             inputField.text = "";
         }
 
-        protected void Log(String newLine)
+        protected void Log(String content)
         {
-            Debug.Log(newLine);
-            dataOutput.text = "> " + newLine + Environment.NewLine + dataOutput.text;
+            Debug.Log(content);
+            dataOutput.text = $"> {content}\n{dataOutput.text}";
             if (dataOutput.text.Length > 1000)
             {
                 dataOutput.text = dataOutput.text.Substring(0, 1000);

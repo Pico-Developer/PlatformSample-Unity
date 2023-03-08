@@ -43,6 +43,24 @@ namespace Pico.Platform.Samples
             };
         }
 
+        public override void OnInit()
+        {
+            PresenceService.SetJoinIntentReceivedNotificationCallback(OnJoinIntentChanged);
+            ApplicationService.SetLaunchIntentChangedCallback(OnLaunchIntentChanged);
+        }
+
+        private void OnLaunchIntentChanged(Message<string> message)
+        {
+            Log($"LaunchIntentChanged:{JsonConvert.SerializeObject(message.Data)}");
+            var launchDetails = ApplicationService.GetLaunchDetails();
+            Log($"LaunchDetails:{JsonConvert.SerializeObject(launchDetails)}");
+        }
+
+        private void OnJoinIntentChanged(Message<PresenceJoinIntent> message)
+        {
+            Log($"PresenceJoinIntentChanged: {JsonConvert.SerializeObject(message.Data)}");
+        }
+
         void Presence_GetUser(string[] args)
         {
             Log("call UserService.Get(currentUser.ID) to retrieve presence info");

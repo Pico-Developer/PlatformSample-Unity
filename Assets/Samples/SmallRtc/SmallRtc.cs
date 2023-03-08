@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Pico.Platform;
+using Samples.Util;
 using UnityEngine;
 
 namespace Pico.Platform.Samples
@@ -10,7 +10,7 @@ namespace Pico.Platform.Samples
         void Start()
         {
             print("开始初始化");
-            CoreService.Initialize();
+            InitUtil.Initialize();
             print("初始化成功");
             print("开始初始化RTC Engine");
             {

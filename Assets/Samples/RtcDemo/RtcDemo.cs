@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Pico.Platform.Models;
+using Samples.Util;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -102,7 +103,7 @@ namespace Pico.Platform.Samples.RtcDemo
                 }
                 else
                 {
-                    CoreService.AsyncInitialize().OnComplete(m =>
+                    InitUtil.AsyncInitialize().OnComplete(m =>
                     {
                         if (m.IsError)
                         {
