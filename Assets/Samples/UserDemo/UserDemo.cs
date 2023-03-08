@@ -8,6 +8,11 @@ namespace Pico.Platform.Samples.UserDemo
     {
         private UserList cacheUserList;
         private UserRoomList userRoomList;
+        private UserRelationResult userRelationResult;
+
+        public override void OnInit()
+        {
+        }
 
         public override Fun[] GetFunList()
         {
@@ -21,6 +26,7 @@ namespace Pico.Platform.Samples.UserDemo
                 new Fun("e", "e : GetUserArrayNextPage", GetUserArrayNextPage),
                 new Fun("ee", "ee : GetLoggedInUserFriendsAndRooms", GetLoggedInUserFriendAndRooms),
                 new Fun("eee", "eee : Get next page of UserAndRoomArray", GetUserAndRoomArrayNextPage),
+                new Fun("r", "r <userId1> <userId2>: Get User Relation by user ids", GetUserRelations),
                 new Fun("l", "l: Get authorized permissions", User_GetAuthorizedPermissions),
                 new Fun("ll", "ll <permission1> <permission2>: Request permissions ", User_RequestPermissions),
             };
@@ -128,6 +134,46 @@ namespace Pico.Platform.Samples.UserDemo
                 Log("Got UserAndRoomList successfully");
                 Log(UserAndRoomList2String(msg.Data));
             });
+        }
+
+        private void GetUserRelations(string[] args)
+        {
+            Log("GetUserRelations...");
+            var userIds = args.Skip(1).ToArray();
+            UserService.GetUserRelations(userIds).OnComplete((msg) =>
+            {
+                if (msg.IsError)
+                {
+                    Log($"Failed to getLoggedInUserFriendsAndRooms:code={msg.Error.Code},message={msg.Error.Message}");
+                    return;
+                }
+
+                userRelationResult = msg.Data;
+                Log("Got GetUserRelations successfully");
+                Log(UserRelations2String(msg.Data));
+            });
+        }
+
+        private string UserRelations2String(UserRelationResult result)
+        {
+            if (result == null)
+            {
+                Log($"UserRelationResult is empty，please get UserRelationResult first");
+                return "";
+            }
+
+            StringBuilder builder = new StringBuilder();
+            builder.Append($"UserRelationResult : \n");
+            foreach (var userRelation in result)
+            {
+                var key = userRelation.Key;
+                var value = userRelation.Value;
+                builder.Append($"User {key} : Relation {value.ToString()}").Append("\n");
+            }
+
+            builder.Append($"UserRelationResult END\n");
+
+            return builder.ToString();
         }
 
         private void GetUserAndRoomArrayNextPage(string[] args)

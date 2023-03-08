@@ -34,12 +34,12 @@ namespace Pico.Platform.Samples
             options.SetVisibility((ChallengeVisibility)Visibility.value);
             if (!string.IsNullOrEmpty(EndDate.text))
             {
-                options.SetEndDate(Util.SecondsToDateTime(Convert.ToInt64(EndDate.text)));
+                options.SetEndDate(TimeUtil.SecondsToDateTime(Convert.ToInt64(EndDate.text)));
             }
 
             if (!string.IsNullOrEmpty(StartDate.text))
             {
-                options.SetStartDate(Util.SecondsToDateTime(Convert.ToInt64(StartDate.text)));
+                options.SetStartDate(TimeUtil.SecondsToDateTime(Convert.ToInt64(StartDate.text)));
             }
             
             options.SetLeaderboardName(LeaderboardName.text);

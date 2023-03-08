@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Pico.Platform;
+using Samples.Util;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,7 @@ namespace Pico.Platform.Samples.SportCenter
     {
         void Start()
         {
-            CoreService.Initialize();
+            InitUtil.Initialize();
             //sliders
             SliderText detailsBegin = GameObject.Find("SliderTextSummaryStart").GetComponent<SliderText>();
             SliderText detailsEnd = GameObject.Find("SliderTextSummaryEnd").GetComponent<SliderText>();

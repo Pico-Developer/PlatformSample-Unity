@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Pico.Platform;
 using Pico.Platform.Models;
 using Pico.Platform.Samples;
+using Samples.Util;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -46,13 +47,14 @@ namespace PICO.Platform.Samples.Invite
             try
             {
                 this.setStatus(MainStatus.loading);
-                CoreService.Initialize();
+                InitUtil.Initialize();
                 this.setStatus(MainStatus.main);
                 var launchDetails = ApplicationService.GetLaunchDetails();
                 launchDetailCanvas.SetLaunchDetail(launchDetails);
                 Debug.Log($"LaunchDetails {JsonConvert.SerializeObject(launchDetails)}");
 
                 ApplicationService.SetLaunchIntentChangedCallback(onLaunchIntentChanged);
+                PresenceService.SetJoinIntentReceivedNotificationCallback(onJoinIntentChanged);
                 UserService.GetLoggedInUser().OnComplete(msg =>
                 {
                     if (msg.IsError)
@@ -77,6 +79,11 @@ namespace PICO.Platform.Samples.Invite
                 Debug.Log($"初始化失败{e}");
                 this.setStatus(MainStatus.error);
             }
+        }
+
+        private void onJoinIntentChanged(Message<PresenceJoinIntent> message)
+        {
+            Debug.Log($"JoinIntentChanged:{JsonConvert.SerializeObject(message.Data)}");
         }
 
         private void onLaunchIntentChanged(Message<string> message)

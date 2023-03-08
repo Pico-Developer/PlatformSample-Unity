@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using Samples.Util;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -90,11 +91,11 @@ namespace Pico.Platform.Samples.RtcMessage
         {
             try
             {
-                CoreService.Initialize();
+                InitUtil.Initialize();
             }
             catch (Exception e)
             {
-                Debug.Log("Initialize Platform SDK failed");
+                Debug.Log($"Initialize Platform SDK failed {e}");
                 return;
             }
 

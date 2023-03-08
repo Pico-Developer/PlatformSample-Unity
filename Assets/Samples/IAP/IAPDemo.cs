@@ -1,5 +1,6 @@
 ﻿using System;
 using Pico.Platform.Models;
+using Samples.Util;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -33,7 +34,7 @@ namespace Pico.Platform.Samples.IAP
             purchasePool = new ObjectPool();
             try
             {
-                CoreService.Initialize();
+                InitUtil.Initialize();
                 Log($"Init Successfully");
             }
             catch (Exception e)

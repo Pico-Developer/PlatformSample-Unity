@@ -337,7 +337,7 @@ namespace Pico.Platform.Samples.Game
 
         public static string GetDateTime(DateTime dateTime)
         {
-            if (Util.DateTimeToSeconds(dateTime) == 0)
+            if (TimeUtil.DateTimeToSeconds(dateTime) == 0)
             {
                 return "0";
             }

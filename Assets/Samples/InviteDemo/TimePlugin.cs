@@ -17,15 +17,15 @@ namespace PICO.Platform.Samples.Invite
             var now = DateTime.Now;
             beginTime = now.AddHours(-1);
             endTime = now.AddHours(1);
-            timeSlider.value = Util.DateTimeToSeconds(endTime);
-            timeSlider.minValue = Util.DateTimeToSeconds(beginTime);
-            timeSlider.maxValue = Util.DateTimeToSeconds(endTime);
-            timeSlider.onValueChanged.AddListener(v => { timeValue.text = Util.SecondsToDateTime((long) v).ToString(); });
+            timeSlider.value = TimeUtil.DateTimeToSeconds(endTime);
+            timeSlider.minValue = TimeUtil.DateTimeToSeconds(beginTime);
+            timeSlider.maxValue = TimeUtil.DateTimeToSeconds(endTime);
+            timeSlider.onValueChanged.AddListener(v => { timeValue.text = TimeUtil.SecondsToDateTime((long) v).ToString(); });
         }
 
         public DateTime Get()
         {
-            return Util.SecondsToDateTime((long) (timeSlider.value));
+            return TimeUtil.SecondsToDateTime((long) (timeSlider.value));
         }
     }
 }
