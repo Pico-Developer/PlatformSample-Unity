@@ -1,11 +1,11 @@
 This repo contains samples demonstrating the usage of the Platform SDK.   
-These demos should run on ROM ≥ 5.4.0.
+
 
 # Requirement
 
 | Environment          | Version             |
 |----------------------|---------------------|
-| Unity Editor         | &ge;2020.3 &le;2021 |
+| Unity Editor         | &ge;2020.3 &lt;2022 |
 | Pico Integration SDK | &ge;2.1.3           |
 | Pico ROM             | &ge;4.6.0           |
 
