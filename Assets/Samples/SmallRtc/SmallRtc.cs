@@ -1,28 +1,36 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Samples.Util;
+using TMPro;
 using UnityEngine;
 
 namespace Pico.Platform.Samples
 {
     public class SmallRtc : MonoBehaviour
     {
+        public TMP_Text textInfo;
+
         void Start()
         {
-            print("开始初始化");
             InitUtil.Initialize();
-            print("初始化成功");
-            print("开始初始化RTC Engine");
+            Debug.Log("Before init RTC Engine");
             {
                 var res = RtcService.InitRtcEngine();
-                print($"初始化RTC：{res}");
+                Debug.Log($"After init RTC：{res}");
+                if (res != 0)
+                {
+                    Debug.Log($"Init RTC failed {res}");
+                    textInfo.text = $"Init RTC failed : {res}";
+                    return;
+                }
             }
             var roomId = "1";
             UserService.GetLoggedInUser().OnComplete(userResp =>
             {
                 if (userResp.IsError)
                 {
-                    print($"code={userResp.Error.Code};message={userResp.Error.Message}");
+                    Debug.Log($"code={userResp.Error.Code};message={userResp.Error.Message}");
+                    textInfo.SetText("GetLoggedInUser failed");
                     return;
                 }
 
@@ -35,27 +43,29 @@ namespace Pico.Platform.Samples
                 {
                     if (msg.IsError)
                     {
-                        print($"code={msg.Error.Code},message={msg.Error.Message}");
+                        Debug.Log($"code={msg.Error.Code},message={msg.Error.Message}");
+                        textInfo.SetText($"Get Token failed {msg.Error}");
                         return;
                     }
 
                     var token = msg.Data;
                     var res = RtcService.JoinRoom(roomId, userId, token, RtcRoomProfileType.Communication, true);
-                    print($"join Room result {res}");
+                    Debug.Log($"join Room result {res}");
                 });
             });
             RtcService.SetOnJoinRoomResultCallback(msg =>
             {
-                if (msg.IsError)
+                var res = msg.Data;
+                Debug.Log(JsonConvert.SerializeObject(res));
+                if (res.ErrorCode != 0)
                 {
-                    print($"加入房间错误:code={msg.Error.Code},message={msg.Error.Message}");
+                    textInfo.text = $"Join room failed {res.ErrorCode}";
                     return;
                 }
 
-                var res = msg.Data;
-                print(JsonConvert.SerializeObject(res));
                 RtcService.PublishRoom(res.RoomId);
                 RtcService.StartAudioCapture();
+                textInfo.text = "You can speak now";
             });
         }
     }
