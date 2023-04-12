@@ -3,51 +3,36 @@ using System.Collections.Generic;
 using System.Text;
 using Pico.Platform.Models;
 using Samples.Util;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Pico.Platform.Samples.RtcDemo
 {
-    class Room
-    {
-        public string id;
-        public GameObject GameObject;
-        public Button leaveRoomButton;
-        public Toggle publishToggle;
-        public Text textRoomId;
-        public Button destroyRoomButton;
-        public Toggle toggleRemoteAudio;
-    }
-
     public class RtcDemo : MonoBehaviour
     {
         public GameObject roomPrefab;
-        private Text outputText;
-        private InputField _inputFieldRoomId;
-        private InputField _inputFieldUserId;
-        float _lastRoomStatsTime = 0; //The timestamp of print room stats.Used for control frequency.
-        private List<Room> _rooms = new List<Room>();
-        private GameObject _roomListPanel;
-        private Dropdown dropdownRoomProfile;
+        public Text outputText;
+        public InputField inputFieldRoomId;
+        public InputField inputFieldUserId;
+        public GameObject roomListPanel;
+        public Dropdown dropdownRoomProfile;
+        public Button buttonEnterRoom;
+        public Toggle toggleEarMonitorMode;
+        public Toggle toggleCapture;
+        public Slider sliderRecordingVolume;
+        public Slider sliderPlaybackVolume;
+        public Slider sliderEarMonitorVolume;
+        public Dropdown dropDownScenarioType;
+        public TMP_Text textLocalAudioReport;
+        public TMP_Text textRemoteAudioReport;
 
-        public static GameObject FindChild(GameObject parent, string childName)
-        {
-            for (var ind = 0; ind < parent.transform.childCount; ind++)
-            {
-                var i = parent.transform.GetChild(ind);
-                if (i.gameObject.name.Trim().Equals(childName.Trim()))
-                {
-                    return i.gameObject;
-                }
-            }
-
-            return null;
-        }
+        private List<Room> roomList = new List<Room>();
 
         bool CheckRoomId()
         {
-            if (String.IsNullOrWhiteSpace(_inputFieldRoomId.text))
+            if (String.IsNullOrWhiteSpace(inputFieldRoomId.text))
             {
                 Log($"Please input Room Id");
                 return false;
@@ -58,7 +43,7 @@ namespace Pico.Platform.Samples.RtcDemo
 
         bool CheckUserId()
         {
-            if (String.IsNullOrWhiteSpace(_inputFieldUserId.text))
+            if (String.IsNullOrWhiteSpace(inputFieldUserId.text))
             {
                 Log($"Please input User Id");
                 return false;
@@ -81,20 +66,6 @@ namespace Pico.Platform.Samples.RtcDemo
 
         private void Start()
         {
-            Log("start");
-            outputText = GameObject.Find("TextOutput").GetComponent<Text>();
-            _inputFieldRoomId = GameObject.Find("InputFieldRoomId").GetComponent<InputField>();
-            _inputFieldUserId = GameObject.Find("InputFieldUserId").GetComponent<InputField>();
-            _roomListPanel = GameObject.Find("RoomListPanel");
-            dropdownRoomProfile = GameObject.Find("DropdownRoomProfile").GetComponent<Dropdown>();
-
-            var buttonEnterRoom = GameObject.Find("ButtonEnterRoom").GetComponent<Button>();
-            var toggleEarMonitorMode = GameObject.Find("ToggleEarMonitor").GetComponent<Toggle>();
-            var toggleCapture = GameObject.Find("ToggleCapture").GetComponent<Toggle>();
-            var sliderRecordingVolume = GameObject.Find("SliderRecordingVolume").GetComponent<Slider>();
-            var sliderPlaybackVolume = GameObject.Find("SliderPlaybackVolume").GetComponent<Slider>();
-            var sliderEarMonitorVolume = GameObject.Find("SliderEarMonitorVolume").GetComponent<Slider>();
-            var dropDownScenarioType = GameObject.Find("DropdownScenarioType").GetComponent<Dropdown>();
             try
             {
                 if (CoreService.Initialized)
@@ -227,7 +198,7 @@ namespace Pico.Platform.Samples.RtcDemo
         private void OnRemoteAudioPropertiesReport(Message<RtcRemoteAudioPropertiesReport> message)
         {
             var d = message.Data;
-            StringBuilder builder = new StringBuilder();
+            StringBuilder builder = new StringBuilder($"totalVolume={d.TotalRemoteVolume} ");
             foreach (var usr in d.AudioPropertiesInfos)
             {
                 if (usr.AudioPropertiesInfo.Volume > 5)
@@ -237,9 +208,8 @@ namespace Pico.Platform.Samples.RtcDemo
             }
 
             var report = builder.ToString();
-            Log($@"[RemoteAudioPropertiesReport]totalVolume={d.TotalRemoteVolume} {d.AudioPropertiesInfos.Length}
-{report}
-");
+            textRemoteAudioReport.text = report;
+            Debug.Log($@"[RemoteAudioPropertiesReport]length={d.AudioPropertiesInfos.Length} report={report}");
         }
 
         private void OnLocalAudioPropertiesReport(Message<RtcLocalAudioPropertiesReport> message)
@@ -251,9 +221,8 @@ namespace Pico.Platform.Samples.RtcDemo
                 builder.Append(i.AudioPropertyInfo.Volume).Append(",");
             }
 
-            Log($@"[LocalAudioPropertiesReport] {d.AudioPropertiesInfos.Length}
-LocalVolume={builder.ToString()}
-");
+            textLocalAudioReport.text = builder.ToString();
+            Debug.Log($@"[LocalAudioPropertiesReport] {d.AudioPropertiesInfos.Length}LocalVolume={builder}");
         }
 
         private void OnUserStopAudioCapture(Message<string> message)
@@ -282,8 +251,8 @@ LocalVolume={builder.ToString()}
             }
 
             var roomProfile = (RtcRoomProfileType) dropdownRoomProfile.value;
-            var roomId = _inputFieldRoomId.text;
-            var userId = _inputFieldUserId.text;
+            var roomId = inputFieldRoomId.text;
+            var userId = inputFieldUserId.text;
             Log($"userId={userId} roomId={roomId} scenarioType={roomProfile}");
             var privilege = new Dictionary<RtcPrivilege, int>();
             privilege.Add(RtcPrivilege.PublishStream, 3600 * 2);
@@ -299,7 +268,7 @@ LocalVolume={builder.ToString()}
                 var token = msg.Data;
                 Log($"Got RTC Token:{token}");
                 int result = RtcService.JoinRoom(roomId, userId, token, roomProfile, true);
-                Log($"Join Room Result={result} RoomId={_inputFieldRoomId.text}");
+                Log($"Join Room Result={result} RoomId={inputFieldRoomId.text}");
             });
         }
 
@@ -355,14 +324,8 @@ LocalVolume={builder.ToString()}
 
             Log("Before Join Room");
             Log($"[JoinRoomOk] Elapsed:{rtcJoinRoomResult.Elapsed} JoinType:{rtcJoinRoomResult.JoinType} RoomId:{rtcJoinRoomResult.RoomId} UserId:{rtcJoinRoomResult.UserId}");
-            var room = new Room();
+            var room = Instantiate(roomPrefab, roomListPanel.transform).GetComponent<Room>();
             room.id = rtcJoinRoomResult.RoomId;
-            room.GameObject = Instantiate(roomPrefab, _roomListPanel.transform);
-            room.leaveRoomButton = FindChild(room.GameObject, "ButtonLeaveRoom").GetComponent<Button>();
-            room.publishToggle = FindChild(room.GameObject, "TogglePublish").GetComponent<Toggle>();
-            room.destroyRoomButton = FindChild(room.GameObject, "ButtonDestroyRoom").GetComponent<Button>();
-            room.toggleRemoteAudio = FindChild(room.GameObject, "ToggleRemoteAudio").GetComponent<Toggle>();
-            room.textRoomId = FindChild(room.GameObject, "TextRoomId").GetComponent<Text>();
             room.textRoomId.text = room.id;
             room.leaveRoomButton.onClick.AddListener(() =>
             {
@@ -408,7 +371,7 @@ LocalVolume={builder.ToString()}
                 RemoveRoomFromUi(room.id);
                 Log($"DestroyRoom {room.id} done");
             });
-            _rooms.Add(room);
+            roomList.Add(room);
         }
 
         private void OnLeaveRoom(Message<RtcLeaveRoomResult> msg)
@@ -428,7 +391,7 @@ LocalVolume={builder.ToString()}
         void RemoveRoomFromUi(string roomId)
         {
             Room it = null;
-            foreach (var r in _rooms)
+            foreach (var r in roomList)
             {
                 if (r.id.Equals(roomId))
                 {
@@ -440,12 +403,8 @@ LocalVolume={builder.ToString()}
             if (it != null)
             {
                 Log($"Remove Room {it.id} from ui");
-                _rooms.Remove(it);
-                if (it.GameObject != null)
-                {
-                    Destroy(it.GameObject);
-                    it.GameObject = null;
-                }
+                roomList.Remove(it);
+                Destroy(it.gameObject);
             }
             else
             {
@@ -455,45 +414,28 @@ LocalVolume={builder.ToString()}
 
         private void OnUserLeaveRoom(Message<RtcUserLeaveInfo> msg)
         {
-            if (msg.IsError)
-            {
-                var err = msg.GetError();
-                return;
-            }
-
             var res = msg.Data;
             Log($"[UserLeave]User[{res.UserId}] left room[{res.RoomId}],offline reason：{res.OfflineReason}");
         }
 
         private void OnUserJoinRoom(Message<RtcUserJoinInfo> msg)
         {
-            if (msg.IsError)
-            {
-                var err = msg.GetError();
-                return;
-            }
-
             var res = msg.Data;
             Log($"[UserJoin]user={res.UserId} join room={res.RoomId},UserExtra={res.UserExtra},TimeElapsed{res.Elapsed}");
         }
 
         private void OnRoomStats(Message<RtcRoomStats> msg)
         {
-            if (msg.IsError)
-            {
-                var err = msg.GetError();
-                Log($"[RoomStats]Error {err.Code} {err.Message}");
-                return;
-            }
-
-            if (Time.realtimeSinceStartup - _lastRoomStatsTime < 10)
-            {
-                return;
-            }
-
-            _lastRoomStatsTime = Time.realtimeSinceStartup;
             var res = msg.Data;
-            Log($"[RoomStats]RoomId={res.RoomId} UserCount={res.UserCount} Duration={res.TotalDuration}");
+            foreach (var r in roomList)
+            {
+                if (r.id == res.RoomId)
+                {
+                    r.textRoomStats.text = $"UserCount={res.UserCount} Duration={res.TotalDuration}";
+                }
+            }
+
+            Debug.Log($"[RoomStats]RoomId={res.RoomId} UserCount={res.UserCount} Duration={res.TotalDuration}");
         }
 
         void Log(string s)
