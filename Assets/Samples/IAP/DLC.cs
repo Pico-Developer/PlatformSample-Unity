@@ -2,7 +2,7 @@
 using IngameDebugConsole;
 using Newtonsoft.Json;
 using Pico.Platform.Models;
-using Samples.Util;
+using PICO.Platform.Samples;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -46,7 +46,7 @@ namespace Pico.Platform.Samples.IAP
                     DebugLogManager.Instance.ShowLogWindow();
                 }
             });
-            switchToIap.onClick.AddListener(() => { SceneManager.LoadScene("Samples/IAP/IAP"); });
+            switchToIap.onClick.AddListener(() => { SceneManager.LoadScene("IAP"); });
             refreshAssetList.onClick.AddListener(loadAssetList);
             buttonNextPage.onClick.AddListener(loadNextPage);
             InitUtil.AsyncInitialize().OnComplete(msg =>

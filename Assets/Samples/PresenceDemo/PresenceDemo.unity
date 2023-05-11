@@ -98,8 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 05a5fd0caf7ac46d8a3ae03004acd7cf,
-    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 05a5fd0caf7ac46d8a3ae03004acd7cf, type: 2}
 --- !u!196 &5
 NavMeshSettings:
   serializedVersion: 2
@@ -1358,7 +1357,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -10, y: 0.000061035156}
+  m_AnchoredPosition: {x: -10, y: 300}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &907499551
@@ -2840,6 +2839,7 @@ GameObject:
   - component: {fileID: 1677176860}
   - component: {fileID: 1677176862}
   - component: {fileID: 1677176863}
+  - component: {fileID: 1677176864}
   m_Layer: 0
   m_Name: XR Origin
   m_TagString: Untagged
@@ -2899,9 +2899,8 @@ MonoBehaviour:
   trackingMode: 0
   faceTracking: 0
   lipsyncTracking: 0
-  lateLatching: 0
   foveationLevel: -1
-  openMRC: 1
+  openMRC: 0
   foregroundLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -2931,6 +2930,18 @@ MonoBehaviour:
   inputField: {fileID: 1564663530}
   executeButton: {fileID: 979239419}
   useAsyncInit: 1
+--- !u!114 &1677176864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677176859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a72973d43e04f1f83951dbb6893089b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1912743737
 GameObject:
   m_ObjectHideFlags: 0

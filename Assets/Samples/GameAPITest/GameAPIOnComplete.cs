@@ -12,52 +12,6 @@ namespace Pico.Platform.Samples.Game
 {
     public partial class GameAPITest : MonoBehaviour
     {
-        #region leaderboard oncomplete
-        static void OnLeaderboardGet(Message<LeaderboardList> message)
-        {
-            CommonProcess("OnLeaderboardGet", message, () =>
-            {
-                LogHelper.LogInfo(TAG, GameDebugLog.GetLeaderboardListLogData(message.Data));
-            });
-        }
-
-        static void OnLeaderboardGetEntries(Message<LeaderboardEntryList> message)
-        {
-            CommonProcess("OnLeaderboardGetEntries", message, () =>
-            {
-                LogHelper.LogInfo(TAG, GameDebugLog.GetLeaderboardEntryListLogData(message.Data));
-            });
-        }
-        static void OnLeaderboardWriteEntry(Message<bool> message)
-        {
-            CommonProcess("OnLeaderboardWriteEntry", message, () =>
-            {
-                LogHelper.LogInfo(TAG, message.Data.ToString());
-            });
-        }
-        static void OnLeaderboardGetEntriesAfterRank(Message<LeaderboardEntryList> message)
-        {
-            CommonProcess("OnLeaderboardGetEntriesAfterRank", message, () =>
-            {
-                LogHelper.LogInfo(TAG, GameDebugLog.GetLeaderboardEntryListLogData(message.Data));
-            });
-        }
-        static void OnLeaderboardGetEntriesByIds(Message<LeaderboardEntryList> message)
-        {
-            CommonProcess("OnLeaderboardGetEntriesByIds", message, () =>
-            {
-                LogHelper.LogInfo(TAG, GameDebugLog.GetLeaderboardEntryListLogData(message.Data));
-            });
-        }
-        static void OnLeaderboardWriteEntryWithSupplementaryMetric(Message<bool> message)
-        {
-            CommonProcess("OnLeaderboardWriteEntryWithSupplementaryMetric", message, () =>
-            {
-                LogHelper.LogInfo(TAG, message.Data.ToString());
-            });
-        }
-        #endregion leaderboard
-        
         void OnMatchmakingCancel2Notification(Message message)
         {
             CommonProcess("OnMatchmakingCancel2Notification", message, () =>
@@ -237,24 +191,7 @@ namespace Pico.Platform.Samples.Game
             }
         }
 
-
         
-        
-        static void OnMatchmakingCancelComplete(Message message)
-        {
-            CommonProcess("OnMatchmakingCancelComplete", message,
-                () => { LogHelper.LogInfo("OnMatchmakingCancelComplete", $"{message.Type}"); });
-        }
-        static void OnReportResultsInsecureComplete(Message message)
-        {
-            CommonProcess("OnReportResultsInsecureComplete", message,
-                () => { LogHelper.LogInfo("OnReportResultsInsecureComplete", $"{message.Type}"); });
-        }
-        static void OnStartMatchComplete(Message message)
-        {
-            CommonProcess("OnStartMatchComplete", message,
-                () => { LogHelper.LogInfo("OnStartMatchComplete", $"{message.Type}"); });
-        }
         static void OnLaunchInvitableUserFlowComplete(Message message)
         {
             CommonProcess("OnLaunchInvitableUserFlowComplete", message,
@@ -275,52 +212,6 @@ namespace Pico.Platform.Samples.Game
             {
                 var room = message.Data;
                 LogHelper.LogInfo(TAG, GameDebugLog.GetRoomLogData(room));
-            });
-        }
-
-        static void ProcessMatchmakingGetAdminSnapshot(Message<MatchmakingAdminSnapshot> message)
-        {
-            CommonProcess("ProcessMatchmakingGetAdminSnapshot", message, () =>
-            {
-                var o = message.Data;
-                LogHelper.LogInfo(TAG, GameDebugLog.GetMatchmakingAdminSnapshotLogData(o));
-            });
-        }
-
-        static void ProcessMatchmakingGetStats(Message<MatchmakingStats> message)
-        {
-            CommonProcess("ProcessMatchmakingGetStats", message, () =>
-            {
-                var matchStats = message.Data;
-                LogHelper.LogInfo(TAG, GameDebugLog.GetMatchmakingStatsLogData(matchStats));
-            });
-        }
-
-        static void ProcessCreateAndEnqueueRoom2(Message<MatchmakingEnqueueResultAndRoom> message)
-        {
-            CommonProcess("ProcessCreateAndEnqueueRoom2", message, () =>
-            {
-                LogHelper.LogInfo(TAG, GameDebugLog.GetMatchmakingEnqueueResultAndRoomLogData(message.Data));
-            });
-        }
-
-        static void ProcessMatchmakingBrowse2(Message<MatchmakingBrowseResult> message)
-        {
-            CommonProcess("ProcessMatchmakingBrowse2", message, () =>
-            {
-                var data = message.Data;
-                LogHelper.LogInfo(TAG, GameDebugLog.GetMatchmakingEnqueueResultLogData(data.EnqueueResult));
-                LogHelper.LogInfo(TAG, GameDebugLog.GetMatchmakingRoomListLogData(data.MatchmakingRooms));
-            });
-        }
-
-        // matchmaking enqueue callback
-        static void ProcessMatchmakingEnqueue(Message<MatchmakingEnqueueResult> message)
-        {
-            CommonProcess("ProcessMatchmakingEnqueue", message, () =>
-            {
-                var result = message.Data;
-                LogHelper.LogInfo(TAG, GameDebugLog.GetMatchmakingEnqueueResultLogData(result));
             });
         }
 

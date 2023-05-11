@@ -1,6 +1,8 @@
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 using Pico.Platform.Models;
+using UnityEngine;
 
 namespace Pico.Platform.Samples.UserDemo
 {
@@ -29,7 +31,45 @@ namespace Pico.Platform.Samples.UserDemo
                 new Fun("r", "r <userId1> <userId2>: Get User Relation by user ids", GetUserRelations),
                 new Fun("l", "l: Get authorized permissions", User_GetAuthorizedPermissions),
                 new Fun("ll", "ll <permission1> <permission2>: Request permissions ", User_RequestPermissions),
+                new Fun("m", "m <killApp(value=0 or 1)>: Do entitlement check ", User_EntitlementCheck),
             };
+        }
+
+        private void User_EntitlementCheck(string[] args)
+        {
+            var killApp = true;
+            if (args.Length < 2)
+            {
+                Log("Need one argument");
+                return;
+            }
+
+            if (args[1] == "1")
+            {
+                killApp = true;
+            }
+            else if (args[1] == "0")
+            {
+                killApp = false;
+            }
+            else
+            {
+                Log($"invalid argument killApp={args[1]}");
+                return;
+            }
+
+            Debug.Log($"Doing EntitlementCheck with killApp={killApp}");
+            UserService.EntitlementCheck(killApp).OnComplete(msg =>
+            {
+                if (msg.IsError)
+                {
+                    Log($"failed to do entitlement check :error={msg.Error}");
+                    Debug.Log($"failed to do entitlement check :error={msg.Error}");
+                    return;
+                }
+
+                Log($"EntitlementCheck result={JsonConvert.SerializeObject(msg.Data)}");
+            });
         }
 
         string PermissionResult2String(PermissionResult res)

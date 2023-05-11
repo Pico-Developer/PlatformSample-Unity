@@ -2,7 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using UnityEngine;
 
-namespace Samples.Invite
+namespace Pico.Platform.Samples
 {
     public class MainThread : MonoBehaviour
     {

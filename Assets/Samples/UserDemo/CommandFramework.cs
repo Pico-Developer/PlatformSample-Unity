@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 using System.Text.RegularExpressions;
-using Samples.Util;
+using PICO.Platform.Samples;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -70,6 +70,7 @@ namespace Pico.Platform.Samples
                 {
                     InitUtil.Initialize();
                     this.OnInit();
+                    Log("Initialize successfully");
                 }
                 catch (UnityException e)
                 {

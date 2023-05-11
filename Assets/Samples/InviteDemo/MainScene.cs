@@ -2,8 +2,6 @@ using System;
 using Newtonsoft.Json;
 using Pico.Platform;
 using Pico.Platform.Models;
-using Pico.Platform.Samples;
-using Samples.Util;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,11 +27,6 @@ namespace PICO.Platform.Samples.Invite
         private MainStatus status = MainStatus.main;
 
         public Button refresh;
-        private User currentUser;
-
-        public Text currentUserNickName;
-
-        public RawImage currentUserHeadImage;
 
         // Start is called before the first frame update
         void Start()
@@ -49,9 +42,10 @@ namespace PICO.Platform.Samples.Invite
                 this.setStatus(MainStatus.loading);
                 InitUtil.Initialize();
                 this.setStatus(MainStatus.main);
-                var launchDetails = ApplicationService.GetLaunchDetails();
-                launchDetailCanvas.SetLaunchDetail(launchDetails);
-                Debug.Log($"LaunchDetails {JsonConvert.SerializeObject(launchDetails)}");
+                //此处不设置，看能否调用到LaunchDetailsChange
+                // var launchDetails = ApplicationService.GetLaunchDetails();
+                // launchDetailCanvas.SetLaunchDetail(launchDetails);
+                // Debug.Log($"LaunchDetails {JsonConvert.SerializeObject(launchDetails)}");
 
                 ApplicationService.SetLaunchIntentChangedCallback(onLaunchIntentChanged);
                 PresenceService.SetJoinIntentReceivedNotificationCallback(onJoinIntentChanged);
@@ -64,11 +58,6 @@ namespace PICO.Platform.Samples.Invite
                         return;
                     }
 
-                    {
-                        currentUser = msg.Data;
-                        StartCoroutine(NetworkUtils.BindImage(currentUser.ImageUrl, currentUserHeadImage));
-                        currentUserNickName.text = currentUser.DisplayName;
-                    }
                     Debug.Log($"GetLoggedInUser successfully {JsonConvert.SerializeObject(msg.Data)}");
                     allFriends.Load();
                     customMessageCanvas.Load();

@@ -24,7 +24,7 @@ namespace Pico.Platform.Samples.Game
             }), new List<ParamName>() { ParamName.USER_ID }),
             ["Join2"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
                 var ulongRoomID = Convert.ToUInt64(paramList[0]);
-                var roomOptions = GameUtils.GetRoomOptions(paramList[0], paramList[1], paramList[2], paramList[3], paramList[4], paramList[5]);
+                var roomOptions = GameUtils.GetRoomOptions(paramList[0], paramList[1], paramList[2], paramList[3], paramList[4], paramList[5], paramList[6], paramList[7]);
                 return RoomService.Join2(ulongRoomID, roomOptions).OnComplete(ProcessRoomJoin2);
             }), new List<ParamName>() {
                 ParamName.ROOM_ID,
@@ -32,18 +32,24 @@ namespace Pico.Platform.Samples.Game
                 ParamName.ROOM_OPTION_TURN_OFF_UPDATES,
                 ParamName.ROOM_OPTION_DATASTORE_KEYS,
                 ParamName.ROOM_OPTION_DATASTORE_VALUES,
-                ParamName.ROOM_OPTION_ELCLUDERECENTLYMET,
+                ParamName.ROOM_OPTION_ELCLUDERECENTLYMET, // 5
+                ParamName.ROOM_OPTION_NAME,                 
+                ParamName.ROOM_OPTION_PASSWORD
             }),
             ["Join2InviteRoom"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
                 var ulongRoomID = Convert.ToUInt64(inviteRoomID);
-                var roomOptions = GameUtils.GetRoomOptions(inviteRoomID, paramList[0], paramList[1], paramList[2], paramList[3], paramList[4]);
+                var roomOptions = GameUtils.GetRoomOptions(inviteRoomID
+                    , paramList[0], paramList[1], paramList[2], paramList[3], paramList[4]
+                    , paramList[5], paramList[6]);
                 return RoomService.Join2(ulongRoomID, roomOptions).OnComplete(ProcessRoomJoin2);
             }), new List<ParamName>() {
                 ParamName.ROOM_OPTION_MAX_USER_RESULTS,
                 ParamName.ROOM_OPTION_TURN_OFF_UPDATES,
                 ParamName.ROOM_OPTION_DATASTORE_KEYS,
                 ParamName.ROOM_OPTION_DATASTORE_VALUES,
-                ParamName.ROOM_OPTION_ELCLUDERECENTLYMET,
+                ParamName.ROOM_OPTION_ELCLUDERECENTLYMET, // 4
+                ParamName.ROOM_OPTION_NAME,                 
+                ParamName.ROOM_OPTION_PASSWORD
             }),
             ["KickUser"] = new PPFFunctionConfig(new PPFFunction((paramList) => { // roomID, userID, kickDurationSeconds
                 return RoomService.KickUser(Convert.ToUInt64(paramList[0]), paramList[1], Convert.ToInt32(paramList[2])).OnComplete(OnRoomMessage);
@@ -70,23 +76,27 @@ namespace Pico.Platform.Samples.Game
                 return RoomService.UpdateOwner(Convert.ToUInt64(paramList[0]), paramList[1]).OnComplete(ProcessRoomUpdateOwner);
             }), new List<ParamName>() { ParamName.ROOM_ID, ParamName.USER_ID }),
             ["CreateAndJoinPrivate2"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
-                var roomOptions = GameUtils.GetRoomOptions(paramList[2], paramList[3], paramList[4], paramList[5], paramList[6], paramList[7]);
+                Dictionary<string, string> dataStore = GameUtils.GetStringDicData(paramList[2], paramList[3]);
+                var roomOptions = RoomService.GetCreatePrivateRoomOptions(dataStore);
                 return RoomService.CreateAndJoinPrivate2((RoomJoinPolicy)Convert.ToInt32(paramList[0]), Convert.ToUInt32(paramList[1]), roomOptions).OnComplete(OnRoomMessage);
             }), new List<ParamName>() {
             ParamName.JOIN_POLICY,                      // 0
             ParamName.MAX_USERS,
-            ParamName.ROOM_ID,
-            ParamName.ROOM_OPTION_MAX_USER_RESULTS,     // 3
-            ParamName.ROOM_OPTION_TURN_OFF_UPDATES,
-            ParamName.ROOM_OPTION_DATASTORE_KEYS,       // 5
-            ParamName.ROOM_OPTION_DATASTORE_VALUES,
-            ParamName.ROOM_OPTION_ELCLUDERECENTLYMET,
+            ParamName.ROOM_OPTION_DATASTORE_KEYS,       // 2
+            ParamName.ROOM_OPTION_DATASTORE_VALUES
         }),
             ["UpdatePrivateRoomJoinPolicy"] = new PPFFunctionConfig(new PPFFunction((paramList) => { // roomID, joinPolicy
                 return RoomService.UpdatePrivateRoomJoinPolicy(Convert.ToUInt64(paramList[0]), (RoomJoinPolicy)Convert.ToInt32(paramList[1])).OnComplete(OnRoomMessage);
             }), new List<ParamName>() { ParamName.ROOM_ID, ParamName.JOIN_POLICY }),
             ["GetInvitableUsers2"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
-                var roomOptions = GameUtils.GetRoomOptions(paramList[0], paramList[1], paramList[2], paramList[3], paramList[4], paramList[5]);
+                var roomOptions = GameUtils.GetRoomOptions(paramList[0]
+                    , paramList[1]
+                    , paramList[2]
+                    , paramList[3]
+                    , paramList[4]
+                    , paramList[5]
+                    , paramList[6]
+                    , paramList[7]);
                 return RoomService.GetInvitableUsers2(roomOptions).OnComplete(OnRoomUserListMessage);
             }), new List<ParamName>() {
             ParamName.ROOM_ID,
@@ -94,7 +104,9 @@ namespace Pico.Platform.Samples.Game
             ParamName.ROOM_OPTION_TURN_OFF_UPDATES,
             ParamName.ROOM_OPTION_DATASTORE_KEYS,       // 3
             ParamName.ROOM_OPTION_DATASTORE_VALUES,
-            ParamName.ROOM_OPTION_ELCLUDERECENTLYMET,
+            ParamName.ROOM_OPTION_ELCLUDERECENTLYMET,   // 5
+            ParamName.ROOM_OPTION_NAME,                 
+            ParamName.ROOM_OPTION_PASSWORD
         }),
             ["InviteUserByIndex"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
                 int index = Convert.ToInt32(paramList[1]);
@@ -150,6 +162,25 @@ namespace Pico.Platform.Samples.Game
             ["LaunchInvitableUserFlow"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
                 return RoomService.LaunchInvitableUserFlow(Convert.ToUInt64(paramList[0])).OnComplete(OnLaunchInvitableUserFlowComplete);
             }), new List<ParamName>() { ParamName.ROOM_ID }),
+            
+            ["GetNamedRooms"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
+                return RoomService.GetNamedRooms(Convert.ToInt32(paramList[0]), Convert.ToInt32(paramList[1])).OnComplete(OnGetNamedRoomsComplete);
+            }), new List<ParamName>() { ParamName.ROOM_PAGE_INDEX, ParamName.ROOM_PAGE_SIZE }),
+            
+            ["JoinOrCreateNamedRoom"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
+                Dictionary<string, string> dataStore = GameUtils.GetStringDicData(paramList[2], paramList[3]);
+                var roomOptions = RoomService.GetCreateNamedRoomOptions(dataStore, paramList[5], paramList[6]);
+                return RoomService.JoinOrCreateNamedRoom((RoomJoinPolicy)Convert.ToInt32(paramList[0]),Convert.ToBoolean(paramList[4])
+                    , Convert.ToUInt32(paramList[1]), roomOptions).OnComplete(OnJoinOrCreateNamedRoomComplete);
+            }), new List<ParamName>() {
+                ParamName.JOIN_POLICY,                      // 0
+                ParamName.MAX_USERS,
+                ParamName.ROOM_OPTION_DATASTORE_KEYS,       // 2
+                ParamName.ROOM_OPTION_DATASTORE_VALUES,
+                ParamName.CREATE_IF_NOT_EXIST,
+                ParamName.ROOM_OPTION_NAME,                 // 5
+                ParamName.ROOM_OPTION_PASSWORD
+            }),
         };
         static void OnGetRoomInvitesComplete(Message<RoomInviteNotificationList> message)
         {
@@ -158,7 +189,6 @@ namespace Pico.Platform.Samples.Game
                 LogHelper.LogInfo(TAG, GameDebugLog.GetRoomInviteNotificationListLogData(message.Data));
             });
         }
-
         static void OnMarkAsReadComplete(Message message)
         {
             CommonProcess("OnMarkAsReadComplete", message,
@@ -173,7 +203,6 @@ namespace Pico.Platform.Samples.Game
                 LogHelper.LogInfo(TAG, GameDebugLog.GetRoomLogData(room));
             });
         }
-
         static void OnRoomUserListMessage(Message<UserList> message)
         {
             CommonProcess("OnRoomUserMessage", message, () =>
@@ -188,7 +217,6 @@ namespace Pico.Platform.Samples.Game
                 LogHelper.LogInfo(TAG, GameDebugLog.GetUserListLogData(userList, true));
             });
         }
-
         static void OnRoomListMessage(Message<RoomList> message)
         {
             CommonProcess("OnRoomListMessage", message, () =>
@@ -207,7 +235,6 @@ namespace Pico.Platform.Samples.Game
                 LogHelper.LogInfo(TAG, GameDebugLog.GetRoomLogData(room));
             });
         }
-
         // leave room callback
         static void ProcessRoomLeave(Message<Models.Room> message)
         {
@@ -215,6 +242,24 @@ namespace Pico.Platform.Samples.Game
             {
                 var room = message.Data;
                 LogHelper.LogInfo(TAG, GameDebugLog.GetRoomLogData(room));
+            });
+        }
+        static void OnJoinOrCreateNamedRoomComplete(Message<Models.Room> message)
+        {
+            CommonProcess("OnJoinOrCreateNamedRoomComplete", message, () =>
+            {
+                LogHelper.LogInfo("OnJoinOrCreateNamedRoomComplete", $"msgType: {message.Type}, Room data: ");
+                var room = message.Data;
+                LogHelper.LogInfo(TAG, GameDebugLog.GetRoomLogData(room));
+            });
+        }
+        static void OnGetNamedRoomsComplete(Message<RoomList> message)
+        {
+            CommonProcess("OnGetNamedRoomsComplete", message, () =>
+            {
+                LogHelper.LogInfo("OnGetNamedRoomsComplete", message.Type.ToString());
+                var roomList = message.Data;
+                LogHelper.LogInfo(TAG, GameDebugLog.GetRoomListLogData(roomList));
             });
         }
     }

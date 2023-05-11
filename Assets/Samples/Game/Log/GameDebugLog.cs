@@ -18,7 +18,7 @@ namespace Pico.Platform.Samples.Game
             }
 
             str += $"Description: {room.Description}, ID: {room.RoomId}, IsMembershipLocked: {room.IsMembershipLocked}, JoinPolicy: {room.RoomJoinPolicy}, " +
-                   $"Joinability: {room.RoomJoinability}, MaxUsers: {room.MaxUsers}, Type: {room.RoomType}\n";
+                   $"Joinability: {room.RoomJoinability}, MaxUsers: {room.MaxUsers}, Type: {room.RoomType}, Name: {room.Name}\n";
             if (room.OwnerOptional == null)
             {
                 str += "OwnerOptional is null\n";
@@ -52,7 +52,7 @@ namespace Pico.Platform.Samples.Game
 
         public static string GetMatchmakingAdminSnapshotCandidateListLogData(MatchmakingAdminSnapshotCandidateList obj)
         {
-            string log = $"MatchmakingAdminSnapshotCandidateList[\nCount: {obj.Count}";
+            string log = $"MatchmakingAdminSnapshotCandidateList[\nCapacity: {obj.Capacity}, TotalCount: {obj.TotalCount}";
             var list = obj.GetEnumerator();
             while (list.MoveNext())
             {
@@ -92,7 +92,7 @@ namespace Pico.Platform.Samples.Game
 
         public static string GetMatchmakingRoomListLogData(MatchmakingRoomList obj)
         {
-            string log = $"MatchmakingRoomList[\nCount: {obj.Count}";
+            string log = $"MatchmakingRoomList[\nCapacity: {obj.Capacity}, TotalCount: {obj.TotalCount}";
             var list = obj.GetEnumerator();
             while (list.MoveNext())
             {
@@ -112,7 +112,7 @@ namespace Pico.Platform.Samples.Game
 
         public static string GetRoomListLogData(RoomList obj)
         {
-            string log = $"RoomList[\nCurIndex: {obj.CurIndex}, PageSize: {obj.PageSize}, Count: {obj.Count}\n";
+            string log = $"RoomList[\nTotalCount: {obj.TotalCount}, CurIndex: {obj.CurIndex}, PageSize: {obj.PageSize}, Capacity: {obj.Capacity}, NextPageParam: {obj.NextPageParam}, HasNextPage: {obj.HasNextPage}\n";
             var list = obj.GetEnumerator();
             while (list.MoveNext())
             {
@@ -196,7 +196,7 @@ namespace Pico.Platform.Samples.Game
 
         public static string GetLeaderboardListLogData(LeaderboardList obj)
         {
-            string log = $"LeaderboardList[\nCapacity: {obj.Capacity}\n"; //, PageSize: {obj.}, PageIndex: {obj.Count}\n";
+            string log = $"LeaderboardList[\nTotalCount: {obj.TotalCount}, Capacity: {obj.Capacity}, NextPageParam: {obj.NextPageParam}, HasNextPage: {obj.HasNextPage}\n";
             var list = obj.GetEnumerator();
             int i = 0;
             string itemsLog = "";
@@ -218,7 +218,8 @@ namespace Pico.Platform.Samples.Game
 
         public static string GetLeaderboardEntryListLogData(LeaderboardEntryList obj)
         {
-            string log = $"LeaderboardEntryList[\nCapacity: {obj.Capacity}, TotalCount: {obj.TotalCount}\n"; //, PageSize: {obj.}, PageIndex: {obj.Count}\n";
+            string log = $"LeaderboardEntryList[\nCapacity: {obj.Capacity}, TotalCount: {obj.TotalCount}, NextPageParam: {obj.NextPageParam}, HasNextPage: {obj.HasNextPage}, PreviousPageParam: " +
+                         $"{obj.PreviousPageParam}, HasPreviousPage: {obj.HasPreviousPage}\n";
             var list = obj.GetEnumerator();
             int i = 0;
             string itemsLog = "";
@@ -247,7 +248,7 @@ namespace Pico.Platform.Samples.Game
 
         public static string GetAchievementDefinitionListLogData(AchievementDefinitionList obj)
         {
-            string log = $"AchievementDefinitionList[\nTotalSize: {obj.TotalSize}, Capacity: {obj.Capacity}\n";
+            string log = $"AchievementDefinitionList[\nTotalSize: {obj.TotalSize}, Capacity: {obj.Capacity}, NextPageParam: {obj.NextPageParam}, HasNextPage: {obj.HasNextPage}\n";
             var list = obj.GetEnumerator();
             int i = 0;
             string itemsLog = "";
@@ -278,7 +279,7 @@ namespace Pico.Platform.Samples.Game
 
         public static string GetAchievementProgressListLogData(AchievementProgressList obj)
         {
-            string log = $"AchievementProgressList[\nTotalSize: {obj.TotalSize}, Capacity: {obj.Capacity}\n";
+            string log = $"AchievementProgressList[\nTotalSize: {obj.TotalSize}, Capacity: {obj.Capacity}, NextPageParam: {obj.NextPageParam}, HasNextPage: {obj.HasNextPage}\n";
             var list = obj.GetEnumerator();
             int i = 0;
             string itemsLog = "";
@@ -307,7 +308,7 @@ namespace Pico.Platform.Samples.Game
         }
         public static string GetRoomInviteNotificationListLogData(RoomInviteNotificationList obj)
         {
-            string log = $"RoomInviteNotificationList[Capacity: {obj.Capacity}\n";
+            string log = $"RoomInviteNotificationList[TotalCount: {obj.TotalCount}, Capacity: {obj.Capacity}, NextPageParam: {obj.NextPageParam}, HasNextPage: {obj.HasNextPage}\n";
             var list = obj.GetEnumerator();
             while (list.MoveNext())
             {

@@ -1,3 +1,4 @@
+using System.Text;
 using Newtonsoft.Json;
 using Pico.Platform.Models;
 using UnityEngine;
@@ -8,9 +9,11 @@ namespace Pico.Platform.Samples.IAP
     public class ProductItem : MonoBehaviour
     {
         public Button buyButton;
+        public Button querySubscriptionStatusButton;
         public Text descText;
         private Product product;
         private IAPDemo iapDemo;
+        private SubscriptionStatus SubscriptionStatus;
         private int index;
 
         public void SetProduct(int index, Product product, IAPDemo iapDemo)
@@ -18,13 +21,47 @@ namespace Pico.Platform.Samples.IAP
             this.index = index;
             this.product = product;
             this.iapDemo = iapDemo;
-            descText.text = $"index={index}\n{JsonConvert.SerializeObject(product, Formatting.Indented)}";
-            descText.SetAllDirty();
+            this.updateText();
             iapDemo.Log($"product:{descText.text}");
             buyButton.onClick.RemoveAllListeners();
             buyButton.onClick.AddListener(LaunchCheckoutFlow);
+            querySubscriptionStatusButton.onClick.RemoveAllListeners();
+            querySubscriptionStatusButton.onClick.AddListener(QuerySubscriptionStatus);
         }
 
+        public void updateText()
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.AppendLine($"index={index}");
+            builder.AppendLine($"{JsonConvert.SerializeObject(product, Formatting.Indented)}");
+            if (SubscriptionStatus != null)
+            {
+                builder.AppendLine("Subscription Status");
+                builder.AppendLine(JsonConvert.SerializeObject(SubscriptionStatus, Formatting.Indented));
+            }
+
+            descText.text = builder.ToString();
+            descText.SetAllDirty();
+        }
+
+        void QuerySubscriptionStatus()
+        {
+            iapDemo.Log($"GetSubscriptionStatus {product.SKU}");
+            IAPService.GetSubscriptionStatus(product.SKU).OnComplete(msg =>
+            {
+                if (msg.IsError)
+                {
+                    iapDemo.toast("GetSubscriptionStatus failed");
+                    iapDemo.Log($"GetSubscriptionStatus error:{msg.Error}");
+                    return;
+                }
+
+                iapDemo.toast("GetSubscriptionStatus successfully");
+                iapDemo.Log($"GetSubscriptionStatus successfully:{product.SKU}");
+                SubscriptionStatus = msg.Data;
+                this.updateText();
+            });
+        }
 
         void LaunchCheckoutFlow()
         {

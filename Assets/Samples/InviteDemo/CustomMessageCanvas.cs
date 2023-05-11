@@ -2,6 +2,7 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Pico.Platform;
+using Pico.Platform.Samples;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,9 @@ namespace PICO.Platform.Samples.Invite
         public Button buttonLaunchInvitePanel;
         public Button buttonSetPresence;
         public static SendMessageFunc currentAction;
+        public Text currentUserNickName;
+
+        public RawImage currentUserHeadImage;
 
         private int buttonCount = 0;
 
@@ -109,6 +113,18 @@ namespace PICO.Platform.Samples.Invite
         public void Load()
         {
             setPresence();
+            UserService.GetLoggedInUser().OnComplete(msg =>
+            {
+                if (msg.IsError)
+                {
+                    Debug.LogError("GetLoggedInUser failed");
+                    return;
+                }
+
+                var currentUser = msg.Data;
+                StartCoroutine(NetworkUtils.BindImage(currentUser.ImageUrl, currentUserHeadImage));
+                currentUserNickName.text = currentUser.DisplayName;
+            });
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using Pico.Platform.Models;
-using Samples.Util;
+using PICO.Platform.Samples;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -48,7 +48,7 @@ namespace Pico.Platform.Samples.IAP
             buttonRefreshPurchase.onClick.AddListener(getPurchaseList);
             buttonNextPageProduct.onClick.AddListener(getNextPageProductList);
             buttonNextPagePurchase.onClick.AddListener(getNextPagePurchaseList);
-            buttonSwitchDlc.onClick.AddListener(() => { SceneManager.LoadScene("Samples/IAP/DLC"); });
+            buttonSwitchDlc.onClick.AddListener(() => { SceneManager.LoadScene("DLC"); });
             getProductList();
             getPurchaseList();
         }

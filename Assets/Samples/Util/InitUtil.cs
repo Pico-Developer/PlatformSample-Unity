@@ -1,13 +1,16 @@
 using System;
 using System.IO;
+using AOT;
 using LitJson;
 using Pico.Platform;
+using Pico.Platform.Framework;
 using UnityEngine;
 
-namespace Samples.Util
+namespace PICO.Platform.Samples
 {
     public class InitUtil
     {
+        [MonoPInvokeCallback(typeof(AdbLoader.LogFunction))]
         static void unityLog(string logText, int level)
         {
             switch (level)
@@ -48,7 +51,9 @@ namespace Samples.Util
             Task<PlatformInitializeResult> task;
             if (Application.platform == RuntimePlatform.Android)
             {
-                var requestId = CLIB.ppf_UnityInitAsynchronousWrapper(appId);
+                AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+                ulong requestId = CLIB.ppf_InitializeAndroidAsynchronous(appId, activity.GetRawObject(), IntPtr.Zero);
+                Debug.Log($"ppf_InitializeAndroidAsynchronous2 {requestId}");
                 if (requestId == 0)
                 {
                     throw new Exception("PICO PlatformSDK failed to initialize");
@@ -60,7 +65,7 @@ namespace Samples.Util
             }
             else if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor)
             {
-                CLIB.ppf_SetUnityLog(unityLog);
+                AdbLoader.ppf_SetUnityLog(unityLog);
                 JsonData config = new JsonData();
                 var configJsonString = Resources.Load<TextAsset>("AdbLoader");
                 if (configJsonString == null)
@@ -71,7 +76,7 @@ namespace Samples.Util
                 var configJson = JsonMapper.ToObject(configJsonString.text);
                 config["port"] = configJson["port"];
                 config["adbPath"] = configJson["adbPath"];
-                var requestId = CLIB.ppf_AdbLoaderInitAsynchronous(appId, config.ToJson());
+                var requestId = AdbLoader.ppf_AdbLoaderInitAsynchronous(appId, config.ToJson());
                 if (requestId == 0)
                 {
                     throw new Exception("PICO PlatformSDK failed to initialize");
@@ -137,7 +142,9 @@ namespace Samples.Util
             PlatformInitializeResult initializeResult;
             if (Application.platform == RuntimePlatform.Android)
             {
-                initializeResult = CLIB.ppf_UnityInitWrapper(appId);
+                AndroidJavaObject activity = new AndroidJavaClass("com.unity3d.player.UnityPlayer").GetStatic<AndroidJavaObject>("currentActivity");
+
+                initializeResult = CLIB.ppf_InitializeAndroid(appId, activity.GetRawObject(), IntPtr.Zero);
 
                 if (initializeResult == PlatformInitializeResult.Success ||
                     initializeResult == PlatformInitializeResult.AlreadyInitialized)
@@ -147,11 +154,11 @@ namespace Samples.Util
             }
             else if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor)
             {
-                CLIB.ppf_SetUnityLog((text, level) => { Debug.Log(text); });
+                AdbLoader.ppf_SetUnityLog((text, level) => { Debug.Log(text); });
                 JsonData config = new JsonData();
                 config["port"] = 1234;
                 config["adbPath"] = "/usr/local/bin/adb";
-                initializeResult = CLIB.ppf_AdbLoaderInit(appId, JsonMapper.ToJson(config));
+                initializeResult = AdbLoader.ppf_AdbLoaderInit(appId, JsonMapper.ToJson(config));
                 if (initializeResult == PlatformInitializeResult.Success ||
                     initializeResult == PlatformInitializeResult.AlreadyInitialized)
                 {

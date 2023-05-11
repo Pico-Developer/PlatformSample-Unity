@@ -24,7 +24,7 @@ namespace Pico.Platform.Samples
                 new Fun("d", "d : Launch store", LaunchStore),
                 new Fun("dd", "dd : Get version", GetVersion),
                 new Fun("e", "e <userId1> <userId2> ...:GetInvitableUsers with suggested user list", Presence_GetInvitableUsers),
-                new Fun("f", "e : GetUserArrayNextPage", GetUserArrayNextPage),
+                new Fun("f", "f : GetUserArrayNextPage", GetUserArrayNextPage),
                 new Fun("g", "g <userId> : Send invites to user", Presence_SendInvites),
                 new Fun("gg", "gg : LaunchInvitePanel", Presence_LaunchInvitePanel),
                 new Fun("h", "h: Get sent invites", Presence_GetSentInvites),

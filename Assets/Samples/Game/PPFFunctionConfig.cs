@@ -58,6 +58,8 @@ namespace Pico.Platform.Samples.Game
         ROOM_OPTION_DATASTORE_KEYS,
         ROOM_OPTION_DATASTORE_VALUES,
         ROOM_OPTION_ELCLUDERECENTLYMET,
+        ROOM_OPTION_NAME,
+        ROOM_OPTION_PASSWORD,
 
         MATCHMAKING_OPTION_ROOM_MAX_USERS,
         MATCHMAKING_OPTION_ENQUEUE_IS_DEBUG,
@@ -105,6 +107,10 @@ namespace Pico.Platform.Samples.Game
         
         INDEX,
         APPID,
+        CREATE_IF_NOT_EXIST,
+        
+        PAGE_INDEX,
+        PAGE_SIZE,
         
     }
     public delegate object PPFFunction(List<string> paramList);

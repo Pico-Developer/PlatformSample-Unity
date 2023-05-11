@@ -1013,7 +1013,6 @@ MonoBehaviour:
   trackingMode: 0
   faceTracking: 0
   lipsyncTracking: 0
-  lateLatching: 0
   foveationLevel: -1
   openMRC: 1
   foregroundLayerMask:
@@ -1694,6 +1693,7 @@ GameObject:
   - component: {fileID: 1924922715}
   - component: {fileID: 1924922714}
   - component: {fileID: 1924922719}
+  - component: {fileID: 1924922720}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -1818,6 +1818,18 @@ MonoBehaviour:
   headImage: {fileID: 383031852}
   nameText: {fileID: 1993752516}
   logText: {fileID: 397162578}
+--- !u!114 &1924922720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1924922713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a72973d43e04f1f83951dbb6893089b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1993752514
 GameObject:
   m_ObjectHideFlags: 0
