@@ -42,7 +42,8 @@ namespace Pico.Platform.Samples.Game
             [ParamName.ROOM_OPTION_DATASTORE_KEYS] = new string[] { "Keys", "" },
             [ParamName.ROOM_OPTION_DATASTORE_VALUES] = new string[] { "Valuse", "" },
             [ParamName.ROOM_OPTION_ELCLUDERECENTLYMET] = new string[] { "Elcluderecentlymet", "false" },
-
+            [ParamName.ROOM_OPTION_NAME] = new string[] { "Name", "" },
+            [ParamName.ROOM_OPTION_PASSWORD] = new string[] { "Password", "" },
 
             [ParamName.MATCHMAKING_OPTION_ROOM_MAX_USERS] = new string[] { "Max users", "2" },
             [ParamName.MATCHMAKING_OPTION_ENQUEUE_IS_DEBUG] = new string[] { "EnqueueIsDebug", "" },
@@ -92,6 +93,10 @@ namespace Pico.Platform.Samples.Game
 
             [ParamName.INDEX] = new string[]{"index", "0"},
             [ParamName.APPID] = new string[] { "AppId", "" },
+            [ParamName.CREATE_IF_NOT_EXIST] = new string[] { "CreateIfNotExist", "true" },
+            
+            [ParamName.PAGE_INDEX] = new string[] { "PageIndex", "0" },
+            [ParamName.PAGE_SIZE] = new string[] { "PageSize", "5" },
         };
 
         private static Dictionary<string, PPFFunctionConfig> initDic = new Dictionary<string, PPFFunctionConfig>()
@@ -194,150 +199,8 @@ namespace Pico.Platform.Samples.Game
                 ParamName.APPID
             }),
         };
-        // Matchmaking
-        Dictionary<string, PPFFunctionConfig> matchDic = new Dictionary<string, PPFFunctionConfig>()
-        {
-            ["Crash test"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
-                return CLIB.ppf_Matchmaking_CrashTest();
-            })),
-            ["Matchmaking\nEnqueue2"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
-                MatchmakingOptions options = GameUtils.GetMatchmakingOptions(paramList[1], paramList[2], paramList[3], paramList[4], paramList[5], paramList[6], paramList[7]);
-                return MatchmakingService.Enqueue2(paramList[0], options).OnComplete(ProcessMatchmakingEnqueue);
-            }), new List<ParamName>() {
-            ParamName.POOL_NAME,
-            ParamName.MATCHMAKING_OPTION_ROOM_MAX_USERS,    // 1
-            ParamName.MATCHMAKING_OPTION_ENQUEUE_IS_DEBUG,  // 2
-            ParamName.MATCHMAKING_OPTION_ENQUEUE_QUERY_KEY, // 3
-            ParamName.MATCHMAKING_OPTION_ENQUEUE_KEYS,       // 4
-            ParamName.MATCHMAKING_OPTION_ENQUEUE_VALUES,     // 5
-            ParamName.MATCHMAKING_OPTION_ROOM_KEYS,          // 6
-            ParamName.MATCHMAKING_OPTION_ROOM_VALUES,        // 7
-        }),
-            ["Cancel2"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
-                return MatchmakingService.Cancel().OnComplete(OnMatchmakingCancelComplete);
-            })),
-            ["ReportResultInsecure"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
-                return MatchmakingService.ReportResultsInsecure(Convert.ToUInt64(paramList[0]), GameUtils.GetDicData(paramList[1], paramList[2])).OnComplete(OnReportResultsInsecureComplete);
-            }), new List<ParamName>() { ParamName.ROOM_ID,
-        ParamName.MATCHMAKING_REPORT_RESULT_KEYS,
-        ParamName.MATCHMAKING_REPORT_RESULT_VALUES,}),
-            ["StartMatch"] = new PPFFunctionConfig(new PPFFunction((paramList) => { // roomID
-                return MatchmakingService.StartMatch(Convert.ToUInt64(paramList[0])).OnComplete(OnStartMatchComplete);
-            }), new List<ParamName>() { ParamName.ROOM_ID }),
-            ["GetAdminSnapshot"] = new PPFFunctionConfig(new PPFFunction((paramList) => { // 
-                return MatchmakingService.GetAdminSnapshot().OnComplete(ProcessMatchmakingGetAdminSnapshot);
-            })),
-            ["GetStats"] = new PPFFunctionConfig(new PPFFunction((paramList) => { // pool, maxLevel, approach
-                return MatchmakingService.GetStats(paramList[0], Convert.ToUInt32(paramList[1]), (MatchmakingStatApproach)Convert.ToInt32(paramList[2])).OnComplete(ProcessMatchmakingGetStats);
-
-            }), new List<ParamName>() { ParamName.POOL_NAME, ParamName.MATCH_MAX_LEVEL, ParamName.MATCH_APPROACH }),
-
-            ["CreateAndEnqueueRoom2"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
-                MatchmakingOptions options = GameUtils.GetMatchmakingOptions(paramList[1], paramList[2], paramList[3], paramList[4], paramList[5], paramList[6], paramList[7]);
-                return MatchmakingService.CreateAndEnqueueRoom2(paramList[0], options).OnComplete(ProcessCreateAndEnqueueRoom2);
-            }), new List<ParamName>() {
-            ParamName.POOL_NAME,
-            ParamName.MATCHMAKING_OPTION_ROOM_MAX_USERS,
-            ParamName.MATCHMAKING_OPTION_ENQUEUE_IS_DEBUG,
-            ParamName.MATCHMAKING_OPTION_ENQUEUE_QUERY_KEY,
-            ParamName.MATCHMAKING_OPTION_ENQUEUE_KEYS,       // 4
-            ParamName.MATCHMAKING_OPTION_ENQUEUE_VALUES,     // 5
-            ParamName.MATCHMAKING_OPTION_ROOM_KEYS,          // 6
-            ParamName.MATCHMAKING_OPTION_ROOM_VALUES,        // 7
-        }),
-            ["Browse2"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
-                MatchmakingOptions options = GameUtils.GetMatchmakingOptions(paramList[1], paramList[2], paramList[3], paramList[4], paramList[5], paramList[6], paramList[7]);
-                return MatchmakingService.Browse2(paramList[0], options).OnComplete(ProcessMatchmakingBrowse2);
-            }), new List<ParamName>() {
-            ParamName.POOL_NAME,
-            ParamName.MATCHMAKING_OPTION_ROOM_MAX_USERS,
-            ParamName.MATCHMAKING_OPTION_ENQUEUE_IS_DEBUG,
-            ParamName.MATCHMAKING_OPTION_ENQUEUE_QUERY_KEY,
-            ParamName.MATCHMAKING_OPTION_ENQUEUE_KEYS,       // 4
-            ParamName.MATCHMAKING_OPTION_ENQUEUE_VALUES,     // 5
-            ParamName.MATCHMAKING_OPTION_ROOM_KEYS,          // 6
-            ParamName.MATCHMAKING_OPTION_ROOM_VALUES,        // 7
-        }),
-        };
         
-        private static Dictionary<string, PPFFunctionConfig> leaderboardDic = new Dictionary<string, PPFFunctionConfig>()
-        {
-            ["Get"] = new PPFFunctionConfig(new PPFFunction((paramList) =>
-            {
-                return LeaderboardService.Get(paramList[0]).OnComplete(OnLeaderboardGet);
-            }), new List<ParamName>() { ParamName.LEADERBOARD_NAME }),
-            ["GetEntries"] = new PPFFunctionConfig(new PPFFunction((paramList) =>
-            {
-                return LeaderboardService.GetEntries(paramList[0]
-                    , Convert.ToInt32(paramList[1])
-                    , Convert.ToInt32(paramList[2])
-                    , (LeaderboardFilterType)Convert.ToInt32(paramList[3])
-                    , (LeaderboardStartAt)Convert.ToInt32(paramList[4])).OnComplete(OnLeaderboardGetEntries);
-            }), new List<ParamName>()
-            {
-                ParamName.LEADERBOARD_NAME,
-                ParamName.LEADERBOARD_PAGESIZE,
-                ParamName.LEADERBOARD_PAGEIDX,
-                ParamName.LEADERBOARD_FILTER,
-                ParamName.LEADERBOARD_STARTAT
-            }),
-            ["WriteEntry"] = new PPFFunctionConfig(new PPFFunction((paramList) =>
-            {
-                return LeaderboardService.WriteEntry(paramList[0]
-                    , Convert.ToInt64(paramList[1])
-                    , System.Text.Encoding.UTF8.GetBytes(paramList[2])
-                    , Convert.ToBoolean(paramList[3])).OnComplete(OnLeaderboardWriteEntry);
-            }), new List<ParamName>()
-            {
-                ParamName.LEADERBOARD_NAME, 
-                ParamName.LEADERBOARD_SCORE, 
-                ParamName.LEADERBOARD_BYTES, 
-                ParamName.LEADERBOARD_UPDATE
-            }),
-            ["GetEntriesAfterRank"] = new PPFFunctionConfig(new PPFFunction((paramList) =>
-            {
-                return LeaderboardService.GetEntriesAfterRank(paramList[0]
-                , Convert.ToInt32(paramList[1])
-                , Convert.ToInt32(paramList[2])
-                , Convert.ToUInt64(paramList[3])).OnComplete(OnLeaderboardGetEntriesAfterRank);
-            }), new List<ParamName>()
-            {
-                ParamName.LEADERBOARD_NAME,
-                ParamName.LEADERBOARD_PAGESIZE,
-                ParamName.LEADERBOARD_PAGEIDX,
-                ParamName.LEADERBOARD_AFTERRANK
-            }),
-            ["GetEntriesByIds"] = new PPFFunctionConfig(new PPFFunction((paramList) =>
-            {
-                string[] userids = paramList[4].Split(';');
-                return LeaderboardService.GetEntriesByIds(paramList[0]
-                    , Convert.ToInt32(paramList[1])
-                    , Convert.ToInt32(paramList[2])
-                    , (LeaderboardStartAt)Convert.ToInt32(paramList[3])
-                    , userids).OnComplete(OnLeaderboardGetEntriesByIds);
-            }), new List<ParamName>()
-            {
-                ParamName.LEADERBOARD_NAME,
-                ParamName.LEADERBOARD_PAGESIZE,
-                ParamName.LEADERBOARD_PAGEIDX,
-                ParamName.LEADERBOARD_STARTAT,
-                ParamName.LEADERBOARD_USERIDS,
-            }),
-            ["WriteEntryWithSupplementaryMetric"] = new PPFFunctionConfig(new PPFFunction((paramList) =>
-            {
-                return LeaderboardService.WriteEntryWithSupplementaryMetric(paramList[0]
-                    , Convert.ToInt32(paramList[1])
-                    , Convert.ToInt32(paramList[2])
-                    , System.Text.Encoding.UTF8.GetBytes(paramList[3])
-                    , Convert.ToBoolean(paramList[4])).OnComplete(OnLeaderboardWriteEntryWithSupplementaryMetric);
-            }), new List<ParamName>()
-            {
-                ParamName.LEADERBOARD_NAME,
-                ParamName.LEADERBOARD_SCORE,
-                ParamName.LEADERBOARD_SUPPLEMENTARYMETRIC,
-                ParamName.LEADERBOARD_BYTES,
-                ParamName.LEADERBOARD_UPDATE
-            }),
-        };
+        
+        
     }
 }

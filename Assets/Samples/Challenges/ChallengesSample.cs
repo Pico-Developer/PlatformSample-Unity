@@ -95,7 +95,14 @@ namespace Pico.Platform.Samples
         void OnBackToMainPanelBtnClick()
         {
             LogHelper.LogInfo(TAG, $"Back To MainPanel");
-            SceneManager.LoadScene("GameAPITestScene", LoadSceneMode.Single);
+            if (SceneManager.GetActiveScene().name.EndsWith("_3D"))
+            {
+                SceneManager.LoadScene("GameAPITestScene_3D", LoadSceneMode.Single);
+            }
+            else
+            {
+                SceneManager.LoadScene("GameAPITestScene", LoadSceneMode.Single);
+            }
         }
 
         void OnGetListBtnClick()
@@ -161,9 +168,11 @@ namespace Pico.Platform.Samples
                 LogHelper.LogError(TAG, $"OnGetEntriesComplete error: {msg.GetError().Code}, {msg.GetError().Message}");
                 return;
             }
+            ChallengeEntryList challengeEntryList = msg.Data;
+            LogHelper.LogInfo(TAG, $"OnGetEntriesComplete ChallengeEntryList: TotalCount: {challengeEntryList.TotalCount}, Size: {challengeEntryList.Capacity}, NextPageParam: {challengeEntryList.NextPageParam}, " +
+                                   $"HasNextPage: {challengeEntryList.HasNextPage}, PreviousPageParam: {challengeEntryList.PreviousPageParam}, HasPreviousPage: {challengeEntryList.HasPreviousPage}\n");
 
             RemoveAllChildren(ChallengeEntryItemObj.transform.parent.gameObject);
-            ChallengeEntryList challengeEntryList = msg.Data;
             LogHelper.LogInfo(TAG, $"OnGetEntriesComplete success challengeEntryList.count: {challengeEntryList.Count}");
             var list = challengeEntryList.GetEnumerator();
             while (list.MoveNext())
@@ -188,9 +197,13 @@ namespace Pico.Platform.Samples
                 return;
             }
 
+            ChallengeList challengeList = msg.Data;
+            LogHelper.LogInfo(TAG, $"OnGetListComplete ChallengeList: TotalCount: {challengeList.TotalCount}, Size: {challengeList.Capacity}, NextPageParam: {challengeList.NextPageParam}, " +
+                                   $"HasNextPage: {challengeList.HasNextPage}, PreviousPageParam: {challengeList.PreviousPageParam}, HasPreviousPage: {challengeList.HasPreviousPage}\n");
+            
             RemoveAllChildren(ChallengeItemObj.transform.parent.gameObject);
             RemoveAllChildren(ChallengeEntryItemObj.transform.parent.gameObject);
-            ChallengeList challengeList = msg.Data;
+            
             LogHelper.LogInfo(TAG, $"OnGetListComplete success challengeList.count: {challengeList.Count}");
             LogHelper.LogInfo(TAG, GameDebugLog.GetLogData(challengeList));
             var list = challengeList.GetEnumerator();

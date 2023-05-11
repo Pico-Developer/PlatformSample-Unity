@@ -136,7 +136,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.picoxr": {
-      "version": "file:UnityIntegrationSDK-2.1.4_B17-20230224",
+      "version": "file:UnityIntegrationSDK-2.1.5_B21-20230506",
       "depth": 0,
       "source": "embedded",
       "dependencies": {

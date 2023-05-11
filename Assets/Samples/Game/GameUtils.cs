@@ -37,12 +37,20 @@ namespace Pico.Platform.Samples.Game
                 return false;
             }
         }
-        public static RoomOptions GetRoomOptions(string roomID, string maxUserResults, string turnOffUpdates, string dataKeys, string dataValuses, string excludeRecentlyMet)
+        public static RoomOptions GetRoomOptions(string roomID, string maxUserResults, string turnOffUpdates, string dataKeys, string dataValuses, string excludeRecentlyMet, string name, string password)
         {
             RoomOptions options = new RoomOptions();
             if (!string.IsNullOrEmpty(roomID))
             {
                 options.SetRoomId(Convert.ToUInt64(roomID));
+            }
+            if (!string.IsNullOrEmpty(name))
+            {
+                options.SetRoomName(name);
+            }
+            if (!string.IsNullOrEmpty(password))
+            {
+                options.SetPassword(password);
             }
             if (!string.IsNullOrEmpty(maxUserResults))
             {

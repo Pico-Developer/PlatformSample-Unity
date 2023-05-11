@@ -1,9 +1,2 @@
-测试发送自定义消息、随帧信息接口。 
-
-验证以下消息发送之后，对面都能够收到消息。  
-# case1：发送房间文本消息
-# case2：发送房间二进制消息
-# case3：向指定用户发送文本消息
-# case4：向指定用户发送二进制消息
-# case5：发送随帧消息
+Test `RtcService.SendMessage()`、`RtcService.SendStreamSyncInfo()`
 

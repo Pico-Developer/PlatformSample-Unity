@@ -216,7 +216,14 @@ namespace Pico.Platform.Samples.Game
 
         void OnGotoChallengeBtnClick()
         {
-            SceneManager.LoadScene("ChallengesSample");
+            if (SceneManager.GetActiveScene().name.EndsWith("_3D"))
+            {
+                SceneManager.LoadScene("ChallengesSample_3D");
+            }
+            else
+            {
+                SceneManager.LoadScene("ChallengesSample");
+            }
         }
         
         void OnFunPrePageBtnClick()
@@ -279,6 +286,7 @@ namespace Pico.Platform.Samples.Game
 
         private void OnDestroy()
         {
+            LogHelper.LogInfo(TAG, "OnDestroy");
             Uninitialize();
             Application.logMessageReceivedThreaded -= OnLogMessage;
         }
