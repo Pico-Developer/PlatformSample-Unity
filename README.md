@@ -41,5 +41,5 @@ After joined room,click the `Publish` button in the roomList. And enable `AudioC
 IAP demo has two part. The left is the product list. The right part is the purchased product list. 
 ![](./doc/iap.png)
 
-The sport center module has three methods：`GetUserInfo`、`GetSummary`、`GetDailySummary`. The `SportCenter` demo shows can be used to call these API and get results.
+The sport center module has three methods：`GetUserInfo`、`GetSummary`、`GetDailySummary`. The `SportCenter` demo can be used to call these API and get results.
 ![](./doc/sportCenter.png)
