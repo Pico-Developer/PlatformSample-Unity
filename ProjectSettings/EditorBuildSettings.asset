@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Samples/RtcUserStream/RtcStream.unity
     guid: 7f195363878b94231a07203f70b2d32a
   m_configObjects:
-    Unity.XR.PXR.Settings: {fileID: 11400000, guid: 6a6f303687ab549548e5ea046191c9f1,
+    Unity.XR.PXR.Settings: {fileID: 11400000, guid: 6b1cbdc54d4444129902feb23c0c5ab0,
       type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 21b85a6b6b71d4d30b5ef19626dc6353,
       type: 2}
