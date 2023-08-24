@@ -13,7 +13,7 @@ This repo contains samples demonstrating the usage of the Platform SDK.
 
 | Sample                  | Module&Doc                                                                                                        | Description                                                                       |
 |-------------------------|-------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| AsyncSimpleDemo         | [Core](https://developer-global.pico-interactive.com/document/unity/instructions-on-using-platform-service-apis/) | Show the async/await style API usage.                                             |
+| AsyncSimpleDemo         | [Core]([https://developer-global.pico-interactive.com/document/unity/instructions-on-using-platform-service-apis/](https://developer-global.pico-interactive.com/document/unity/platform-services-overview/#67652608)) | Show the async/await style API usage.                                             |
 | UserDemo                | [User](https://developer-global.pico-interactive.com/document/unity/accounts-and-friends/)                        | Show the account,friends API usage.                                               |
 | PresenceDemo            | [Social](https://developer-global.pico-interactive.com/document/unity/interaction/)                               | Show the friends,presence API usage.                                              |
 | InviteDemo              | [Social](https://developer-global.pico-interactive.com/document/unity/interaction/)                               | A 3D Demo for presence inviting API usage.                                        |
@@ -27,6 +27,8 @@ This repo contains samples demonstrating the usage of the Platform SDK.
 | RtcStream               | [RTC](https://developer-global.pico-interactive.com/document/unity/rtc/)                                          | Publish/UnPublish RTC Stream.                                                     |
 | SmallRTC                | [RTC](https://developer-global.pico-interactive.com/document/unity/rtc/)                                          | The minimized demo to use RTC.                                                    |
 | SportCenter             | [Sport](https://developer-global.pico-interactive.com/document/unity/exercise-data-authorization/)                | Show the API usage to communicate with the SportCenter.                           |
+| SpeechDemo | [Speech-to-text](https://developer-global.pico-interactive.com/document/unity/speech-to-text/)| Show the speech-to-text API usage. |
+| HighlightDemo | [Highlights](https://developer-global.pico-interactive.com/document/unity/highlights/) | Show highlights API usage. |
 
 We will introduce some example in the below.  
 
