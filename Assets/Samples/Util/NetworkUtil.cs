@@ -32,7 +32,7 @@ namespace Pico.Platform.Samples
             var sTask = resp.Result.Content.ReadAsStringAsync();
             sTask.Wait();
             var s = sTask.Result;
-            Debug.Log($"result= {s}");
+            Debug.Log($"[NetworkUtils]result= {s}");
             return s;
         }
 
@@ -44,7 +44,7 @@ namespace Pico.Platform.Samples
                 response.Result.Content.ReadAsStringAsync().ContinueWith(respContent =>
                 {
                     var content = respContent.Result;
-                    Debug.Log($"result for {url} is {content}");
+                    Debug.Log($"[NetworkUtils]result for {url} is {content}");
                     callback(content);
                 });
             });
@@ -59,7 +59,7 @@ namespace Pico.Platform.Samples
             var sTask = resp.Result.Content.ReadAsStringAsync();
             sTask.Wait();
             var s = sTask.Result;
-            Debug.Log($"result= {s}");
+            Debug.Log($"[NetworkUtils]result= {s}");
             return s;
         }
 
@@ -72,7 +72,7 @@ namespace Pico.Platform.Samples
             {
                 var result = resp.Result.Content.ReadAsStringAsync();
                 var s = result.Result;
-                Debug.Log($"result= {s}");
+                Debug.Log($"[NetworkUtils]result= {s}");
                 callback(s);
             });
         }

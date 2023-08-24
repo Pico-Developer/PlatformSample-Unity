@@ -3,7 +3,7 @@
 --- !u!129 &1
 PlayerSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 22
+  serializedVersion: 23
   productGUID: 5529e1dce35214fbfb0e3c78db8d8c13
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
@@ -137,7 +137,8 @@ PlayerSettings:
   bundleVersion: 0.1
   preloadedAssets:
   - {fileID: 0}
-  - {fileID: 11400000, guid: 6b1cbdc54d4444129902feb23c0c5ab0, type: 2}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 515f3d44876ba154899c2f87df1503e8, type: 2}
   - {fileID: -6078828127269413440, guid: 21b85a6b6b71d4d30b5ef19626dc6353, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -153,10 +154,11 @@ PlayerSettings:
   m_ColorGamuts: 00000000
   targetPixelDensity: 30
   resolutionScalingMode: 0
+  resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 3
   applicationIdentifier:
-    Android: com.bytedance.PlatformSamples
+    Android: com.bytedance.newonline
     Standalone: com.bytedance.PlatformSamples
   buildNumber:
     Standalone: 0
@@ -246,12 +248,12 @@ PlayerSettings:
   useCustomBaseGradleTemplate: 0
   useCustomGradlePropertiesTemplate: 0
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 1
+  AndroidTargetArchitectures: 2
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 
-  AndroidKeyaliasName: 
+  AndroidKeystoreName: D:/PicoSDK/Platform/PlatformSdkUnity/AppKeyStore/AppKeyStore/laihengyu/user.keystore
+  AndroidKeyaliasName: 1
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
   AndroidIsGame: 1
@@ -589,6 +591,7 @@ PlayerSettings:
   switchNetworkInterfaceManagerInitializeEnabled: 1
   switchPlayerConnectionEnabled: 1
   switchUseNewStyleFilepaths: 0
+  switchUseLegacyFmodPriorities: 1
   switchUseMicroSleepForYield: 1
   switchEnableRamDiskSupport: 0
   switchMicroSleepForYieldTime: 25
@@ -692,7 +695,7 @@ PlayerSettings:
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
-    Android: 0
+    Android: 1
     Standalone: 0
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}
@@ -782,6 +785,7 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 1
+  windowsGamepadBackendHint: 0
   cloudProjectId: 
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []

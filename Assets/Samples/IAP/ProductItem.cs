@@ -68,13 +68,17 @@ namespace Pico.Platform.Samples.IAP
             //点击购买
             iapDemo.Log($"LaunchCheckoutFlow {product.SKU}");
             Task<Purchase> task;
-            if (iapDemo.useV2.isOn)
+            if (iapDemo.launchCheckoutFlowType.value == 0)
+            {
+                task = IAPService.LaunchCheckoutFlow(product.SKU, product.Price, product.Currency);
+            }
+            else if (iapDemo.launchCheckoutFlowType.value == 1)
             {
                 task = IAPService.LaunchCheckoutFlow2(product);
             }
             else
             {
-                task = IAPService.LaunchCheckoutFlow(product.SKU, product.Price, product.Currency);
+                task = IAPService.LaunchCheckoutFlow3(product, iapDemo.OrderComment.text);
             }
 
             task.OnComplete(m =>

@@ -18,7 +18,7 @@ namespace Pico.Platform.Samples.Game
             }
 
             str += $"Description: {room.Description}, ID: {room.RoomId}, IsMembershipLocked: {room.IsMembershipLocked}, JoinPolicy: {room.RoomJoinPolicy}, " +
-                   $"Joinability: {room.RoomJoinability}, MaxUsers: {room.MaxUsers}, Type: {room.RoomType}, Name: {room.Name}\n";
+                   $"Joinability: {room.RoomJoinability}, MaxUsers: {room.MaxUsers}, Type: {room.RoomType}, Name: {room.Name}, PlayerNumber: {room.PlayerNumber}\n";
             if (room.OwnerOptional == null)
             {
                 str += "OwnerOptional is null\n";

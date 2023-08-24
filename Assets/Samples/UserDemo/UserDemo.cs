@@ -28,11 +28,50 @@ namespace Pico.Platform.Samples.UserDemo
                 new Fun("e", "e : GetUserArrayNextPage", GetUserArrayNextPage),
                 new Fun("ee", "ee : GetLoggedInUserFriendsAndRooms", GetLoggedInUserFriendAndRooms),
                 new Fun("eee", "eee : Get next page of UserAndRoomArray", GetUserAndRoomArrayNextPage),
+                new Fun("f", "f : Get IdToken", GetIdToken),
+                new Fun("g", "g <userId>: Get user's organization scoped id.", GetScopedId),
                 new Fun("r", "r <userId1> <userId2>: Get User Relation by user ids", GetUserRelations),
                 new Fun("l", "l: Get authorized permissions", User_GetAuthorizedPermissions),
                 new Fun("ll", "ll <permission1> <permission2>: Request permissions ", User_RequestPermissions),
                 new Fun("m", "m <killApp(value=0 or 1)>: Do entitlement check ", User_EntitlementCheck),
             };
+        }
+
+        private void GetScopedId(string[] args)
+        {
+            Log($"doing GetScopedId");
+            if (args.Length == 1)
+            {
+                Log("");
+                return;
+            }
+
+            var userId = args[1];
+            UserService.GetOrgScopedID(userId).OnComplete(m =>
+            {
+                if (m.IsError)
+                {
+                    Log($"GetOrgScopeID failed {m.Error}");
+                    return;
+                }
+
+                Log($"userId={userId},orgScopeId={m.Data.ID}");
+            });
+        }
+
+        private void GetIdToken(string[] args)
+        {
+            Debug.Log($"doing GetIdToken");
+            UserService.GetIdToken().OnComplete(m =>
+            {
+                if (m.IsError)
+                {
+                    Log($"GetIdToken failed:{m.Error}");
+                    return;
+                }
+
+                Log($"GetIdToken successfully:{m.Data}");
+            });
         }
 
         private void User_EntitlementCheck(string[] args)
@@ -128,7 +167,7 @@ namespace Pico.Platform.Samples.UserDemo
 
         string User2String(User user)
         {
-            return $"name={user.DisplayName},ID={user.ID},headImage={user.ImageUrl},smallImageUrl={user.SmallImageUrl},presenceStatus={user.PresenceStatus},storeRegion={user.StoreRegion}";
+            return $"name={user.DisplayName},ID={user.ID},headImage={user.ImageUrl},smallImageUrl={user.SmallImageUrl},presenceStatus={user.PresenceStatus},storeRegion={user.StoreRegion},gender={user.Gender}";
         }
 
         string UserAndRoom2String(UserRoom userRoom)
@@ -273,7 +312,7 @@ namespace Pico.Platform.Samples.UserDemo
             {
                 if (msg.IsError)
                 {
-                    Log($"Launch friend request error:code={msg.Error.Code} message={msg.Error.Message}");
+                    Log($"Launch friend request failed {msg.Error}");
                     return;
                 }
 
@@ -328,7 +367,6 @@ namespace Pico.Platform.Samples.UserDemo
             {
                 if (msg.IsError)
                 {
-                    Log("Received get user error");
                     Log($"GetLoggedInUser failed: code={msg.Error.Code} message={msg.Error.Message}");
                     return;
                 }

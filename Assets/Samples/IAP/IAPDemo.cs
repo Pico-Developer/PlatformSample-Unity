@@ -19,9 +19,13 @@ namespace Pico.Platform.Samples.IAP
         public Button buttonRefreshPurchase;
         public Button buttonNextPagePurchase;
         public Button buttonSwitchDlc;
+        public Button buttonSettings;
+        public GameObject panelSettings;
+        public Button buttonCloseSettings;
         public Text productListCount;
         public Text purchaseListCount;
-        public Toggle useV2;
+        public Dropdown launchCheckoutFlowType;
+        public InputField OrderComment;
 
         private ProductList ProductList;
         private PurchaseList PurchaseList;
@@ -49,6 +53,8 @@ namespace Pico.Platform.Samples.IAP
             buttonNextPageProduct.onClick.AddListener(getNextPageProductList);
             buttonNextPagePurchase.onClick.AddListener(getNextPagePurchaseList);
             buttonSwitchDlc.onClick.AddListener(() => { SceneManager.LoadScene("DLC"); });
+            buttonSettings.onClick.AddListener(() => { panelSettings.SetActive(true); });
+            buttonCloseSettings.onClick.AddListener(() => { panelSettings.SetActive(false); });
             getProductList();
             getPurchaseList();
         }

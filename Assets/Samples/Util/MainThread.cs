@@ -14,8 +14,28 @@ namespace Pico.Platform.Samples
             x = this;
         }
 
+        public static void RegisterGameObject()
+        {
+            var name = "Pico.Platform.Runner";
+            GameObject g = GameObject.Find(name);
+            if (g == null)
+            {
+                g = new GameObject(name);
+            }
+
+            if (g.GetComponent<MainThread>() == null)
+            {
+                g.AddComponent<MainThread>();
+            }
+        }
+
         public static void Run(Action act)
         {
+            if (FindObjectOfType<MainThread>() == null)
+            {
+                RegisterGameObject();
+            }
+
             x.tasks.Enqueue(act);
         }
 

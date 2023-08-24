@@ -13,8 +13,23 @@ namespace PICO.Platform.Samples.Util
      */
     public class EventSystemSwitcher : MonoBehaviour
     {
+        void handleCanvas()
+        {
+            //处理Canvas，让所有的Canvas都添加TrackDevice
+            var canvas = FindObjectsOfType<Canvas>();
+            foreach (var c in canvas)
+            {
+                var g = c.GetComponent<TrackedDeviceGraphicRaycaster>();
+                if (g == null)
+                {
+                    c.gameObject.AddComponent<TrackedDeviceGraphicRaycaster>();
+                }
+            }
+        }
+
         private void Start()
         {
+            handleCanvas();
             var eventSystem = FindObjectOfType<EventSystem>();
             var xrUiInputModule = eventSystem.GetComponent<XRUIInputModule>();
             var uiInputModule = eventSystem.GetComponent<InputSystemUIInputModule>();

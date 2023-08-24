@@ -16,6 +16,22 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.ide.visualstudio": {
+      "version": "2.0.20",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.9"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.ide.vscode": {
+      "version": "1.2.5",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
     "com.unity.inputsystem": {
       "version": "1.4.4",
       "depth": 1,
@@ -136,14 +152,12 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.xr.picoxr": {
-      "version": "file:UnityIntegrationSDK-2.1.5_B21-20230506",
+      "version": "file:PICO Unity Integration SDK 230",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
-        "com.unity.xr.management": "3.2.16",
-        "com.unity.ugui": "1.0.0",
-        "com.unity.subsystemregistration": "1.0.6",
-        "com.unity.xr.interaction.toolkit": "0.9.4-preview"
+        "com.unity.xr.management": "4.0.0",
+        "com.unity.xr.interaction.toolkit": "2.0.0"
       }
     },
     "com.unity.modules.ai": {

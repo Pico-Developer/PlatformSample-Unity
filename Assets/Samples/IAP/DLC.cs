@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using IngameDebugConsole;
 using Newtonsoft.Json;
 using Pico.Platform.Models;
 using PICO.Platform.Samples;
@@ -27,7 +26,6 @@ namespace Pico.Platform.Samples.IAP
         public Button refreshAssetList;
         public Toast toast;
         public Button buttonNextPage;
-        public Button showLog;
         private AssetDetailsList detailsList;
 
         void Start()
@@ -37,13 +35,6 @@ namespace Pico.Platform.Samples.IAP
                 foreach (var i in AssetFileItems)
                 {
                     i.updateUI();
-                }
-            });
-            showLog.onClick.AddListener(() =>
-            {
-                if (DebugLogManager.Instance != null)
-                {
-                    DebugLogManager.Instance.ShowLogWindow();
                 }
             });
             switchToIap.onClick.AddListener(() => { SceneManager.LoadScene("IAP"); });

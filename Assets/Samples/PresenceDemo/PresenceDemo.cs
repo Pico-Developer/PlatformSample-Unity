@@ -3,6 +3,7 @@ using System.Text;
 using LitJson;
 using Newtonsoft.Json;
 using Pico.Platform.Models;
+using UnityEngine;
 
 namespace Pico.Platform.Samples
 {
@@ -19,6 +20,7 @@ namespace Pico.Platform.Samples
             return new[]
             {
                 new Fun("a", "a : GetLaunchDetail", GetLaunchDetail),
+                new Fun("aa", "aa : GetSystemInfo", GetSystemInfo),
                 new Fun("b", "b <packageName> [<deeplink>]: Launch other app", LaunchOtherApp),
                 new Fun("c", "c <appId> [<deeplink>]: Launch other app by appId", LaunchOtherAppByAppId),
                 new Fun("d", "d : Launch store", LaunchStore),
@@ -124,6 +126,7 @@ namespace Pico.Platform.Samples
         void Presence_GetDestinations(string[] args)
         {
             Log("GetDestinations");
+            var beginTime = Time.realtimeSinceStartup;
             PresenceService.GetDestinations().OnComplete(m =>
             {
                 if (m.IsError)
@@ -135,6 +138,8 @@ namespace Pico.Platform.Samples
                 cacheDestinationList = m.Data;
                 Log($"DestinationList:{DestinationList2String(m.Data)}");
             });
+            var used = Time.realtimeSinceStartup - beginTime;
+            Debug.Log($"GetDestinations send request used time {used}s");
         }
 
         void Presence_GetNextPageDestinations(string[] args)
@@ -564,6 +569,15 @@ namespace Pico.Platform.Samples
         {
             var detail = ApplicationService.GetLaunchDetails();
             Log($"{JsonConvert.SerializeObject(detail)}");
+        }
+
+        void GetSystemInfo(string[] args)
+        {
+            var beginTime = Time.realtimeSinceStartup;
+            var info = ApplicationService.GetSystemInfo();
+            Log($"{JsonConvert.SerializeObject(info)}");
+            var endTime = Time.realtimeSinceStartup;
+            Log($"ApplicationService.GetSystemInfo used time {endTime - beginTime}s");
         }
 
         void GetUserArrayNextPage(string[] args)

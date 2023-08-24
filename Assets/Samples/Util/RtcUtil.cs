@@ -2,10 +2,50 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
+using Pico.Platform.Models;
 using UnityEngine;
 
 namespace Pico.Platform.Samples
 {
+    public interface RtcWarnErrorListener
+    {
+        void OnWarn(int code);
+        void OnError(int code);
+        void OnRoomWarn(string roomId, int code);
+        void OnRoomError(string roomId, int code);
+    }
+
+    public class RtcWarnErrorLogHandler : RtcWarnErrorListener
+    {
+        public void OnWarn(int code)
+        {
+            Debug.LogWarning($"Rtc warn {code}");
+        }
+
+        public void OnError(int code)
+        {
+            Debug.LogError($"Rtc error {code}");
+        }
+
+        public void OnRoomWarn(string roomId, int code)
+        {
+            Debug.LogWarning($"Rtc Room warn roomId={roomId} code={code}");
+        }
+
+        public void OnRoomError(string roomId, int code)
+        {
+            Debug.LogError($"Rtc Room error roomId={roomId} code={code}");
+        }
+    }
+
+    public interface RtcJoinLeaveHandler
+    {
+        void OnJoin(RtcJoinRoomResult msg);
+        void OnLeave(RtcLeaveRoomResult msg);
+        void OnUserJoin(RtcUserJoinInfo msg);
+        void OnUserLeave(RtcUserLeaveInfo msg);
+    }
+
     public class RtcUtil
     {
         public static void SetRtcWarnErrorHandler()
@@ -14,6 +54,22 @@ namespace Pico.Platform.Samples
             RtcService.SetOnErrorCallback(msg => { Debug.Log($"OnError:{msg.Data}"); });
             RtcService.SetOnRoomErrorCallback(msg => { Debug.Log($"OnRoomError :{JsonConvert.SerializeObject(msg.Data)}"); });
             RtcService.SetOnRoomWarnCallback(msg => { Debug.Log($"OnRoomWarn :{JsonConvert.SerializeObject(msg.Data)}"); });
+        }
+
+        public static void SetRtcWarnErrorHandler(RtcWarnErrorListener listener)
+        {
+            RtcService.SetOnWarnCallback(msg => { listener.OnWarn(msg.Data); });
+            RtcService.SetOnErrorCallback(msg => { listener.OnError(msg.Data); });
+            RtcService.SetOnRoomErrorCallback(msg => { listener.OnRoomError(msg.Data.RoomId, msg.Data.Code); });
+            RtcService.SetOnRoomWarnCallback(msg => { listener.OnRoomWarn(msg.Data.RoomId, msg.Data.Code); });
+        }
+
+        public static void SetJoinLeaveHandler(RtcJoinLeaveHandler handler)
+        {
+            RtcService.SetOnJoinRoomResultCallback(msg => handler.OnJoin(msg.Data));
+            RtcService.SetOnLeaveRoomResultCallback(msg => handler.OnLeave(msg.Data));
+            RtcService.SetOnUserJoinRoomResultCallback(msg => handler.OnUserJoin(msg.Data));
+            RtcService.SetOnUserLeaveRoomResultCallback(msg => handler.OnUserLeave(msg.Data));
         }
 
         public static Dictionary<RtcPrivilege, int> MakePrivilegeMap(int ttl)

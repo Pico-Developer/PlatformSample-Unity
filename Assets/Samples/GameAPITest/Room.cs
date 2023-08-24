@@ -169,7 +169,7 @@ namespace Pico.Platform.Samples.Game
             
             ["JoinOrCreateNamedRoom"] = new PPFFunctionConfig(new PPFFunction((paramList) => {
                 Dictionary<string, string> dataStore = GameUtils.GetStringDicData(paramList[2], paramList[3]);
-                var roomOptions = RoomService.GetCreateNamedRoomOptions(dataStore, paramList[5], paramList[6]);
+                var roomOptions = RoomService.GetJoinOrCreateNamedRoomOptions(dataStore, paramList[5], paramList[6]);
                 return RoomService.JoinOrCreateNamedRoom((RoomJoinPolicy)Convert.ToInt32(paramList[0]),Convert.ToBoolean(paramList[4])
                     , Convert.ToUInt32(paramList[1]), roomOptions).OnComplete(OnJoinOrCreateNamedRoomComplete);
             }), new List<ParamName>() {

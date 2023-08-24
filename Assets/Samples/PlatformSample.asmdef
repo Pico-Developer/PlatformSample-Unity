@@ -1,0 +1,13 @@
+{
+  "name": "PlatformSample",
+  "references": [
+    "PICO.Platform",
+    "Unity.InputSystem",
+    "IngameDebugConsole.Runtime",
+    "IngameDebugConsole.Editor",
+    "Unity.XR.Management",
+    "Unity.TextMeshPro",
+    "Unity.XR.PICO",
+    "Unity.XR.Interaction.Toolkit"
+  ]
+}

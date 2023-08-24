@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Pico.Platform.Models;
 using Unity.XR.PXR;
 using UnityEngine;
 
@@ -79,5 +81,24 @@ namespace Pico.Platform.Samples
                 onSuccess();
             }
         }
+
+        public static void Initialize(bool async, Action<User> onSuccess, Action onFail,string[]permissions)
+        {
+            Initialize(async, () =>
+            {
+                UserService.RequestUserPermissions(permissions).OnComplete(msg =>
+                {
+                    if (msg.IsError)
+                    {
+                        onFail();
+                        return;
+                    }
+                });
+            }, () =>
+            {
+                onFail();
+            });
+        }
     }
+
 }

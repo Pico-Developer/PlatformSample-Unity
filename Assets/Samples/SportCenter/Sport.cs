@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using Pico.Platform;
+using Pico.Platform.Models;
 using PICO.Platform.Samples;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +11,16 @@ namespace Pico.Platform.Samples.SportCenter
         void Start()
         {
             InitUtil.Initialize();
+            UserService.RequestUserPermissions(Permissions.SportsSummaryData, Permissions.SportsUserInfo).OnComplete(m =>
+            {
+                if (m.IsError)
+                {
+                    Debug.Log($"RequestUserPermission failed {m.Error}");
+                    return;
+                }
+
+                Debug.Log($"Request user permission successfully.");
+            });
             //sliders
             SliderText detailsBegin = GameObject.Find("SliderTextSummaryStart").GetComponent<SliderText>();
             SliderText detailsEnd = GameObject.Find("SliderTextSummaryEnd").GetComponent<SliderText>();
