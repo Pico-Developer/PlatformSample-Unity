@@ -6,8 +6,8 @@ This repo contains samples demonstrating the usage of the Platform SDK.
 | Environment          | Version             |
 |----------------------|---------------------|
 | Unity Editor         | &ge;2020.3 &le;2022.3 |
-| PICO Unity Integration SDK | &ge;2.1.5           |
-| PICO Device's System Version | &ge;5.4.0           |
+| PICO Unity Integration SDK | &ge;2.4.0           |
+| PICO Device's System Version | &ge;5.8.0           |
 
 # SampleList
 
@@ -29,6 +29,7 @@ This repo contains samples demonstrating the usage of the Platform SDK.
 | SportCenter             | [Sport](https://developer-global.pico-interactive.com/document/unity/exercise-data-authorization/)                | Show the API usage to communicate with the SportCenter.                           |
 | SpeechDemo | [Speech-to-text](https://developer-global.pico-interactive.com/document/unity/speech-to-text/)| Show the speech-to-text API usage. |
 | HighlightDemo | [Highlights](https://developer-global.pico-interactive.com/document/unity/highlights/) | Show highlights API usage. |
+| CloudStorageDemo | [Cloud storage](https://developer-global.pico-interactive.com/document/unity/cloud-storage/) | Show Cloud storage API usage. |
 
 We will introduce some example in the below.  
 
